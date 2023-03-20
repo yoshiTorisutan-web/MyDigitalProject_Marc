@@ -1,4 +1,5 @@
-import 'package:Marc_project/screens/lostpassword.dart';
+import 'package:Marc_project/screens/create_account.dart';
+import 'package:Marc_project/screens/lost_password.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -88,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Veuillez entrer votre nom adresse mail';
+                            return 'Veuillez entrer votre adresse mail';
                           }
                           return null;
                         },
@@ -135,7 +136,12 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       Center(
                           child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const CreateAccount()));
+                        },
                         child: const Text(
                           'Créer un compte',
                           style: TextStyle(

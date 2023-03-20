@@ -1,3 +1,4 @@
+import 'package:Marc_project/screens/create_account.dart';
 import 'package:flutter/material.dart';
 
 class LostPassword extends StatefulWidget {
@@ -126,7 +127,12 @@ class _LostPasswordState extends State<LostPassword> {
                       ),
                       Center(
                           child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const CreateAccount()));
+                        },
                         child: const Text(
                           'Créer un compte',
                           style: TextStyle(
