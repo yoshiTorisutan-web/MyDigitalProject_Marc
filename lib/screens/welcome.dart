@@ -62,16 +62,16 @@ class Welcome extends StatelessWidget {
                                       if (snapshot.connectionState ==
                                           ConnectionState.waiting) {
                                         return Scaffold(
-                                          backgroundColor:
-                                              const Color.fromARGB(255, 255, 255, 255),
+                                          backgroundColor: const Color.fromARGB(
+                                              255, 255, 255, 255),
                                           body: Center(
                                             child: Column(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
                                               children: <Widget>[
                                                 LoadingAnimationWidget.inkDrop(
-                                                  color:
-                                                      const Color.fromARGB(255, 0, 0, 0),
+                                                  color: const Color.fromARGB(
+                                                      255, 0, 0, 0),
                                                   size: 50,
                                                 ),
                                                 const SizedBox(height: 20),
@@ -81,7 +81,8 @@ class Welcome extends StatelessWidget {
                                                 const Text(
                                                   'Loading ...',
                                                   style: TextStyle(
-                                                      color: Color.fromARGB(255, 0, 0, 0),
+                                                      color: Color.fromARGB(
+                                                          255, 0, 0, 0),
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       fontSize: 22.0,
@@ -100,21 +101,20 @@ class Welcome extends StatelessWidget {
                     child: Container(
                       height: 50,
                       width: size.width * 0.6,
-                      decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                            colors: [Color(0xff232526), Color(0xff414345)],
-                            begin: Alignment.bottomCenter,
-                            end: Alignment.topCenter,
-                            stops: [0.2, 0.85]),
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: const BorderRadius.all(Radius.circular(10)),
+                        border: Border.all(
+                          color: Colors.black,
+                          width: 2,
+                        ),
                       ),
                       child: const Center(
                         child: Text(
                           'Get started',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Color.fromARGB(255, 0, 0, 0),
                             fontSize: 22,
-                            fontWeight: FontWeight.bold,
                             fontFamily: 'Hubballi',
                           ),
                         ),

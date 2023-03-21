@@ -1,5 +1,6 @@
 import 'package:Marc_project/screens/create_account.dart';
 import 'package:Marc_project/screens/lost_password.dart';
+import 'package:Marc_project/screens/time_saved.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -22,11 +23,13 @@ class _LoginPageState extends State<LoginPage> {
     //ForgotPasswordPage(),
   ];
 
-  void _submitForm() {
-    if (_formKey.currentState!.validate()) {
-      // Vérifiez ici les informations d'identification de l'utilisateur
-      // et connectez-le à l'application si les informations sont valides.
-    }
+  void _submitForm(BuildContext context) {
+    // Vérifiez les informations d'identification ici et redirigez vers la page suivante
+    // en utilisant Navigator.push
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const TimeSaved()),
+    );
   }
 
   @override
@@ -124,7 +127,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       const SizedBox(height: 20),
                       ElevatedButton(
-                        onPressed: _submitForm,
+                        onPressed: () => _submitForm(context),
                         child: const Text('ME CONNECTER'),
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
