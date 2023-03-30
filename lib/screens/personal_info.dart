@@ -131,9 +131,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                         'Infos personnelles',
                         style: TextStyle(fontSize: 20),
                       ),
-                      const SizedBox(height: 50),
                       Container(
-                        height: 400,
                         decoration: const BoxDecoration(
                           borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(30),
@@ -144,37 +142,47 @@ class _PersonalInfoState extends State<PersonalInfo> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             const Image(
-                              image: AssetImage('assets/files.png'),
-                              height: 100,
-                              width: 100,
+                              image: AssetImage('assets/carte-bancaire.png'),
+                              height: 200,
+                              width: 200,
                             ),
-                            const SizedBox(height: 30),
+                            const SizedBox(height: 20),
                             Form(
                               key: _formKey,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  Card(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(16.0),
-                                      child: Column(
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      const Text(
+                                        'Ajouter mon moyen de paiement',
+                                        style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 16.0),
+                                      Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
-                                        children: <Widget>[
+                                        children: [
                                           const Text(
-                                            'Carte bancaire',
+                                            'Numéro de votre carte',
                                             style: TextStyle(
-                                              fontSize: 16.0,
+                                              fontSize: 12.0,
                                               fontWeight: FontWeight.bold,
                                             ),
                                           ),
-                                          const SizedBox(height: 16.0),
+                                          const SizedBox(height: 5),
                                           TextFormField(
                                             controller: _cardNumberController,
                                             keyboardType: TextInputType.number,
-                                            decoration: const InputDecoration(
-                                              hintText:
-                                                  'Numéro de carte bancaire',
+                                            decoration: InputDecoration(
+                                              hintText: '01234567891011',
+                                              filled: true,
+                                              fillColor: Colors.grey[200],
                                             ),
                                             validator: (value) {
                                               if (value!.isEmpty) {
@@ -183,20 +191,35 @@ class _PersonalInfoState extends State<PersonalInfo> {
                                               return null;
                                             },
                                           ),
-                                          const SizedBox(height: 16.0),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: <Widget>[
-                                              Expanded(
-                                                child: TextFormField(
+                                        ],
+                                      ),
+                                      const SizedBox(height: 16.0),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                const Text(
+                                                  'Date d\'expiration',
+                                                  style: TextStyle(
+                                                    fontSize: 12.0,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                const SizedBox(height: 5),
+                                                TextFormField(
                                                   controller:
                                                       _expiryDateController,
                                                   keyboardType:
                                                       TextInputType.number,
-                                                  decoration:
-                                                      const InputDecoration(
-                                                    hintText: 'MM/AA',
+                                                  decoration: InputDecoration(
+                                                    hintText: '00/00',
+                                                    filled: true,
+                                                    fillColor: Colors.grey[200],
                                                   ),
                                                   validator: (value) {
                                                     if (value!.isEmpty) {
@@ -205,16 +228,31 @@ class _PersonalInfoState extends State<PersonalInfo> {
                                                     return null;
                                                   },
                                                 ),
-                                              ),
-                                              const SizedBox(width: 16.0),
-                                              Expanded(
-                                                child: TextFormField(
+                                              ],
+                                            ),
+                                          ),
+                                          const SizedBox(width: 16.0),
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                const Text(
+                                                  'Code CVC',
+                                                  style: TextStyle(
+                                                    fontSize: 12.0,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                const SizedBox(height: 5),
+                                                TextFormField(
                                                   controller: _cvcController,
                                                   keyboardType:
                                                       TextInputType.number,
-                                                  decoration:
-                                                      const InputDecoration(
-                                                    hintText: 'CVC',
+                                                  decoration: InputDecoration(
+                                                    hintText: '000',
+                                                    filled: true,
+                                                    fillColor: Colors.grey[200],
                                                   ),
                                                   validator: (value) {
                                                     if (value!.isEmpty) {
@@ -223,22 +261,30 @@ class _PersonalInfoState extends State<PersonalInfo> {
                                                     return null;
                                                   },
                                                 ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
                                         ],
                                       ),
-                                    ),
+                                    ],
                                   ),
-                                  const SizedBox(height: 16.0),
+                                  const SizedBox(height: 25),
                                   Center(
                                     child: ElevatedButton(
                                       onPressed: () {
-                                        if (_formKey.currentState!.validate()) {
-                                          // TODO: Ajouter la carte bancaire
-                                        }
+                                        if (_formKey.currentState!
+                                            .validate()) {}
                                       },
-                                      child: Text('Ajouter ma carte bancaire'),
+                                      style: ElevatedButton.styleFrom(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(30.0),
+                                        ),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20.0, vertical: 10.0),
+                                      ),
+                                      child: const Text(
+                                          'AJOUTER MA CARTE BANCAIRE'),
                                     ),
                                   ),
                                 ],

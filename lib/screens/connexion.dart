@@ -1,5 +1,6 @@
 import 'package:Marc_project/screens/create_account.dart';
 import 'package:Marc_project/screens/lost_password.dart';
+import 'package:Marc_project/screens/recipes.dart';
 import 'package:Marc_project/screens/time_saved.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
     // en utilisant Navigator.push
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const TimeSaved()),
+      MaterialPageRoute(builder: (context) => RecipePage()),
     );
   }
 
@@ -128,6 +129,7 @@ class _LoginPageState extends State<LoginPage> {
                       const SizedBox(height: 20),
                       ElevatedButton(
                         onPressed: () => _submitForm(context),
+                        // ignore: sort_child_properties_last
                         child: const Text('ME CONNECTER'),
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
