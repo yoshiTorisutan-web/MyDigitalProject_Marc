@@ -1,7 +1,10 @@
 import 'package:Marc_project/screens/connexion.dart';
+import 'package:Marc_project/screens/form_personal_info.dart';
 import 'package:Marc_project/screens/personal_info.dart';
 import 'package:Marc_project/screens/time_saved.dart';
 import 'package:flutter/material.dart';
+
+import '../widgets/bottom_navbar.dart';
 
 class AboutMe extends StatefulWidget {
   const AboutMe({super.key});
@@ -135,7 +138,13 @@ class _AboutMeState extends State<AboutMe> {
                                   ),
                                 ),
                                 IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const FromPersonalInfo()));
+                                    },
                                     icon: const Icon(Icons.arrow_right_alt))
                               ],
                             ),
@@ -231,37 +240,7 @@ class _AboutMeState extends State<AboutMe> {
               ),
             ),
           ),
-          child: BottomNavigationBar(
-            currentIndex: _currentIndex,
-            onTap: (index) {
-              setState(() {
-                _currentIndex = index;
-              });
-            },
-            // ignore: prefer_const_literals_to_create_immutables
-            items: [
-              const BottomNavigationBarItem(
-                icon: Icon(Icons.tapas, color: Colors.black),
-                label: 'Recettes',
-              ),
-              const BottomNavigationBarItem(
-                icon: Icon(Icons.manage_search, color: Colors.black),
-                label: 'Catégories',
-              ),
-              const BottomNavigationBarItem(
-                icon: Icon(Icons.qr_code_scanner, color: Colors.black),
-                label: 'Scan',
-              ),
-              const BottomNavigationBarItem(
-                icon: Icon(Icons.favorite_border, color: Colors.black),
-                label: 'Ma liste',
-              ),
-              const BottomNavigationBarItem(
-                icon: Icon(Icons.person, color: Colors.black),
-                label: 'Mon compte',
-              ),
-            ],
-          ),
+          child: const ButtomNavBar()
         ));
   }
 }

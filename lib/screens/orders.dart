@@ -2,6 +2,8 @@ import 'package:Marc_project/screens/connexion.dart';
 import 'package:Marc_project/screens/time_saved.dart';
 import 'package:flutter/material.dart';
 
+import '../widgets/bottom_navbar.dart';
+
 class Orders extends StatefulWidget {
   const Orders({super.key});
 
@@ -218,37 +220,7 @@ class _OrdersState extends State<Orders> {
               ),
             ),
           ),
-          child: BottomNavigationBar(
-            currentIndex: _currentIndex,
-            onTap: (index) {
-              setState(() {
-                _currentIndex = index;
-              });
-            },
-            // ignore: prefer_const_literals_to_create_immutables
-            items: [
-              const BottomNavigationBarItem(
-                icon: Icon(Icons.tapas, color: Colors.black),
-                label: 'Recettes',
-              ),
-              const BottomNavigationBarItem(
-                icon: Icon(Icons.manage_search, color: Colors.black),
-                label: 'Catégories',
-              ),
-              const BottomNavigationBarItem(
-                icon: Icon(Icons.qr_code_scanner, color: Colors.black),
-                label: 'Scan',
-              ),
-              const BottomNavigationBarItem(
-                icon: Icon(Icons.favorite_border, color: Colors.black),
-                label: 'Ma liste',
-              ),
-              const BottomNavigationBarItem(
-                icon: Icon(Icons.person, color: Colors.black),
-                label: 'Mon compte',
-              ),
-            ],
-          ),
+          child: const ButtomNavBar()
         ));
   }
 }

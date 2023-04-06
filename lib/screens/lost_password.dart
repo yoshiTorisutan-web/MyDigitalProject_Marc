@@ -1,6 +1,8 @@
 import 'package:Marc_project/screens/create_account.dart';
 import 'package:flutter/material.dart';
 
+import '../constants/constants.dart';
+
 class LostPassword extends StatefulWidget {
   const LostPassword({super.key});
 
@@ -90,34 +92,46 @@ class _LostPasswordState extends State<LostPassword> {
                               fontWeight: FontWeight.bold,
                               fontSize: 12,
                               color: Colors.black)),
-                      const SizedBox(height: 20),
-                      TextFormField(
-                        decoration: InputDecoration(
-                          labelText: 'Adresse mail',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide: const BorderSide(color: Colors.black),
+                      const SizedBox(height: 40),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text("Adresse mail",
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.black)),
+                          const SizedBox(height: 5),
+                          TextFormField(
+                            decoration: InputDecoration(
+                              labelText: 'Adresse mail',
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide:
+                                    const BorderSide(color: Colors.black),
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 10, horizontal: 20),
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Veuillez entrer votre adresse mail';
+                              }
+                              return null;
+                            },
+                            onChanged: (value) {
+                              setState(() {
+                                username = value;
+                              });
+                            },
                           ),
-                          contentPadding: const EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 20),
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Veuillez entrer votre adresse mail';
-                          }
-                          return null;
-                        },
-                        onChanged: (value) {
-                          setState(() {
-                            username = value;
-                          });
-                        },
+                        ],
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 30),
                       ElevatedButton(
                         onPressed: _submitForm,
-                        child: const Text('Continuer'),
+                        child: const Text('ENVOYER'),
                         style: ElevatedButton.styleFrom(
+                          backgroundColor: Constants().secondaryColor,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30.0),
                           ),
