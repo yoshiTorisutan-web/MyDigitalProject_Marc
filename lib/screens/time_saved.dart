@@ -1,5 +1,6 @@
 import 'package:Marc_project/screens/app_setting.dart';
 import 'package:Marc_project/screens/connexion.dart';
+import 'package:Marc_project/screens/list_supermarket.dart';
 import 'package:Marc_project/screens/orders.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -107,7 +108,7 @@ class _TimeSavedState extends State<TimeSaved> {
               ),
               child: Padding(
                 padding:
-                    const EdgeInsets.only(left: 50, right: 50, bottom: 500),
+                    const EdgeInsets.only(left: 20, right: 20, bottom: 500),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -167,7 +168,7 @@ class _TimeSavedState extends State<TimeSaved> {
                                   const SizedBox(height: 5),
                                   Row(
                                     children: const [
-                                      Text("Grâce à Marc, vos courses",
+                                      Text("Grâce à Marc, vos courses sont",
                                           style: TextStyle(
                                               fontSize: 12,
                                               color: Colors.black,
@@ -177,17 +178,7 @@ class _TimeSavedState extends State<TimeSaved> {
                                   const SizedBox(height: 5),
                                   Row(
                                     children: const [
-                                      Text("sont bien plus agréable",
-                                          style: TextStyle(
-                                              fontSize: 12,
-                                              fontFamily: "RedHatDisplay",
-                                              color: Colors.black)),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 5),
-                                  Row(
-                                    children: const [
-                                      Text("et rapide",
+                                      Text("bien plus agréable et rapide",
                                           style: TextStyle(
                                               fontSize: 12,
                                               fontFamily: "RedHatDisplay",
@@ -250,7 +241,7 @@ class _TimeSavedState extends State<TimeSaved> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              const AppSetting()));
+                                              const SupermarketList()));
                                 },
                                 icon: Icon(
                                   Icons.chevron_right,
@@ -362,7 +353,7 @@ class _TimeSavedState extends State<TimeSaved> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 15),
+                    const SizedBox(height: 25),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [

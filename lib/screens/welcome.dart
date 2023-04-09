@@ -63,27 +63,24 @@ class Welcome extends StatelessWidget {
                                       if (snapshot.connectionState ==
                                           ConnectionState.waiting) {
                                         return Scaffold(
-                                          backgroundColor: const Color.fromARGB(
-                                              255, 255, 255, 255),
+                                          backgroundColor: Constants().primaryColor,
                                           body: Center(
                                             child: Column(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
                                               children: <Widget>[
                                                 LoadingAnimationWidget.inkDrop(
-                                                  color: const Color.fromARGB(
-                                                      255, 0, 0, 0),
+                                                  color: Constants().secondaryColor,
                                                   size: 50,
                                                 ),
                                                 const SizedBox(height: 20),
                                                 const Padding(
                                                     padding:
                                                         EdgeInsets.all(10)),
-                                                const Text(
+                                                Text(
                                                   'Loading ...',
                                                   style: TextStyle(
-                                                      color: Color.fromARGB(
-                                                          255, 0, 0, 0),
+                                                      color: Constants().secondaryColor,
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       fontSize: 22.0,
