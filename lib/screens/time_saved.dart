@@ -2,7 +2,8 @@ import 'package:Marc_project/screens/app_setting.dart';
 import 'package:Marc_project/screens/connexion.dart';
 import 'package:Marc_project/screens/orders.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_svg/svg.dart';
+import '../constants/constants.dart';
 import '../widgets/bottom_navbar.dart';
 import 'about_me.dart';
 
@@ -38,306 +39,383 @@ class _TimeSavedState extends State<TimeSaved> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          title: Padding(
-            padding: const EdgeInsets.only(left: 30.0),
-            child: Transform.scale(
-              scale: 1.2,
-              child: const Text(
-                'Marc, payez, partez !',
-                style: TextStyle(color: Colors.black, fontSize: 16),
+      backgroundColor: Constants().primaryColor,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: Padding(
+          padding: const EdgeInsets.only(left: 30.0),
+          child: Transform.scale(
+            scale: 1.2,
+            child: Text(
+              'Marc, payez, partez !',
+              style: TextStyle(
+                  color: Constants().secondaryColor,
+                  fontSize: 16,
+                  fontFamily: "NiceSugar"),
+            ),
+          ),
+        ),
+        actions: <Widget>[
+          SizedBox(
+            width: 55,
+            height: 55,
+            child: GestureDetector(
+              onTap: () {
+                // Action à effectuer lors du clic sur l'image
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(right: 25),
+                child: SvgPicture.asset(
+                  'assets/caddie.svg',
+                  width: 24,
+                  height: 24,
+                ),
               ),
             ),
           ),
-          actions: <Widget>[
-            SizedBox(
-              width: 48,
-              height: 48,
-              child: IconButton(
-                padding: const EdgeInsets.only(right: 45),
-                icon: Transform.scale(
-                  scale: 1.2,
-                  child: const Icon(
-                    Icons.shopping_bag,
-                    size: 24,
-                  ),
-                ),
-                color: Colors.black,
-                tooltip: 'Comment Icon',
-                onPressed: () {},
+        ],
+      ),
+      body: Stack(
+        children: [
+          Positioned(
+            left: 20,
+            right: 20,
+            child: TextField(
+              decoration: InputDecoration(
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                hintText: 'Rechercher',
+                suffixIcon: const Icon(Icons.search),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: BorderSide(
+                        color: Constants().secondaryColor, width: 2)),
+                filled: true,
+                fillColor: Color.fromARGB(255, 255, 255, 255),
               ),
             ),
-          ],
-        ),
-        body: Stack(
-          children: [
-            const Positioned(
-              top: 10,
-              left: 30,
-              right: 0,
-              child: Text("Mon compte",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Colors.black)),
-            ),
-            Positioned(
-              top: 50,
-              left: 10,
-              right: 10,
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  side: const BorderSide(color: Colors.black, width: 1),
-                ),
-                child: Padding(
-                  padding:
-                      const EdgeInsets.only(left: 50, right: 50, bottom: 500),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        height: 250,
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(30),
-                            bottomRight: Radius.circular(30),
-                          ),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            CircleAvatar(
-                              backgroundColor: Color.fromARGB(255, 5, 5, 5),
-                              radius: 50,
-                              backgroundImage:
-                                  AssetImage('assets/sac-a-main.png'),
-                            ),
-                            SizedBox(height: 10),
-                            Text(
-                              'Marc, vous aide !',
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
-                            ),
-                          ],
+          ),
+          Positioned(
+            top: 50,
+            left: 10,
+            right: 10,
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: Padding(
+                padding:
+                    const EdgeInsets.only(left: 50, right: 50, bottom: 500),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: 250,
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(30),
+                          bottomRight: Radius.circular(30),
                         ),
                       ),
-                      Column(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      children: const [
-                                        Text("Temps économisé",
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.black)),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 5),
-                                    Row(
-                                      children: const [
-                                        Text("A vos marques",
-                                            style: TextStyle(
-                                                fontSize: 12,
-                                                color: Colors.black)),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 5),
-                                    Row(
-                                      children: const [
-                                        Text("vous avez économisé",
-                                            style: TextStyle(
-                                                fontSize: 12,
-                                                color: Colors.black)),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                child: Column(
-                                  children: [
-                                    const SizedBox(height: 5),
-                                    Row(
-                                      children: const [
-                                        Text("1H",
-                                            style: TextStyle(
-                                                fontSize: 36,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.black)),
-                                        SizedBox(width: 8),
-                                        Icon(Icons.watch_later,
-                                            color: Color.fromARGB(255, 0, 0, 0),
-                                            size: 30),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
+                          SvgPicture.asset(
+                            'assets/MAARC.svg',
+                            width: 100,
+                            height: 100,
+                          ),
+                          const SizedBox(
+                              height:
+                                  20), // Espace vertical entre l'image et le texte
+                          Text(
+                            'Marc.',
+                            style: TextStyle(
+                                color: Constants().textColor,
+                                fontSize: 24,
+                                fontFamily: "NiceSugar"),
+                          ),
+                          Text(
+                            'vous apporte son aide !',
+                            style: TextStyle(
+                                color: Constants().textColor,
+                                fontSize: 18,
+                                fontFamily: "NiceSugar"),
                           ),
                         ],
                       ),
-                      const SizedBox(height: 35),
-                      Card(
-                        shape: const Border(
-                            bottom: BorderSide(color: Colors.black, width: 2)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Expanded(
-                                child: Text(
-                                  'Mes commandes',
-                                  style: TextStyle(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.bold,
+                    ),
+                    Column(
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: const [
+                                      Text("Temps économisé",
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: "RedHatDisplay",
+                                              color: Colors.black)),
+                                    ],
                                   ),
+                                  const SizedBox(height: 5),
+                                  Row(
+                                    children: const [
+                                      Text("Grâce à Marc, vos courses",
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.black,
+                                              fontFamily: "RedHatDisplay")),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 5),
+                                  Row(
+                                    children: const [
+                                      Text("sont bien plus agréable",
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontFamily: "RedHatDisplay",
+                                              color: Colors.black)),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 5),
+                                  Row(
+                                    children: const [
+                                      Text("et rapide",
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontFamily: "RedHatDisplay",
+                                              color: Colors.black)),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              child: Column(
+                                children: [
+                                  const SizedBox(height: 5),
+                                  Padding(
+                                      padding: const EdgeInsets.only(left: 50),
+                                      child: Row(
+                                        children: [
+                                          const Text("1H",
+                                              style: TextStyle(
+                                                  fontSize: 36,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black)),
+                                          const SizedBox(width: 8),
+                                          SvgPicture.asset(
+                                            'assets/time.svg',
+                                            width: 50,
+                                            height: 50,
+                                          ),
+                                        ],
+                                      )),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Card(
+                      elevation: 0,
+                      shape: const Border(
+                          bottom: BorderSide(color: Colors.black, width: 2)),
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 5),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Expanded(
+                              child: Text(
+                                'Ma géolocalisation',
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              IconButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const Orders()));
-                                  },
-                                  icon: const Icon(Icons.arrow_right_alt))
+                            ),
+                            IconButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const AppSetting()));
+                                },
+                                icon: Icon(
+                                  Icons.chevron_right,
+                                  color: Constants().secondaryColor,
+                                ))
+                          ],
+                        ),
+                      ),
+                    ),
+                    Card(
+                      elevation: 0,
+                      shape: const Border(
+                          bottom: BorderSide(color: Colors.black, width: 2)),
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 5),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Expanded(
+                              child: Text(
+                                'Mes commandes',
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            IconButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const Orders()));
+                                },
+                                icon: Icon(
+                                  Icons.chevron_right,
+                                  color: Constants().secondaryColor,
+                                ))
+                          ],
+                        ),
+                      ),
+                    ),
+                    Card(
+                      elevation: 0,
+                      shape: const Border(
+                          bottom: BorderSide(color: Colors.black, width: 2)),
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 5),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Expanded(
+                              child: Text(
+                                'A propos de moi',
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            IconButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const AboutMe()));
+                                },
+                                icon: Icon(
+                                  Icons.chevron_right,
+                                  color: Constants().secondaryColor,
+                                ))
+                          ],
+                        ),
+                      ),
+                    ),
+                    Card(
+                      elevation: 0,
+                      shape: const Border(
+                          bottom: BorderSide(color: Colors.black, width: 2)),
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 5),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Expanded(
+                              child: Text(
+                                'Paramètres de l\'application',
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            IconButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const AppSetting()));
+                                },
+                                icon: Icon(
+                                  Icons.chevron_right,
+                                  color: Constants().secondaryColor,
+                                ))
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 15),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginPage()),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Constants().secondaryColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20.0, vertical: 10.0),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: const <Widget>[
+                              Text('Déconnexion',
+                                  style:
+                                      TextStyle(fontFamily: "RedHatDisplay")),
+                              Icon(Icons.logout),
                             ],
                           ),
                         ),
-                      ),
-                      Card(
-                        shape: const Border(
-                            bottom: BorderSide(color: Colors.black, width: 2)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Expanded(
-                                child: Text(
-                                  'A propos de moi',
-                                  style: TextStyle(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                              IconButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const AboutMe()));
-                                  },
-                                  icon: const Icon(Icons.arrow_right_alt))
-                            ],
-                          ),
-                        ),
-                      ),
-                      Card(
-                        shape: const Border(
-                            bottom: BorderSide(color: Colors.black, width: 2)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Expanded(
-                                child: Text(
-                                  'Paramètres de l\'application',
-                                  style: TextStyle(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                              IconButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const AppSetting()));
-                                  },
-                                  icon: const Icon(Icons.arrow_right_alt))
-                            ],
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 30),
-                      Card(
-                        color: const Color.fromARGB(213, 239, 111, 111),
-                        shape: const Border(
-                            bottom: BorderSide(color: Colors.black, width: 2)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Expanded(
-                                child: Text(
-                                  'Déconnexion',
-                                  style: TextStyle(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                              IconButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const LoginPage()));
-                                  },
-                                  icon: const Icon(Icons.login))
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                      ],
+                    )
+                  ],
                 ),
               ),
             ),
-          ],
-        ),
-        bottomNavigationBar: Container(
-          decoration: const BoxDecoration(
-            border: Border(
-              top: BorderSide(
-                color: Color.fromARGB(255, 0, 0, 0),
-                width: 2.0,
-              ),
-              bottom: BorderSide(
-                color: Color.fromARGB(255, 0, 0, 0),
-                width: 2.0,
-              ),
-              left: BorderSide(
-                color: Color.fromARGB(255, 0, 0, 0),
-                width: 2.0,
-              ),
-              right: BorderSide(
-                color: Color.fromARGB(255, 0, 0, 0),
-                width: 2.0,
-              ),
-            ),
           ),
-          child: const ButtomNavBar()
-        ));
+        ],
+      ),
+      bottomNavigationBar: const ButtomNavBar(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Code à exécuter lorsque l'utilisateur appuie sur le bouton flottant
+        },
+        elevation: 5,
+        backgroundColor: Colors.red,
+        child: SvgPicture.asset(
+          'assets/scan.svg',
+          width: 24,
+          height: 24,
+          color: Colors.white,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+    );
   }
 }

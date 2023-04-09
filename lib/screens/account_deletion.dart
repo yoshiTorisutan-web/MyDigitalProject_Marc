@@ -1,7 +1,9 @@
 import 'package:Marc_project/screens/app_setting.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_svg/svg.dart';
+import '../constants/constants.dart';
 import '../widgets/bottom_navbar.dart';
+import 'connexion.dart';
 
 class AccountDeletion extends StatefulWidget {
   const AccountDeletion({super.key});
@@ -23,6 +25,7 @@ class _AccountDeletionState extends State<AccountDeletion> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Constants().primaryColor,
         appBar: AppBar(
           automaticallyImplyLeading: false,
           backgroundColor: Colors.transparent,
@@ -31,43 +34,54 @@ class _AccountDeletionState extends State<AccountDeletion> {
             padding: const EdgeInsets.only(left: 30.0),
             child: Transform.scale(
               scale: 1.2,
-              child: const Text(
+              child: Text(
                 'Marc, payez, partez !',
-                style: TextStyle(color: Colors.black, fontSize: 16),
+                style: TextStyle(
+                    color: Constants().secondaryColor,
+                    fontSize: 16,
+                    fontFamily: "NiceSugar"),
               ),
             ),
           ),
           actions: <Widget>[
             SizedBox(
-              width: 48,
-              height: 48,
-              child: IconButton(
-                padding: const EdgeInsets.only(right: 45),
-                icon: Transform.scale(
-                  scale: 1.2,
-                  child: const Icon(
-                    Icons.shopping_bag,
-                    size: 24,
+              width: 55,
+              height: 55,
+              child: GestureDetector(
+                onTap: () {
+                  // Action à effectuer lors du clic sur l'image
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 25),
+                  child: SvgPicture.asset(
+                    'assets/caddie.svg',
+                    width: 24,
+                    height: 24,
                   ),
                 ),
-                color: Colors.black,
-                tooltip: 'Comment Icon',
-                onPressed: () {},
               ),
             ),
           ],
         ),
         body: Stack(
           children: [
-            const Positioned(
-              top: 10,
-              left: 30,
-              right: 0,
-              child: Text("Mon compte",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Colors.black)),
+            Positioned(
+              left: 20,
+              right: 20,
+              child: TextField(
+                decoration: InputDecoration(
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                  hintText: 'Rechercher',
+                  suffixIcon: const Icon(Icons.search),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: BorderSide(
+                          color: Constants().secondaryColor, width: 2)),
+                  filled: true,
+                  fillColor: const Color.fromARGB(255, 255, 255, 255),
+                ),
+              ),
             ),
             Positioned(
               top: 50,
@@ -76,7 +90,6 @@ class _AccountDeletionState extends State<AccountDeletion> {
               child: Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
-                  side: const BorderSide(color: Colors.black, width: 1),
                 ),
                 child: Padding(
                   padding:
@@ -102,11 +115,13 @@ class _AccountDeletionState extends State<AccountDeletion> {
                                           builder: (context) =>
                                               const AppSetting()));
                                 },
-                                icon: const Icon(Icons.arrow_back)),
+                                icon: const Icon(Icons.chevron_left)),
                             const Text(
                               'Paramètre de l\'application',
                               style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: "RedHatDisplay"),
                             ),
                           ],
                         ),
@@ -119,7 +134,10 @@ class _AccountDeletionState extends State<AccountDeletion> {
                       const SizedBox(height: 20),
                       const Text(
                         'Suppression du compte',
-                        style: TextStyle(fontSize: 20),
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "RedHatDisplay"),
                       ),
                       const SizedBox(height: 20),
                       Container(
@@ -135,41 +153,53 @@ class _AccountDeletionState extends State<AccountDeletion> {
                             // ignore: prefer_const_literals_to_create_immutables
                             children: <Widget>[
                               const ListTile(
-                                title: Text("Vous êtes sûr de supprimer votre compte ?",
+                                title: Text(
+                                    "Vous souhaitez vraiment supprimer votre compte ?",
                                     style: TextStyle(
-                                        color: Color.fromARGB(255, 0, 0, 0))),
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: "RedHatDisplay")),
                                 subtitle: Text(
                                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut accumsan ligula sed felis faucibus aliquet.",
                                     style: TextStyle(
-                                        color: Color.fromARGB(255, 0, 0, 0),
-                                        fontSize: 10)),
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: "RedHatDisplay")),
                               ),
                             ],
                           )),
                       const SizedBox(height: 60),
-                      Card(
-                        color: const Color.fromARGB(213, 239, 111, 111),
-                        shape: const Border(
-                            bottom: BorderSide(color: Colors.black, width: 2)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
-                              Expanded(
-                                child: Text(
-                                  'Supprimer mon compte',
-                                  style: TextStyle(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const LoginPage()),
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.red,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30.0),
                               ),
-                            ],
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20.0, vertical: 10.0),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: const <Widget>[
+                                Text('Supprimer mon compte',
+                                    style:
+                                        TextStyle(fontFamily: "RedHatDisplay")),
+                                Icon(Icons.cancel),
+                              ],
+                            ),
                           ),
-                        ),
-                      ),
+                        ],
+                      )
                     ],
                   ),
                 ),
@@ -178,27 +208,26 @@ class _AccountDeletionState extends State<AccountDeletion> {
           ],
         ),
         bottomNavigationBar: Container(
-          decoration: const BoxDecoration(
-            border: Border(
-              top: BorderSide(
-                color: Color.fromARGB(255, 0, 0, 0),
-                width: 2.0,
-              ),
-              bottom: BorderSide(
-                color: Color.fromARGB(255, 0, 0, 0),
-                width: 2.0,
-              ),
-              left: BorderSide(
-                color: Color.fromARGB(255, 0, 0, 0),
-                width: 2.0,
-              ),
-              right: BorderSide(
-                color: Color.fromARGB(255, 0, 0, 0),
-                width: 2.0,
+            decoration: const BoxDecoration(
+              border: Border(
+                top: BorderSide(
+                  color: Color.fromARGB(255, 0, 0, 0),
+                  width: 2.0,
+                ),
+                bottom: BorderSide(
+                  color: Color.fromARGB(255, 0, 0, 0),
+                  width: 2.0,
+                ),
+                left: BorderSide(
+                  color: Color.fromARGB(255, 0, 0, 0),
+                  width: 2.0,
+                ),
+                right: BorderSide(
+                  color: Color.fromARGB(255, 0, 0, 0),
+                  width: 2.0,
+                ),
               ),
             ),
-          ),
-          child: const ButtomNavBar()
-        ));
+            child: const ButtomNavBar()));
   }
 }

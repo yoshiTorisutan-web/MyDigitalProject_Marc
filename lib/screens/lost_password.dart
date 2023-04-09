@@ -1,7 +1,7 @@
 import 'package:Marc_project/screens/create_account.dart';
 import 'package:flutter/material.dart';
-
 import '../constants/constants.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class LostPassword extends StatefulWidget {
   const LostPassword({super.key});
@@ -48,12 +48,25 @@ class _LostPasswordState extends State<LostPassword> {
                     bottomRight: Radius.circular(30),
                   ),
                 ),
-                child: const Center(
-                  child: CircleAvatar(
-                    backgroundColor: Color.fromARGB(255, 5, 5, 5),
-                    radius: 50,
-                    backgroundImage: AssetImage('assets/sac-a-main.png'),
-                  ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(
+                      'assets/MAARC.svg',
+                      width: 100,
+                      height: 100,
+                    ),
+                    const SizedBox(
+                        height:
+                            20), // Espace vertical entre l'image et le texte
+                    Text(
+                      'Marc, payez, partez !',
+                      style: TextStyle(
+                          color: Constants().textColor,
+                          fontSize: 24,
+                          fontFamily: "NiceSugar"),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -75,12 +88,14 @@ class _LostPasswordState extends State<LostPassword> {
                       const Text("Marc, on a un oubli ?",
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
+                              fontFamily: "RedHatDisplay",
                               fontSize: 20,
                               color: Colors.black)),
                       const SizedBox(height: 10),
                       const Text("Redéfinissez votre mot de passe.",
                           textAlign: TextAlign.center,
                           style: TextStyle(
+                              fontFamily: "RedHatDisplay",
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
                               color: Colors.black)),
@@ -89,6 +104,7 @@ class _LostPasswordState extends State<LostPassword> {
                           "Vous allez recevoir un e-mail vous permettant de modifier votre mot de passe.",
                           textAlign: TextAlign.center,
                           style: TextStyle(
+                              fontFamily: "RedHatDisplay",
                               fontWeight: FontWeight.bold,
                               fontSize: 12,
                               color: Colors.black)),
@@ -97,9 +113,11 @@ class _LostPasswordState extends State<LostPassword> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text("Adresse mail",
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.black)),
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.black,
+                                fontFamily: "RedHatDisplay",
+                              )),
                           const SizedBox(height: 5),
                           TextFormField(
                             decoration: InputDecoration(
@@ -129,7 +147,9 @@ class _LostPasswordState extends State<LostPassword> {
                       const SizedBox(height: 30),
                       ElevatedButton(
                         onPressed: _submitForm,
-                        child: const Text('ENVOYER'),
+                        // ignore: sort_child_properties_last
+                        child: const Text('envoyer',
+                            style: TextStyle(fontFamily: "RedHatDisplay")),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Constants().secondaryColor,
                           shape: RoundedRectangleBorder(
@@ -150,6 +170,7 @@ class _LostPasswordState extends State<LostPassword> {
                         child: const Text(
                           'Créer un compte',
                           style: TextStyle(
+                            fontFamily: "RedHatDisplay",
                             decoration: TextDecoration.underline,
                           ),
                         ),

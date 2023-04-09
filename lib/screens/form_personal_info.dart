@@ -1,18 +1,19 @@
-import 'package:Marc_project/screens/orders.dart';
 import 'package:flutter/material.dart';
-
 import '../constants/constants.dart';
 import '../widgets/bottom_navbar.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
-class FromPersonalInfo extends StatefulWidget {
-  const FromPersonalInfo({super.key});
+import 'about_me.dart';
+
+class FormPersonalInfo extends StatefulWidget {
+  const FormPersonalInfo({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
-  _FromPersonalInfoState createState() => _FromPersonalInfoState();
+  _FormPersonalInfoState createState() => _FormPersonalInfoState();
 }
 
-class _FromPersonalInfoState extends State<FromPersonalInfo> {
+class _FormPersonalInfoState extends State<FormPersonalInfo> {
   final _formKey = GlobalKey<FormState>();
   String name = "Toto";
   String city = "Angers";
@@ -45,20 +46,20 @@ class _FromPersonalInfoState extends State<FromPersonalInfo> {
         ),
         actions: <Widget>[
           SizedBox(
-            width: 48,
-            height: 48,
-            child: IconButton(
-              padding: const EdgeInsets.only(right: 45),
-              icon: Transform.scale(
-                scale: 1.2,
-                child: const Icon(
-                  Icons.shopping_bag,
-                  size: 24,
+            width: 55,
+            height: 55,
+            child: GestureDetector(
+              onTap: () {
+                // Action à effectuer lors du clic sur l'image
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(right: 25),
+                child: SvgPicture.asset(
+                  'assets/caddie.svg',
+                  width: 24,
+                  height: 24,
                 ),
               ),
-              color: Colors.black,
-              tooltip: 'Comment Icon',
-              onPressed: () {},
             ),
           ),
         ],
@@ -112,13 +113,13 @@ class _FromPersonalInfoState extends State<FromPersonalInfo> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => const Orders()));
+                                        builder: (context) => const AboutMe()));
                               },
-                              icon: const Icon(Icons.arrow_back)),
+                              icon: const Icon(Icons.chevron_left)),
                           const Text(
                             'A propos de moi',
                             style: TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.bold),
+                                fontSize: 14, fontWeight: FontWeight.bold, fontFamily: "RedHatDisplay"),
                           ),
                         ],
                       ),
@@ -134,6 +135,7 @@ class _FromPersonalInfoState extends State<FromPersonalInfo> {
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
+                          fontFamily: "RedHatDisplay",
                           color: Constants().textColor),
                     ),
                     const SizedBox(height: 10),
@@ -142,6 +144,7 @@ class _FromPersonalInfoState extends State<FromPersonalInfo> {
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
+                          fontFamily: "RedHatDisplay",
                           color: Constants().secondaryColor),
                     ),
                     const SizedBox(height: 20),
@@ -159,6 +162,7 @@ class _FromPersonalInfoState extends State<FromPersonalInfo> {
                                 'Prénom',
                                 style: TextStyle(
                                   fontSize: 12.0,
+                                  fontFamily: "RedHatDisplay",
                                 ),
                               ),
                               const SizedBox(height: 5),
@@ -189,6 +193,7 @@ class _FromPersonalInfoState extends State<FromPersonalInfo> {
                                 'Nom',
                                 style: TextStyle(
                                   fontSize: 12.0,
+                                  fontFamily: "RedHatDisplay"
                                 ),
                               ),
                               const SizedBox(height: 5),
@@ -228,6 +233,7 @@ class _FromPersonalInfoState extends State<FromPersonalInfo> {
                                           'Numéro de téléphone',
                                           style: TextStyle(
                                             fontSize: 12.0,
+                                            fontFamily: "RedHatDisplay"
                                           ),
                                         ),
                                         const SizedBox(height: 5),
@@ -271,6 +277,7 @@ class _FromPersonalInfoState extends State<FromPersonalInfo> {
                                           'Date d\'anniversaire',
                                           style: TextStyle(
                                             fontSize: 12.0,
+                                            fontFamily: "RedHatDisplay"
                                           ),
                                         ),
                                         const SizedBox(height: 5),
@@ -312,6 +319,7 @@ class _FromPersonalInfoState extends State<FromPersonalInfo> {
                                 style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
+                                    fontFamily: "RedHatDisplay",
                                     color: Constants().secondaryColor),
                               ),
                               const SizedBox(height: 20),
@@ -319,6 +327,7 @@ class _FromPersonalInfoState extends State<FromPersonalInfo> {
                                 'Adresse mail',
                                 style: TextStyle(
                                   fontSize: 12.0,
+                                  fontFamily: "RedHatDisplay"
                                 ),
                               ),
                               const SizedBox(height: 5),
@@ -349,6 +358,7 @@ class _FromPersonalInfoState extends State<FromPersonalInfo> {
                                 'Mot de passe',
                                 style: TextStyle(
                                   fontSize: 12.0,
+                                  fontFamily: "RedHatDisplay"
                                 ),
                               ),
                               const SizedBox(height: 5),
@@ -384,7 +394,7 @@ class _FromPersonalInfoState extends State<FromPersonalInfo> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const FromPersonalInfo()),
+                                                const FormPersonalInfo()),
                                       );
                                     },
                                     style: ElevatedButton.styleFrom(
@@ -401,7 +411,7 @@ class _FromPersonalInfoState extends State<FromPersonalInfo> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: const <Widget>[
-                                        Text('ENREGISTRER MES MODIFICATIONS'),
+                                        Text('Enregistrer mes modifications', style: TextStyle(fontFamily: "RedHatDisplay")),
                                         Icon(Icons.done),
                                       ],
                                     ),
@@ -423,7 +433,12 @@ class _FromPersonalInfoState extends State<FromPersonalInfo> {
         },
         elevation: 5,
         backgroundColor: Colors.red,
-        child: const Icon(Icons.qr_code_scanner),
+        child: SvgPicture.asset(
+          'assets/scan.svg',
+          width: 24,
+          height: 24,
+          color: Colors.white,
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );

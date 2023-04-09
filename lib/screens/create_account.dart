@@ -1,8 +1,7 @@
 import 'package:Marc_project/screens/connexion.dart';
 import 'package:flutter/material.dart';
-
 import '../constants/constants.dart';
-import '../widgets/bottom_navbar.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CreateAccount extends StatefulWidget {
   const CreateAccount({super.key});
@@ -51,12 +50,24 @@ class _CreateAccountState extends State<CreateAccount> {
                   bottomRight: Radius.circular(30),
                 ),
               ),
-              child: const Center(
-                child: CircleAvatar(
-                  backgroundColor: Color.fromARGB(255, 5, 5, 5),
-                  radius: 50,
-                  backgroundImage: AssetImage('assets/sac-a-main.png'),
-                ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(
+                    'assets/MAARC.svg',
+                    width: 100,
+                    height: 100,
+                  ),
+                  const SizedBox(
+                      height: 20), // Espace vertical entre l'image et le texte
+                  Text(
+                    'Marc, payez, partez !',
+                    style: TextStyle(
+                        color: Constants().textColor,
+                        fontSize: 24,
+                        fontFamily: "NiceSugar"),
+                  ),
+                ],
               ),
             ),
           ),
@@ -78,6 +89,7 @@ class _CreateAccountState extends State<CreateAccount> {
                     const Text("S'inscrire, c'est rapide",
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
+                            fontFamily: "RedHatDisplay",
                             fontSize: 20,
                             color: Colors.black)),
                     const SizedBox(height: 25),
@@ -88,6 +100,7 @@ class _CreateAccountState extends State<CreateAccount> {
                             'Prénom',
                             style: TextStyle(
                               fontSize: 12.0,
+                              fontFamily: "RedHatDisplay",
                             ),
                           ),
                           const SizedBox(height: 5),
@@ -119,6 +132,7 @@ class _CreateAccountState extends State<CreateAccount> {
                             'Ville',
                             style: TextStyle(
                               fontSize: 12.0,
+                              fontFamily: "RedHatDisplay",
                             ),
                           ),
                           const SizedBox(height: 5),
@@ -150,6 +164,7 @@ class _CreateAccountState extends State<CreateAccount> {
                             'Adresse mail',
                             style: TextStyle(
                               fontSize: 12.0,
+                              fontFamily: "RedHatDisplay",
                             ),
                           ),
                           const SizedBox(height: 5),
@@ -181,6 +196,7 @@ class _CreateAccountState extends State<CreateAccount> {
                             'Mot de passe',
                             style: TextStyle(
                               fontSize: 12.0,
+                              fontFamily: "RedHatDisplay",
                             ),
                           ),
                           const SizedBox(height: 5),
@@ -218,11 +234,12 @@ class _CreateAccountState extends State<CreateAccount> {
                               style: TextStyle(
                                   fontSize: 12.0,
                                   fontWeight: FontWeight.bold,
+                                  fontFamily: "RedHatDisplay",
                                   color: Constants().secondaryColor),
                             ),
                           ],
                         )),
-                    const SizedBox(height: 40),
+                    const SizedBox(height: 30),
                     ElevatedButton(
                       onPressed: () {
                         Navigator.push(
@@ -230,14 +247,15 @@ class _CreateAccountState extends State<CreateAccount> {
                             MaterialPageRoute(
                                 builder: (context) => const LoginPage()));
                       },
-                      child: const Text('S\'INSCRIRE'),
+                      // ignore: sort_child_properties_last
+                      child: const Text('s\'inscrire', style: TextStyle(fontFamily: "RedHatDisplay")),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Constants().secondaryColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0),
                         ),
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 20.0, vertical: 10.0),
+                            horizontal: 50.0, vertical: 10.0),
                       ),
                     ),
                     Center(
@@ -246,6 +264,7 @@ class _CreateAccountState extends State<CreateAccount> {
                       child: const Text(
                         'Créer un compte',
                         style: TextStyle(
+                          fontFamily: "RedHatDisplay",
                           decoration: TextDecoration.underline,
                         ),
                       ),

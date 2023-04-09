@@ -1,7 +1,8 @@
-import 'package:Marc_project/screens/orders.dart';
 import 'package:flutter/material.dart';
-
+import '../constants/constants.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../widgets/bottom_navbar.dart';
+import 'about_me.dart';
 
 class PersonalInfo extends StatefulWidget {
   const PersonalInfo({super.key});
@@ -35,249 +36,274 @@ class _PersonalInfoState extends State<PersonalInfo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          title: Padding(
-            padding: const EdgeInsets.only(left: 30.0),
-            child: Transform.scale(
-              scale: 1.2,
-              child: const Text(
-                'Marc, payez, partez !',
-                style: TextStyle(color: Colors.black, fontSize: 16),
+      backgroundColor: Constants().primaryColor,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: Padding(
+          padding: const EdgeInsets.only(left: 30.0),
+          child: Transform.scale(
+            scale: 1.2,
+            child: Text(
+              'Marc, payez, partez !',
+              style: TextStyle(
+                  color: Constants().secondaryColor,
+                  fontSize: 16,
+                  fontFamily: "NiceSugar"),
+            ),
+          ),
+        ),
+        actions: <Widget>[
+          SizedBox(
+            width: 55,
+            height: 55,
+            child: GestureDetector(
+              onTap: () {
+                // Action à effectuer lors du clic sur l'image
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(right: 25),
+                child: SvgPicture.asset(
+                  'assets/caddie.svg',
+                  width: 24,
+                  height: 24,
+                ),
               ),
             ),
           ),
-          actions: <Widget>[
-            SizedBox(
-              width: 48,
-              height: 48,
-              child: IconButton(
-                padding: const EdgeInsets.only(right: 45),
-                icon: Transform.scale(
-                  scale: 1.2,
-                  child: const Icon(
-                    Icons.shopping_bag,
-                    size: 24,
-                  ),
-                ),
-                color: Colors.black,
-                tooltip: 'Comment Icon',
-                onPressed: () {},
+        ],
+      ),
+      body: Stack(
+        children: [
+          Positioned(
+            left: 20,
+            right: 20,
+            child: TextField(
+              decoration: InputDecoration(
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                hintText: 'Rechercher',
+                suffixIcon: const Icon(Icons.search),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: BorderSide(
+                        color: Constants().secondaryColor, width: 2)),
+                filled: true,
+                fillColor: Color.fromARGB(255, 255, 255, 255),
               ),
             ),
-          ],
-        ),
-        body: Stack(
-          children: [
-            const Positioned(
-              top: 10,
-              left: 30,
-              right: 0,
-              child: Text("Mon compte",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Colors.black)),
-            ),
-            Positioned(
-              top: 50,
-              left: 10,
-              right: 10,
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  side: const BorderSide(color: Colors.black, width: 1),
-                ),
-                child: Padding(
-                  padding:
-                      const EdgeInsets.only(left: 30, right: 30, bottom: 700),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Container(
-                        height: 80,
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(30),
-                            bottomRight: Radius.circular(30),
+          ),
+          Positioned(
+            top: 50,
+            left: 10,
+            right: 10,
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: Padding(
+                padding:
+                    const EdgeInsets.only(left: 30, right: 30, bottom: 700),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Container(
+                      height: 80,
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(30),
+                          bottomRight: Radius.circular(30),
+                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => const AboutMe()));
+                              },
+                              icon: const Icon(Icons.chevron_left)),
+                          const Text(
+                            'A propos de moi',
+                            style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "RedHatDisplay"),
                           ),
+                        ],
+                      ),
+                    ),
+                    const Divider(
+                      height: 1,
+                      thickness: 2,
+                      color: Color.fromARGB(255, 0, 0, 0),
+                    ),
+                    const SizedBox(height: 20),
+                    const Text(
+                      'Infos personnelles',
+                      style:
+                          TextStyle(fontSize: 20, fontFamily: "RedHatDisplay"),
+                    ),
+                    Container(
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(30),
+                          bottomRight: Radius.circular(30),
                         ),
-                        child: Row(
-                          children: [
-                            IconButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const Orders()));
-                                },
-                                icon: const Icon(Icons.arrow_back)),
-                            const Text(
-                              'Mes commandes',
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
                       ),
-                      const Divider(
-                        height: 1,
-                        thickness: 2,
-                        color: Color.fromARGB(255, 0, 0, 0),
-                      ),
-                      const SizedBox(height: 20),
-                      const Text(
-                        'Infos personnelles',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      Container(
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(30),
-                            bottomRight: Radius.circular(30),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Image(
+                            image: AssetImage('assets/carte-bancaire.png'),
+                            height: 200,
+                            width: 200,
                           ),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Image(
-                              image: AssetImage('assets/carte-bancaire.png'),
-                              height: 200,
-                              width: 200,
-                            ),
-                            const SizedBox(height: 20),
-                            Form(
-                              key: _formKey,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      const Text(
-                                        'Ajouter mon moyen de paiement',
-                                        style: TextStyle(
-                                          fontSize: 16.0,
-                                          fontWeight: FontWeight.bold,
+                          const SizedBox(height: 20),
+                          Form(
+                            key: _formKey,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    const Text(
+                                      'Ajouter mon moyen de paiement',
+                                      style: TextStyle(
+                                        fontSize: 16.0,
+                                        fontFamily: "RedHatDisplay",
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 16.0),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Text(
+                                          'Numéro de votre carte',
+                                          style: TextStyle(
+                                            fontSize: 12.0,
+                                            fontFamily: "RedHatDisplay",
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
-                                      ),
-                                      const SizedBox(height: 16.0),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          const Text(
-                                            'Numéro de votre carte',
-                                            style: TextStyle(
-                                              fontSize: 12.0,
-                                              fontWeight: FontWeight.bold,
-                                            ),
+                                        const SizedBox(height: 5),
+                                        TextFormField(
+                                          controller: _cardNumberController,
+                                          keyboardType: TextInputType.number,
+                                          decoration: InputDecoration(
+                                            hintText: '01234567891011',
+                                            filled: true,
+                                            fillColor: Colors.grey[200],
                                           ),
-                                          const SizedBox(height: 5),
-                                          TextFormField(
-                                            controller: _cardNumberController,
-                                            keyboardType: TextInputType.number,
-                                            decoration: InputDecoration(
-                                              hintText: '01234567891011',
-                                              filled: true,
-                                              fillColor: Colors.grey[200],
-                                            ),
-                                            validator: (value) {
-                                              if (value!.isEmpty) {
-                                                return 'Veuillez entrer un numéro de carte bancaire valide';
-                                              }
-                                              return null;
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 16.0),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          Expanded(
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                const Text(
-                                                  'Date d\'expiration',
-                                                  style: TextStyle(
+                                          validator: (value) {
+                                            if (value!.isEmpty) {
+                                              return 'Veuillez entrer un numéro de carte bancaire valide';
+                                            }
+                                            return null;
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 16.0),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              const Text(
+                                                'Date d\'expiration',
+                                                style: TextStyle(
                                                     fontSize: 12.0,
                                                     fontWeight: FontWeight.bold,
-                                                  ),
+                                                    fontFamily:
+                                                        "RedHatDisplay"),
+                                              ),
+                                              const SizedBox(height: 5),
+                                              TextFormField(
+                                                controller:
+                                                    _expiryDateController,
+                                                keyboardType:
+                                                    TextInputType.number,
+                                                decoration: InputDecoration(
+                                                  hintText: '00/00',
+                                                  filled: true,
+                                                  fillColor: Colors.grey[200],
                                                 ),
-                                                const SizedBox(height: 5),
-                                                TextFormField(
-                                                  controller:
-                                                      _expiryDateController,
-                                                  keyboardType:
-                                                      TextInputType.number,
-                                                  decoration: InputDecoration(
-                                                    hintText: '00/00',
-                                                    filled: true,
-                                                    fillColor: Colors.grey[200],
-                                                  ),
-                                                  validator: (value) {
-                                                    if (value!.isEmpty) {
-                                                      return 'Veuillez entrer une date d\'expiration valide';
-                                                    }
-                                                    return null;
-                                                  },
-                                                ),
-                                              ],
-                                            ),
+                                                validator: (value) {
+                                                  if (value!.isEmpty) {
+                                                    return 'Veuillez entrer une date d\'expiration valide';
+                                                  }
+                                                  return null;
+                                                },
+                                              ),
+                                            ],
                                           ),
-                                          const SizedBox(width: 16.0),
-                                          Expanded(
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                const Text(
-                                                  'Code CVC',
-                                                  style: TextStyle(
+                                        ),
+                                        const SizedBox(width: 16.0),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              const Text(
+                                                'Code CVC',
+                                                style: TextStyle(
                                                     fontSize: 12.0,
                                                     fontWeight: FontWeight.bold,
-                                                  ),
+                                                    fontFamily:
+                                                        "RedHatDisplay"),
+                                              ),
+                                              const SizedBox(height: 5),
+                                              TextFormField(
+                                                controller: _cvcController,
+                                                keyboardType:
+                                                    TextInputType.number,
+                                                decoration: InputDecoration(
+                                                  hintText: '000',
+                                                  filled: true,
+                                                  fillColor: Colors.grey[200],
                                                 ),
-                                                const SizedBox(height: 5),
-                                                TextFormField(
-                                                  controller: _cvcController,
-                                                  keyboardType:
-                                                      TextInputType.number,
-                                                  decoration: InputDecoration(
-                                                    hintText: '000',
-                                                    filled: true,
-                                                    fillColor: Colors.grey[200],
-                                                  ),
-                                                  validator: (value) {
-                                                    if (value!.isEmpty) {
-                                                      return 'Veuillez entrer un code CVC valide';
-                                                    }
-                                                    return null;
-                                                  },
-                                                ),
-                                              ],
-                                            ),
+                                                validator: (value) {
+                                                  if (value!.isEmpty) {
+                                                    return 'Veuillez entrer un code CVC valide';
+                                                  }
+                                                  return null;
+                                                },
+                                              ),
+                                            ],
                                           ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 25),
-                                  Center(
-                                    child: ElevatedButton(
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 25),
+                                Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  children: [
+                                    ElevatedButton(
                                       onPressed: () {
-                                        if (_formKey.currentState!
-                                            .validate()) {}
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const PersonalInfo()),
+                                        );
                                       },
                                       style: ElevatedButton.styleFrom(
+                                        backgroundColor:
+                                            Constants().secondaryColor,
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(30.0),
@@ -285,45 +311,47 @@ class _PersonalInfoState extends State<PersonalInfo> {
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 20.0, vertical: 10.0),
                                       ),
-                                      child: const Text(
-                                          'AJOUTER MA CARTE BANCAIRE'),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: const <Widget>[
+                                          Text('Ajouter ma carte bancaire',
+                                              style: TextStyle(
+                                                  fontFamily: "RedHatDisplay")),
+                                          Icon(Icons.done),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
+                                  ],
+                                )
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
-          ],
-        ),
-        bottomNavigationBar: Container(
-          decoration: const BoxDecoration(
-            border: Border(
-              top: BorderSide(
-                color: Color.fromARGB(255, 0, 0, 0),
-                width: 2.0,
-              ),
-              bottom: BorderSide(
-                color: Color.fromARGB(255, 0, 0, 0),
-                width: 2.0,
-              ),
-              left: BorderSide(
-                color: Color.fromARGB(255, 0, 0, 0),
-                width: 2.0,
-              ),
-              right: BorderSide(
-                color: Color.fromARGB(255, 0, 0, 0),
-                width: 2.0,
-              ),
-            ),
           ),
-          child: const ButtomNavBar()
-        ));
+        ],
+      ),
+      bottomNavigationBar: const ButtomNavBar(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Code à exécuter lorsque l'utilisateur appuie sur le bouton flottant
+        },
+        elevation: 5,
+        backgroundColor: Colors.red,
+        child: SvgPicture.asset(
+          'assets/scan.svg',
+          width: 24,
+          height: 24,
+          color: Colors.white,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+    );
   }
 }

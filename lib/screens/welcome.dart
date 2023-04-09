@@ -1,6 +1,8 @@
 import 'package:Marc_project/screens/connexion.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import '../constants/constants.dart';
 
 class Welcome extends StatelessWidget {
   const Welcome({Key? key}) : super(key: key);
@@ -19,35 +21,34 @@ class Welcome extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Image.asset(
-                'assets/sac-a-main.png',
-                width: 250,
+              SvgPicture.asset(
+                'assets/MAARC.svg',
+                width: 100,
+                height: 100,
               ),
               const SizedBox(height: 40),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Text(
-                    'Marc',
+                  Text(
+                    'Marc.',
                     style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 36,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Hubballi',
-                    ),
+                        color: Constants().textColor,
+                        fontSize: 50,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "NiceSugar"),
                   ),
-                  const Text(
-                    'payez & partez !',
+                  Text(
+                    'Payez & partez !',
                     style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 36,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: 'Hubballi',
-                    ),
+                        color: Constants().textColor,
+                        fontSize: 24,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: "NiceSugar"),
                   ),
                   const SizedBox(
-                    height: 40,
+                    height: 70,
                   ),
                   GestureDetector(
                     onTap: () {
@@ -102,18 +103,19 @@ class Welcome extends StatelessWidget {
                       height: 50,
                       width: size.width * 0.6,
                       decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: const BorderRadius.all(Radius.circular(10)),
+                        color: Constants().secondaryColor,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(30)),
                         border: Border.all(
-                          color: Colors.black,
+                          color: Constants().secondaryColor,
                           width: 2,
                         ),
                       ),
-                      child: const Center(
+                      child: Center(
                         child: Text(
-                          'Get started',
+                          'Prêt ?',
                           style: TextStyle(
-                            color: Color.fromARGB(255, 0, 0, 0),
+                            color: Constants().thirdColor,
                             fontSize: 22,
                             fontFamily: 'Hubballi',
                           ),

@@ -1,10 +1,9 @@
 import 'package:Marc_project/constants/constants.dart';
 import 'package:Marc_project/screens/create_account.dart';
 import 'package:Marc_project/screens/lost_password.dart';
-import 'package:Marc_project/screens/recipes.dart';
 import 'package:Marc_project/screens/time_saved.dart';
-import 'package:Marc_project/widgets/bottom_navbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -54,12 +53,24 @@ class _LoginPageState extends State<LoginPage> {
                   bottomRight: Radius.circular(30),
                 ),
               ),
-              child: const Center(
-                child: CircleAvatar(
-                  backgroundColor: Color.fromARGB(255, 5, 5, 5),
-                  radius: 50,
-                  backgroundImage: AssetImage('assets/sac-a-main.png'),
-                ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(
+                    'assets/MAARC.svg',
+                    width: 100,
+                    height: 100,
+                  ),
+                  const SizedBox(
+                      height: 20), // Espace vertical entre l'image et le texte
+                  Text(
+                    'Marc, payez, partez !',
+                    style: TextStyle(
+                        color: Constants().textColor,
+                        fontSize: 24,
+                        fontFamily: "NiceSugar"),
+                  ),
+                ],
               ),
             ),
           ),
@@ -70,7 +81,6 @@ class _LoginPageState extends State<LoginPage> {
             child: Card(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),
-                side: const BorderSide(color: Colors.black, width: 1),
               ),
               child: Padding(
                 padding: const EdgeInsets.only(
@@ -81,6 +91,7 @@ class _LoginPageState extends State<LoginPage> {
                     const Text("Connectez-vous !",
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
+                            fontFamily: "RedHatDisplay",
                             fontSize: 20,
                             color: Colors.black)),
                     const SizedBox(height: 40),
@@ -91,6 +102,7 @@ class _LoginPageState extends State<LoginPage> {
                           'Adresse mail',
                           style: TextStyle(
                             fontSize: 12.0,
+                            fontFamily: "RedHatDisplay",
                           ),
                         ),
                         const SizedBox(height: 5),
@@ -121,6 +133,7 @@ class _LoginPageState extends State<LoginPage> {
                           'Mot de passe',
                           style: TextStyle(
                             fontSize: 12.0,
+                            fontFamily: "RedHatDisplay",
                           ),
                         ),
                         const SizedBox(height: 5),
@@ -152,14 +165,15 @@ class _LoginPageState extends State<LoginPage> {
                     ElevatedButton(
                       onPressed: () => _submitForm(context),
                       // ignore: sort_child_properties_last
-                      child: const Text('ME CONNECTER'),
+                      child: const Text('se connecter',
+                          style: TextStyle(fontFamily: "RedHatDisplay")),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Constants().secondaryColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0),
                         ),
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 20.0, vertical: 10.0),
+                            horizontal: 50.0, vertical: 10.0),
                       ),
                     ),
                     Center(
@@ -173,6 +187,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: const Text(
                         'Créer un compte',
                         style: TextStyle(
+                          fontFamily: "RedHatDisplay",
                           decoration: TextDecoration.underline,
                         ),
                       ),
@@ -188,6 +203,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: const Text(
                           'Mot de passe oublié ?',
                           style: TextStyle(
+                            fontFamily: "RedHatDisplay",
                             decoration: TextDecoration.underline,
                           ),
                         ),
