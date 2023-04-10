@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../constants/constants.dart';
 import '../widgets/bottom_navbar.dart';
+import '../widgets/search_bar.dart';
 import 'about_me.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 class TimeSaved extends StatefulWidget {
   const TimeSaved({super.key});
@@ -80,24 +82,7 @@ class _TimeSavedState extends State<TimeSaved> {
       ),
       body: Stack(
         children: [
-          Positioned(
-            left: 20,
-            right: 20,
-            child: TextField(
-              decoration: InputDecoration(
-                contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                hintText: 'Rechercher',
-                suffixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide: BorderSide(
-                        color: Constants().secondaryColor, width: 2)),
-                filled: true,
-                fillColor: Color.fromARGB(255, 255, 255, 255),
-              ),
-            ),
-          ),
+          const Positioned(left: 20, right: 20, child: SearchNavBar()),
           Positioned(
             top: 50,
             left: 10,
@@ -394,8 +379,10 @@ class _TimeSavedState extends State<TimeSaved> {
       ),
       bottomNavigationBar: const ButtomNavBar(),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Code à exécuter lorsque l'utilisateur appuie sur le bouton flottant
+        onPressed: () async {
+          String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+              "#ff6666", "Annuler", true, ScanMode.BARCODE);
+          print(barcodeScanRes);
         },
         elevation: 5,
         backgroundColor: Colors.red,

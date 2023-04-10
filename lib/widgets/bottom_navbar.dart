@@ -1,6 +1,8 @@
+import 'package:Marc_project/screens/recipes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../constants/constants.dart';
+import '../screens/time_saved.dart';
 
 class ButtomNavBar extends StatefulWidget {
   const ButtomNavBar({Key? key}) : super(key: key);
@@ -28,13 +30,17 @@ class _ButtomNavBarState extends State<ButtomNavBar> {
                 'assets/recipes.svg',
                 width: 24,
                 height: 24,
-                color: _selectedIndex == 0 ? Constants().secondaryColor : Constants().textColor,
+                color: _selectedIndex == 0
+                    ? Constants().secondaryColor
+                    : Constants().textColor,
               ),
               tooltip: 'RECETTES',
               onPressed: () {
                 setState(() {
                   _selectedIndex = 0;
                 });
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => RecipePage()));
               },
             ),
           ),
@@ -48,7 +54,9 @@ class _ButtomNavBarState extends State<ButtomNavBar> {
                 'assets/search.svg',
                 width: 24,
                 height: 24,
-                color: _selectedIndex == 0 ? Constants().secondaryColor : Constants().textColor,
+                color: _selectedIndex == 0
+                    ? Constants().secondaryColor
+                    : Constants().textColor,
               ),
               tooltip: 'CATEGORIES',
               onPressed: () {
@@ -68,7 +76,9 @@ class _ButtomNavBarState extends State<ButtomNavBar> {
                 'assets/favori.svg',
                 width: 24,
                 height: 24,
-                color: _selectedIndex == 0 ? Constants().secondaryColor : Constants().textColor,
+                color: _selectedIndex == 0
+                    ? Constants().secondaryColor
+                    : Constants().textColor,
               ),
               tooltip: 'MA LISTE',
               onPressed: () {
@@ -88,13 +98,17 @@ class _ButtomNavBarState extends State<ButtomNavBar> {
                 'assets/compte.svg',
                 width: 24,
                 height: 24,
-                color: _selectedIndex == 0 ? Constants().secondaryColor : Constants().textColor,
+                color: _selectedIndex == 0
+                    ? Constants().secondaryColor
+                    : Constants().textColor,
               ),
               tooltip: 'MON COMPTE',
               onPressed: () {
                 setState(() {
                   _selectedIndex = 3;
                 });
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const TimeSaved()));
               },
             ),
           ),

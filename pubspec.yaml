@@ -48,6 +48,7 @@ dependencies:
   flutter_spinkit: ^4.1.2
   loading_animation_widget: any
   flutter_svg: ^0.22.0
+  flutter_barcode_scanner: ^2.0.0
 
 dev_dependencies:
   flutter_test:

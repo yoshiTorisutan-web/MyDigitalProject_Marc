@@ -3,11 +3,13 @@ import 'package:Marc_project/screens/connexion.dart';
 import 'package:Marc_project/screens/cookie_management.dart';
 import 'package:Marc_project/screens/time_saved.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:latlong2/latlong.dart';
 import '../constants/constants.dart';
 import '../widgets/bottom_navbar.dart';
+import '../widgets/search_bar.dart';
 import 'list_supermarket.dart';
 
 class SuperMarketGeo extends StatefulWidget {
@@ -86,24 +88,7 @@ class _SuperMarketGeoState extends State<SuperMarketGeo> {
       ),
       body: Stack(
         children: [
-          Positioned(
-            left: 20,
-            right: 20,
-            child: TextField(
-              decoration: InputDecoration(
-                contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                hintText: 'Rechercher',
-                suffixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide: BorderSide(
-                        color: Constants().secondaryColor, width: 2)),
-                filled: true,
-                fillColor: Color.fromARGB(255, 255, 255, 255),
-              ),
-            ),
-          ),
+          const Positioned(left: 20, right: 20, child: SearchNavBar()),
           Positioned(
             top: 50,
             left: 10,
@@ -175,7 +160,7 @@ class _SuperMarketGeoState extends State<SuperMarketGeo> {
                               center: LatLng(47.4853511, -0.5757254),
                               zoom: 13.0,
                             ),
-                            children : [
+                            children: [
                               TileLayer(
                                 urlTemplate:
                                     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -193,6 +178,49 @@ class _SuperMarketGeoState extends State<SuperMarketGeo> {
                                       size: 30.0,
                                     ),
                                   ),
+                                  Marker(
+                                    width: 80.0,
+                                    height: 80.0,
+                                    point: LatLng(47.466739654541016,
+                                        -0.5940532088279724),
+                                    builder: (ctx) => Icon(
+                                      Icons.shopping_cart,
+                                      color: Constants().secondaryColor,
+                                      size: 30.0,
+                                    ),
+                                  ),
+                                  Marker(
+                                    width: 80.0,
+                                    height: 80.0,
+                                    point: LatLng(
+                                        47.51725387573242, -0.6050036549568176),
+                                    builder: (ctx) => Icon(
+                                      Icons.shopping_cart,
+                                      color: Constants().secondaryColor,
+                                      size: 30.0,
+                                    ),
+                                  ),
+                                  Marker(
+                                    width: 80.0,
+                                    height: 80.0,
+                                    point: LatLng(47.474568, -0.6318363),
+                                    builder: (ctx) => Icon(
+                                      Icons.shopping_cart,
+                                      color: Constants().secondaryColor,
+                                      size: 30.0,
+                                    ),
+                                  ),
+                                  Marker(
+                                    width: 80.0,
+                                    height: 80.0,
+                                    point: LatLng(
+                                        47.47344207763672, -0.5906012058258057),
+                                    builder: (ctx) => Icon(
+                                      Icons.shopping_cart,
+                                      color: Constants().secondaryColor,
+                                      size: 30.0,
+                                    ),
+                                  ),
                                 ],
                               ),
                             ],
@@ -204,10 +232,11 @@ class _SuperMarketGeoState extends State<SuperMarketGeo> {
                       children: [
                         ElevatedButton(
                           onPressed: () {
-                            Navigator.push(
+                            Navigator.pop(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const SupermarketList()),
+                                  builder: (context) =>
+                                      const SupermarketList()),
                             );
                           },
                           style: ElevatedButton.styleFrom(
@@ -240,8 +269,10 @@ class _SuperMarketGeoState extends State<SuperMarketGeo> {
       ),
       bottomNavigationBar: const ButtomNavBar(),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Code à exécuter lorsque l'utilisateur appuie sur le bouton flottant
+        onPressed: () async {
+          String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+              "#ff6666", "Annuler", true, ScanMode.BARCODE);
+          print(barcodeScanRes);
         },
         elevation: 5,
         backgroundColor: Colors.red,

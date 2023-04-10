@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import '../constants/constants.dart';
+import '../widgets/bottom_navbar.dart';
+import '../widgets/search_bar.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -11,214 +16,269 @@ class RecipePage extends StatefulWidget {
 }
 
 class _RecipePageState extends State<RecipePage> {
+  final _formKey = GlobalKey<FormState>();
+  String name = "Toto";
+  String city = "Angers";
+  String mail = 'toto49@gmail.com';
+  String password = '1234';
+  int _currentIndex = 0;
+
+  final List<Widget> _children = [
+    const RecipePage(),
+    //SignupPage(),
+    //ForgotPasswordPage(),
+  ];
+
+  void _submitForm() {
+    if (_formKey.currentState!.validate()) {
+      // Vérifiez ici les informations d'identification de l'utilisateur
+      // et connectez-le à l'application si les informations sont valides.
+    }
+  }
+
   List<dynamic> _recipes = [];
   bool _isLoading = true;
-
-  final String _apiKey = 'e7d8103d0f674050924ec567074b3e0a';
 
   @override
   void initState() {
     super.initState();
-    _fetchRecipes();
+    _fetchData();
   }
 
-  Future<void> _fetchRecipes() async {
-    final response = await http.get(
-      Uri.parse(
-        'https://api.spoonacular.com/recipes/complexSearch?apiKey=$_apiKey&addRecipeInformation=true&number=50',
-      ),
-    );
-
-    if (response.statusCode == 200) {
+  Future<void> _fetchData() async {
+    try {
+      final response = await http.get(
+        Uri.parse(
+          'https://api.spoonacular.com/recipes/random?number=50&apiKey=e7d8103d0f674050924ec567074b3e0a',
+        ),
+      );
+      final data = json.decode(response.body);
       setState(() {
-        _recipes = json.decode(response.body)['results'];
+        _recipes = data['recipes']
+            .where(
+                (recipe) => recipe['title'] != null && recipe['image'] != null)
+            .toList();
         _isLoading = false;
       });
-    } else {
-      throw Exception('Failed to load recipes');
+    } catch (error) {
+      rethrow;
     }
+  }
+
+  Widget _buildRecipeList(List<dynamic> recipes) {
+    return ListView.builder(
+      scrollDirection: Axis.horizontal,
+      itemCount: recipes.length,
+      itemBuilder: (context, index) {
+        final recipe = recipes[index];
+        return Container(
+          margin: const EdgeInsets.all(10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              CircleAvatar(
+                backgroundImage: NetworkImage(recipe['image']),
+                radius: 60,
+              ),
+              const SizedBox(height: 10),
+              Text(
+                recipe['title'],
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 8),
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Constants().primaryColor,
       appBar: AppBar(
-        title: const Text('Recettes'),
-      ),
-      body: _isLoading
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 10),
-                  const Text(
-                    'À la une',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  SizedBox(
-                    height: 200,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: _recipes.length,
-                      itemBuilder: (ctx, index) {
-                        final recipe = _recipes[index];
-
-                        if (recipe['image'] == null) {
-                          return Container();
-                        }
-
-                        return InkWell(
-                          onTap: () {
-                            //navigate to recipe details page
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.only(right: 10),
-                            width: 150,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Image.network(
-                                    recipe['image'],
-                                    width: double.infinity,
-                                    height: 120,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                const SizedBox(height: 5),
-                                Text(
-                                  recipe['title'],
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  const Text(
-                    'Entrées',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  _buildRecipeList('entrée'),
-                  const SizedBox(height: 10),
-                  const Text(
-                    'Plats',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  _buildRecipeList('plat'),
-                  const SizedBox(height: 10),
-                  const Text(
-                    'Desserts',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  _buildRecipeList('dessert'),
-                  const SizedBox(height: 10),
-                  const Text(
-                    'Petit-Dej',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  _buildRecipeList('petit déjeuner'),
-                ],
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: Padding(
+          padding: const EdgeInsets.only(left: 30.0),
+          child: Transform.scale(
+            scale: 1.2,
+            child: Text(
+              'Marc, payez, partez !',
+              style: TextStyle(
+                  color: Constants().secondaryColor,
+                  fontSize: 16,
+                  fontFamily: "NiceSugar"),
+            ),
+          ),
+        ),
+        actions: <Widget>[
+          SizedBox(
+            width: 55,
+            height: 55,
+            child: GestureDetector(
+              onTap: () {
+                // Action à effectuer lors du clic sur l'image
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(right: 25),
+                child: SvgPicture.asset(
+                  'assets/caddie.svg',
+                  width: 24,
+                  height: 24,
+                ),
               ),
             ),
-    );
-  }
-
-  Widget _buildRecipeList(String category) {
-    final recipes = _recipes.where((recipe) {
-      final title = recipe['title'].toLowerCase();
-      return title.contains(category) ||
-          title.contains('${category}s') ||
-          title.contains('${category}es');
-    }).toList();
-    if (recipes.isEmpty) {
-      return const Center(
-        child: Text('Aucune recette trouvée pour cette catégorie'),
-      );
-    }
-
-    return Column(
-      children: recipes.map((recipe) {
-        return InkWell(
-          onTap: () {
-            //navigate to recipe details page
-          },
-          child: Container(
-            margin: const EdgeInsets.only(bottom: 10),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.network(
-                    recipe['image'],
-                    width: 100,
-                    height: 100,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        recipe['title'],
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+          ),
+        ],
+      ),
+      body: Column(
+        children: [
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            child: SearchNavBar(),
+          ),
+          Expanded(
+            child: _isLoading
+                ? Center(
+                    child: CircularProgressIndicator(
+                        color: Constants().secondaryColor))
+                : ListView(
+                    children: <Widget>[
+                      const SizedBox(height: 20),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 15.0),
+                        child: Text(
+                          'Recettes à la une       ----------------------------------',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "RedHatDisplay",
+                            fontSize: 16,
+                          ),
+                          textAlign: TextAlign.left,
                         ),
                       ),
-                      const SizedBox(height: 5),
-                      Text(
-                        'Temps de préparation : ${recipe['readyInMinutes']} min',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey[600],
+                      const SizedBox(height: 10),
+                      SizedBox(
+                        height: 175,
+                        child: _buildRecipeList(_recipes.sublist(0, 5)),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 15.0),
+                        child: Text(
+                          'Entrées      --------------------------------------------',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "RedHatDisplay",
+                            fontSize: 16,
+                          ),
+                          textAlign: TextAlign.left,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      SizedBox(
+                        height: 175,
+                        child: _buildRecipeList(
+                          _recipes
+                              .where((recipe) =>
+                                  recipe['dishTypes'].contains('starter'))
+                              .toList(),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 15.0),
+                        child: Text(
+                          'Plats     ----------------------------------------------',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "RedHatDisplay",
+                            fontSize: 16,
+                          ),
+                          textAlign: TextAlign.left,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      SizedBox(
+                        height: 175,
+                        child: _buildRecipeList(
+                          _recipes
+                              .where((recipe) =>
+                                  recipe['dishTypes'].contains('main course'))
+                              .toList(),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 15.0),
+                        child: Text(
+                          'Desserts     -------------------------------------------',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "RedHatDisplay",
+                            fontSize: 16,
+                          ),
+                          textAlign: TextAlign.left,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      SizedBox(
+                        height: 175,
+                        child: _buildRecipeList(
+                          _recipes
+                              .where((recipe) =>
+                                  recipe['dishTypes'].contains('dessert'))
+                              .toList(),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 15.0),
+                        child: Text(
+                          'Petit-Déjeuner    --------------------------------------',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "RedHatDisplay",
+                            fontSize: 16,
+                          ),
+                          textAlign: TextAlign.left,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      SizedBox(
+                        height: 175,
+                        child: _buildRecipeList(
+                          _recipes
+                              .where((recipe) =>
+                                  recipe['dishTypes'].contains('breakfast'))
+                              .toList(),
                         ),
                       ),
                     ],
                   ),
-                ),
-              ],
-            ),
-          ),
-        );
-      }).toList(),
+          )
+        ],
+      ),
+      bottomNavigationBar: const ButtomNavBar(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+              "#ff6666", "Annuler", true, ScanMode.BARCODE);
+          // ignore: avoid_print
+          print(barcodeScanRes);
+        },
+        elevation: 5,
+        backgroundColor: Colors.red,
+        child: SvgPicture.asset(
+          'assets/scan.svg',
+          width: 24,
+          height: 24,
+          color: Colors.white,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

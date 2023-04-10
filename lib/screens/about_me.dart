@@ -2,10 +2,12 @@ import 'package:Marc_project/screens/form_personal_info.dart';
 import 'package:Marc_project/screens/personal_info.dart';
 import 'package:Marc_project/screens/time_saved.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import '../constants/constants.dart';
 import '../widgets/bottom_navbar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../widgets/search_bar.dart';
 import 'connexion.dart';
 
 class AboutMe extends StatefulWidget {
@@ -68,24 +70,7 @@ class _AboutMeState extends State<AboutMe> {
       ),
       body: Stack(
         children: [
-          Positioned(
-            left: 20,
-            right: 20,
-            child: TextField(
-              decoration: InputDecoration(
-                contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                hintText: 'Rechercher',
-                suffixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide: BorderSide(
-                        color: Constants().secondaryColor, width: 2)),
-                filled: true,
-                fillColor: Color.fromARGB(255, 255, 255, 255),
-              ),
-            ),
-          ),
+          const Positioned(left: 20, right: 20, child: SearchNavBar()),
           Positioned(
             top: 50,
             left: 10,
@@ -112,7 +97,7 @@ class _AboutMeState extends State<AboutMe> {
                         children: [
                           IconButton(
                               onPressed: () {
-                                Navigator.push(
+                                Navigator.pop(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
@@ -240,8 +225,10 @@ class _AboutMeState extends State<AboutMe> {
       ),
       bottomNavigationBar: const ButtomNavBar(),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Code à exécuter lorsque l'utilisateur appuie sur le bouton flottant
+        onPressed: () async {
+          String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+              "#ff6666", "Annuler", true, ScanMode.BARCODE);
+          print(barcodeScanRes);
         },
         elevation: 5,
         backgroundColor: Colors.red,
