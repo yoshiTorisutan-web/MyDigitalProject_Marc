@@ -1,7 +1,8 @@
-import 'package:Marc_project/screens/recipes.dart';
+import 'package:marc_project/screens/recipes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../constants/constants.dart';
+import '../screens/categories_products.dart';
 import '../screens/time_saved.dart';
 
 class ButtomNavBar extends StatefulWidget {
@@ -39,8 +40,10 @@ class _ButtomNavBarState extends State<ButtomNavBar> {
                 setState(() {
                   _selectedIndex = 0;
                 });
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => RecipePage()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const RecipePage()));
               },
             ),
           ),
@@ -63,6 +66,10 @@ class _ButtomNavBarState extends State<ButtomNavBar> {
                 setState(() {
                   _selectedIndex = 1;
                 });
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CategoryListPage()));
               },
             ),
           ),

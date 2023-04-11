@@ -1,7 +1,7 @@
-import 'package:Marc_project/screens/app_setting.dart';
-import 'package:Marc_project/screens/connexion.dart';
-import 'package:Marc_project/screens/list_supermarket.dart';
-import 'package:Marc_project/screens/orders.dart';
+import 'package:marc_project/screens/app_setting.dart';
+import 'package:marc_project/screens/connexion.dart';
+import 'package:marc_project/screens/list_supermarket.dart';
+import 'package:marc_project/screens/orders.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../constants/constants.dart';

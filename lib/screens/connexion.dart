@@ -1,8 +1,7 @@
-import 'package:Marc_project/constants/constants.dart';
-import 'package:Marc_project/screens/create_account.dart';
-import 'package:Marc_project/screens/lost_password.dart';
-import 'package:Marc_project/screens/recipes.dart';
-import 'package:Marc_project/screens/time_saved.dart';
+import 'package:marc_project/constants/constants.dart';
+import 'package:marc_project/screens/create_account.dart';
+import 'package:marc_project/screens/lost_password.dart';
+import 'package:marc_project/screens/recipes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 

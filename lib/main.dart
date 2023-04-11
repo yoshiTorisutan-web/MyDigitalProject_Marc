@@ -1,6 +1,6 @@
-import 'package:Marc_project/screens/connexion.dart';
-import 'package:Marc_project/screens/lost_password.dart';
-import 'package:Marc_project/screens/welcome.dart';
+import 'package:marc_project/screens/connexion.dart';
+import 'package:marc_project/screens/lost_password.dart';
+import 'package:marc_project/screens/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

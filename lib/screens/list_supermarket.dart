@@ -1,7 +1,4 @@
-import 'package:Marc_project/screens/account_deletion.dart';
-import 'package:Marc_project/screens/connexion.dart';
-import 'package:Marc_project/screens/cookie_management.dart';
-import 'package:Marc_project/screens/time_saved.dart';
+import 'package:marc_project/screens/time_saved.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_svg/svg.dart';

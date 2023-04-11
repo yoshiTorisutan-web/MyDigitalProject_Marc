@@ -1,6 +1,6 @@
-import 'package:Marc_project/screens/form_personal_info.dart';
-import 'package:Marc_project/screens/personal_info.dart';
-import 'package:Marc_project/screens/time_saved.dart';
+import 'package:marc_project/screens/form_personal_info.dart';
+import 'package:marc_project/screens/personal_info.dart';
+import 'package:marc_project/screens/time_saved.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import '../constants/constants.dart';
