@@ -67,9 +67,7 @@ class _CookieManagementState extends State<CookieManagement> {
       ),
       body: Stack(
         children: [
-          const Positioned(left: 20, right: 20, child: SearchNavBar()),
           Positioned(
-            top: 50,
             left: 10,
             right: 10,
             child: Card(
@@ -102,7 +100,7 @@ class _CookieManagementState extends State<CookieManagement> {
                               },
                               icon: const Icon(Icons.chevron_left)),
                           const Text(
-                            'Paramètre de l\'application',
+                            'Paramètres de l\'application',
                             style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold,
@@ -198,38 +196,6 @@ class _CookieManagementState extends State<CookieManagement> {
                             ),
                           ],
                         )),
-                    const SizedBox(height: 60),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const LoginPage()),
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Constants().secondaryColor,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20.0, vertical: 10.0),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const <Widget>[
-                              Text('Déconnexion',
-                                  style:
-                                      TextStyle(fontFamily: "RedHatDisplay")),
-                              Icon(Icons.logout),
-                            ],
-                          ),
-                        ),
-                      ],
-                    )
                   ],
                 ),
               ),

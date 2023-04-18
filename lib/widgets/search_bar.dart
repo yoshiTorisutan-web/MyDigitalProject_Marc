@@ -11,7 +11,7 @@ class SearchNavBar extends StatelessWidget {
       decoration: InputDecoration(
         contentPadding:
             const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-        hintText: 'Rechercher',
+        hintText: 'Lait, fraise, viande...',
         suffixIcon: const Icon(Icons.search),
         border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),

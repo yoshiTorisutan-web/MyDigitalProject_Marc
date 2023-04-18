@@ -83,9 +83,8 @@ class _SupermarketListState extends State<SupermarketList> {
       ),
       body: Stack(
         children: [
-          const Positioned(left: 20, right: 20, child: SearchNavBar()),
           Positioned(
-            top: 50,
+            top: 0,
             left: 10,
             right: 10,
             bottom: 1, // reduce the bottom value

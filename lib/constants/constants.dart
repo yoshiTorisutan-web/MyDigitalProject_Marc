@@ -5,4 +5,6 @@ class Constants {
   final secondaryColor = const Color(0xff0529f2);
   final thirdColor = Colors.white;
   final textColor = Colors.black;
+  // ignore: use_full_hex_values_for_flutter_colors
+  final textColorBright = const Color(0xffc0bcbacc);
 }

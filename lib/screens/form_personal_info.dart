@@ -68,9 +68,7 @@ class _FormPersonalInfoState extends State<FormPersonalInfo> {
       ),
       body: Stack(
         children: [
-          const Positioned(left: 20, right: 20, child: SearchNavBar()),
           Positioned(
-            top: 50,
             left: 10,
             right: 10,
             child: Card(
@@ -366,7 +364,7 @@ class _FormPersonalInfoState extends State<FormPersonalInfo> {
                                   });
                                 },
                               ),
-                              const SizedBox(height: 20),
+                              const SizedBox(height: 40),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [

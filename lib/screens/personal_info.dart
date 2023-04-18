@@ -78,9 +78,8 @@ class _PersonalInfoState extends State<PersonalInfo> {
       ),
       body: Stack(
         children: [
-          const Positioned(left: 20, right: 20, child: SearchNavBar()),
           Positioned(
-            top: 50,
+            top: 0,
             left: 10,
             right: 10,
             child: Card(
@@ -128,7 +127,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                     ),
                     const SizedBox(height: 20),
                     const Text(
-                      'Infos personnelles',
+                      'Carte de paiement',
                       style:
                           TextStyle(fontSize: 20, fontFamily: "RedHatDisplay"),
                     ),
@@ -144,10 +143,10 @@ class _PersonalInfoState extends State<PersonalInfo> {
                         children: [
                           const Image(
                             image: AssetImage('assets/carte-bancaire.png'),
-                            height: 200,
-                            width: 200,
+                            height: 250,
+                            width: 250,
                           ),
-                          const SizedBox(height: 20),
+                          const SizedBox(height: 10),
                           Form(
                             key: _formKey,
                             child: Column(

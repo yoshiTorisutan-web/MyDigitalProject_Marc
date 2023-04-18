@@ -84,9 +84,8 @@ class _SuperMarketGeoState extends State<SuperMarketGeo> {
       ),
       body: Stack(
         children: [
-          const Positioned(left: 20, right: 20, child: SearchNavBar()),
           Positioned(
-            top: 50,
+            top: 0,
             left: 10,
             right: 10,
             bottom: 1, // reduce the bottom value
@@ -147,7 +146,27 @@ class _SuperMarketGeoState extends State<SuperMarketGeo> {
                       thickness: 2,
                       color: Color.fromARGB(255, 0, 0, 0),
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 25),
+                    TextField(
+                      decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 8),
+                        hintText: 'Rechercher par ville',
+                        suffixIcon: const Icon(Icons.search),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide: BorderSide(
+                            color: Constants().secondaryColor,
+                            width: 2,
+                          ),
+                        ),
+                        filled: true,
+                        fillColor: const Color.fromARGB(255, 255, 255, 255),
+                        hintStyle: const TextStyle(fontSize: 12),
+                        isDense: true,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
                     Expanded(
                       child: SizedBox(
                           height: 200.0, // Taille prédéfinie

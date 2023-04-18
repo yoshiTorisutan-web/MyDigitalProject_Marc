@@ -69,9 +69,7 @@ class _AppSettingState extends State<AppSetting> {
       ),
       body: Stack(
         children: [
-          const Positioned(left: 20, right: 20, child: SearchNavBar()),
           Positioned(
-            top: 50,
             left: 10,
             right: 10,
             child: Card(
@@ -104,7 +102,7 @@ class _AppSettingState extends State<AppSetting> {
                               },
                               icon: const Icon(Icons.chevron_left)),
                           const Text(
-                            'A propos de moi',
+                            'Paramètres de l\'application',
                             style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold,
@@ -185,38 +183,6 @@ class _AppSettingState extends State<AppSetting> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 350),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const LoginPage()),
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Constants().secondaryColor,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20.0, vertical: 10.0),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const <Widget>[
-                              Text('Déconnexion',
-                                  style:
-                                      TextStyle(fontFamily: "RedHatDisplay")),
-                              Icon(Icons.logout),
-                            ],
-                          ),
-                        ),
-                      ],
-                    )
                   ],
                 ),
               ),

@@ -68,9 +68,8 @@ class _OrdersState extends State<Orders> {
       ),
       body: Stack(
         children: [
-          const Positioned(left: 20, right: 20, child: SearchNavBar()),
           Positioned(
-            top: 50,
+            top: 0,
             left: 10,
             right: 10,
             child: Card(
@@ -126,7 +125,7 @@ class _OrdersState extends State<Orders> {
                           fontFamily: "RedHatDisplay"),
                     ),
                     Container(
-                      height: 400,
+                      height: 500,
                       decoration: const BoxDecoration(
                         borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(30),
@@ -167,38 +166,6 @@ class _OrdersState extends State<Orders> {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 80),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const LoginPage()),
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Constants().secondaryColor,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20.0, vertical: 10.0),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const <Widget>[
-                              Text('Déconnexion',
-                                  style:
-                                      TextStyle(fontFamily: "RedHatDisplay")),
-                              Icon(Icons.logout),
-                            ],
-                          ),
-                        ),
-                      ],
-                    )
                   ],
                 ),
               ),

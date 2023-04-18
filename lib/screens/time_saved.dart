@@ -82,9 +82,8 @@ class _TimeSavedState extends State<TimeSaved> {
       ),
       body: Stack(
         children: [
-          const Positioned(left: 20, right: 20, child: SearchNavBar()),
           Positioned(
-            top: 50,
+            top: 0,
             left: 10,
             right: 10,
             child: Card(
@@ -133,6 +132,7 @@ class _TimeSavedState extends State<TimeSaved> {
                         ],
                       ),
                     ),
+                    const SizedBox(height: 20),
                     Column(
                       children: [
                         Row(
@@ -201,7 +201,7 @@ class _TimeSavedState extends State<TimeSaved> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 25),
                     Card(
                       elevation: 0,
                       shape: const Border(
@@ -338,7 +338,7 @@ class _TimeSavedState extends State<TimeSaved> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 25),
+                    const SizedBox(height: 35),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
