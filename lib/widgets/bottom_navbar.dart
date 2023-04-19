@@ -16,10 +16,40 @@ class _ButtomNavBarState extends State<ButtomNavBar> {
   int _selectedIndex = 0;
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Mettre à jour _selectedIndex selon la page courante
+    _updateSelectedIndex();
+  }
+
+  void _updateSelectedIndex() {
+    if (ModalRoute.of(context)?.settings.name == '/recipes') {
+      setState(() {
+        _selectedIndex = 0;
+      });
+    } else if (ModalRoute.of(context)?.settings.name == '/categoriesProducts') {
+      setState(() {
+        _selectedIndex = 1;
+      });
+    } else if (ModalRoute.of(context)?.settings.name == '/mylist') {
+      setState(() {
+        _selectedIndex = 2;
+      });
+    } else if (ModalRoute.of(context)?.settings.name == '/account') {
+      setState(() {
+        _selectedIndex = 3;
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BottomAppBar(
       shape: const CircularNotchedRectangle(),
+      color: Constants().primaryColor,
+      notchMargin: 5.0,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const SizedBox(
             width: 30.0,
@@ -32,7 +62,7 @@ class _ButtomNavBarState extends State<ButtomNavBar> {
                 width: 24,
                 height: 24,
                 color: _selectedIndex == 0
-                    ? Constants().secondaryColor
+                    ? Constants().iconColor
                     : Constants().textColor,
               ),
               tooltip: 'RECETTES',
@@ -40,10 +70,7 @@ class _ButtomNavBarState extends State<ButtomNavBar> {
                 setState(() {
                   _selectedIndex = 0;
                 });
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const RecipePage()));
+                Navigator.pushNamed(context, '/recipes');
               },
             ),
           ),
@@ -57,8 +84,8 @@ class _ButtomNavBarState extends State<ButtomNavBar> {
                 'assets/search.svg',
                 width: 24,
                 height: 24,
-                color: _selectedIndex == 0
-                    ? Constants().secondaryColor
+                color: _selectedIndex == 1
+                    ? Constants().iconColor
                     : Constants().textColor,
               ),
               tooltip: 'CATEGORIES',
@@ -66,10 +93,7 @@ class _ButtomNavBarState extends State<ButtomNavBar> {
                 setState(() {
                   _selectedIndex = 1;
                 });
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => CategoryListPage()));
+                Navigator.pushNamed(context, '/categoriesProducts');
               },
             ),
           ),
@@ -83,8 +107,8 @@ class _ButtomNavBarState extends State<ButtomNavBar> {
                 'assets/favori.svg',
                 width: 24,
                 height: 24,
-                color: _selectedIndex == 0
-                    ? Constants().secondaryColor
+                color: _selectedIndex == 2
+                    ? Constants().iconColor
                     : Constants().textColor,
               ),
               tooltip: 'MA LISTE',
@@ -92,6 +116,7 @@ class _ButtomNavBarState extends State<ButtomNavBar> {
                 setState(() {
                   _selectedIndex = 2;
                 });
+                Navigator.pushNamed(context, '/mylist');
               },
             ),
           ),
@@ -105,8 +130,8 @@ class _ButtomNavBarState extends State<ButtomNavBar> {
                 'assets/compte.svg',
                 width: 24,
                 height: 24,
-                color: _selectedIndex == 0
-                    ? Constants().secondaryColor
+                color: _selectedIndex == 3
+                    ? Constants().iconColor
                     : Constants().textColor,
               ),
               tooltip: 'MON COMPTE',
@@ -114,8 +139,7 @@ class _ButtomNavBarState extends State<ButtomNavBar> {
                 setState(() {
                   _selectedIndex = 3;
                 });
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const TimeSaved()));
+                Navigator.pushNamed(context, '/account');
               },
             ),
           ),

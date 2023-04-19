@@ -42,6 +42,7 @@ class _TimeSavedState extends State<TimeSaved> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Constants().primaryColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,

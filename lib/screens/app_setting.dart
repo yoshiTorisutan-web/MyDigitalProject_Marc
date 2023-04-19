@@ -29,6 +29,7 @@ class _AppSettingState extends State<AppSetting> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Constants().primaryColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,

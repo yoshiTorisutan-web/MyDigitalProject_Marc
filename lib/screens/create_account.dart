@@ -1,4 +1,5 @@
 import 'package:marc_project/screens/connexion.dart';
+import 'package:marc_project/screens/guide.dart';
 import 'package:flutter/material.dart';
 import '../constants/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -245,7 +246,7 @@ class _CreateAccountState extends State<CreateAccount> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const LoginPage()));
+                                builder: (context) => const Guide()));
                       },
                       // ignore: sort_child_properties_last
                       child: const Text('s\'inscrire', style: TextStyle(fontFamily: "RedHatDisplay")),

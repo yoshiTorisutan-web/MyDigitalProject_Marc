@@ -6,19 +6,20 @@ import 'package:flutter_svg/svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:marc_project/screens/recipes.dart';
 
-import '../constants/constants.dart';
-import '../widgets/bottom_navbar.dart';
-import '../widgets/search_bar.dart';
+import '../../constants/constants.dart';
+import '../../widgets/bottom_navbar.dart';
+import '../../widgets/search_bar.dart';
 
-class ProductsPage extends StatefulWidget {
-  const ProductsPage({super.key});
+class FruitsAndVegetablesPage extends StatefulWidget {
+  const FruitsAndVegetablesPage({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
-  _ProductsPageState createState() => _ProductsPageState();
+  _FruitsAndVegetablesPageState createState() =>
+      _FruitsAndVegetablesPageState();
 }
 
-class _ProductsPageState extends State<ProductsPage> {
+class _FruitsAndVegetablesPageState extends State<FruitsAndVegetablesPage> {
   List<dynamic> _products = [];
 
   @override
@@ -40,6 +41,7 @@ class _ProductsPageState extends State<ProductsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Constants().primaryColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -123,27 +125,32 @@ class _ProductsPageState extends State<ProductsPage> {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: ListTile(
-                      leading: Image.network(
-                        _products[index]['image'],
-                        fit: BoxFit.cover,
-                        width: 80,
-                        height: 80,
-                      ),
-                      title: Text(
-                        _products[index]['title'],
+                    leading: Image.network(
+                      _products[index]['image'],
+                      fit: BoxFit.cover,
+                      width: 80,
+                      height: 80,
+                    ),
+                    title: Text(
+                      _products[index]['title'],
+                      style: TextStyle(
+                          fontFamily: "RedHatDisplay",
+                          fontSize: 12,
+                          color: Constants().textColor,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Text("2.99 €",
                         style: TextStyle(
                             fontFamily: "RedHatDisplay",
-                            fontSize: 12,
-                            color: Constants().textColor,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      subtitle: Text("2.99 €",
-                          style: TextStyle(
-                              fontFamily: "RedHatDisplay",
-                              fontSize: 16,
-                              color: Constants().textColorBright,
-                              fontWeight: FontWeight.bold)),
-                      trailing: const Icon(Icons.add)));
+                            fontSize: 16,
+                            color: Constants().textColorBright,
+                            fontWeight: FontWeight.bold)),
+                    trailing: Image.asset(
+                      'assets/picto-plus.png',
+                      width: 24,
+                      height: 24,
+                    ),
+                  ));
             },
           ),
         )

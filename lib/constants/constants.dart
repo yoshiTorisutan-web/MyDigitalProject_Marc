@@ -7,4 +7,5 @@ class Constants {
   final textColor = Colors.black;
   // ignore: use_full_hex_values_for_flutter_colors
   final textColorBright = const Color(0xffc0bcbacc);
+  final iconColor = const Color(0xffff5f00);
 }

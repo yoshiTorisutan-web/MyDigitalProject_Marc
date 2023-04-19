@@ -1,6 +1,5 @@
 import 'package:marc_project/constants/constants.dart';
 import 'package:marc_project/screens/create_account.dart';
-import 'package:marc_project/screens/guide.dart';
 import 'package:marc_project/screens/lost_password.dart';
 import 'package:marc_project/screens/recipes.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
   void _submitForm(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const Guide()),
+      MaterialPageRoute(builder: (context) => const RecipePage()),
     );
   }
 

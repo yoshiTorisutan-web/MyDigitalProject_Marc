@@ -43,6 +43,7 @@ class _SupermarketListState extends State<SupermarketList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Constants().primaryColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,

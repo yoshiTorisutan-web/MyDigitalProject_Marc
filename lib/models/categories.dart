@@ -1,5 +1,8 @@
-class Category {
-  String name;
+import 'package:flutter/material.dart';
 
-  Category(this.name);
+class Category {
+  final String name;
+  final Widget page;
+
+  Category(this.name, this.page);
 }

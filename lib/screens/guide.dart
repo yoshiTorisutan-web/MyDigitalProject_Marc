@@ -37,6 +37,7 @@ class _GuideState extends State<Guide> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Constants().primaryColor,
       appBar: null,
       body: Stack(

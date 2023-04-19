@@ -1,6 +1,13 @@
-import 'package:marc_project/screens/connexion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:marc_project/screens/products_categories/bakery.dart';
+import 'package:marc_project/screens/products_categories/dairy_products.dart';
+import 'package:marc_project/screens/products_categories/fresh_products.dart';
+import 'package:marc_project/screens/products_categories/frozen_products.dart';
+import 'package:marc_project/screens/products_categories/fruits_and_vegetables.dart';
+import 'package:marc_project/screens/products_categories/groceries.dart';
+import 'package:marc_project/screens/products_categories/meat_and_fish.dart';
+import 'package:marc_project/screens/products_categories/non_alcoholic_beverages.dart';
 import 'package:marc_project/screens/recipes.dart';
 import '../constants/constants.dart';
 import '../models/categories.dart';
@@ -8,18 +15,16 @@ import '../widgets/bottom_navbar.dart';
 import '../widgets/search_bar.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
-import 'list_products.dart';
-
 class CategoryListPage extends StatelessWidget {
   final List<Category> categories = [
-    Category("PRODUITS LAITIERS"),
-    Category("FRUITS & LEGUMES"),
-    Category("VIANDES & POISSONS"),
-    Category("PRODUITS FRAIS"),
-    Category("PRODUITS SURGELES"),
-    Category("BOISSONS (NON) ALCOOLISES"),
-    Category("PAINS, VIENNOISERIES & PATISSERIES"),
-    Category("HIGH TECH"),
+    Category("PRODUITS LAITIERS", const DairyProductsPage()),
+    Category("FRUITS & LEGUMES", const FruitsAndVegetablesPage()),
+    Category("VIANDES & POISSONS", const MeatAndFishPage()),
+    Category("PRODUITS FRAIS", const FreshProductsPage()),
+    Category("PRODUITS SURGELES", const FrozenProductsPage()),
+    Category("BOISSONS (NON) ALCOOLISEES", const NonAlcoholicBeveragesPage()),
+    Category("PAINS, VIENNOISERIES & PATISSERIES", const BakeryPage()),
+    Category("EPICERIES", const GroceriesPage()),
   ];
 
   CategoryListPage({super.key});
@@ -27,6 +32,7 @@ class CategoryListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Constants().primaryColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -117,7 +123,7 @@ class CategoryListPage extends StatelessWidget {
                           itemCount: categories.length,
                           separatorBuilder: (BuildContext context, int index) {
                             return Divider(
-                              color: Colors.grey[800],
+                              color: Constants().secondaryColor,
                               height: 2.0,
                               thickness: 1.0,
                             );
@@ -131,12 +137,14 @@ class CategoryListPage extends StatelessWidget {
                                   color: Constants().secondaryColor,
                                 ),
                               ),
-                              trailing: const Icon(Icons.chevron_right),
+                              trailing: Icon(Icons.chevron_right, color: Constants().secondaryColor,),
                               onTap: () {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => const ProductsPage()));
+                                      builder: (context) =>
+                                          categories[index].page),
+                                );
                               },
                             );
                           },
