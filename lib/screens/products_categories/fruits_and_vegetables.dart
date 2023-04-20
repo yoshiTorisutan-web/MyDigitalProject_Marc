@@ -1,14 +1,13 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:marc_project/screens/recipes.dart';
-
+import 'package:marc_project/screens/scan_info.dart';
 import '../../constants/constants.dart';
 import '../../widgets/bottom_navbar.dart';
 import '../../widgets/search_bar.dart';
+import '../details_products.dart';
 
 class FruitsAndVegetablesPage extends StatefulWidget {
   const FruitsAndVegetablesPage({super.key});
@@ -150,6 +149,16 @@ class _FruitsAndVegetablesPageState extends State<FruitsAndVegetablesPage> {
                       width: 24,
                       height: 24,
                     ),
+                    onTap: () {
+                      // Appeler l'API pour récupérer les informations du produit sélectionné
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ProductDetailsPage(
+                              productId: _products[index]['id']),
+                        ),
+                      );
+                    },
                   ));
             },
           ),
@@ -158,10 +167,8 @@ class _FruitsAndVegetablesPageState extends State<FruitsAndVegetablesPage> {
       bottomNavigationBar: const ButtomNavBar(),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-              "#ff6666", "Annuler", true, ScanMode.BARCODE);
-          // ignore: avoid_print
-          print(barcodeScanRes);
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const ScanInfo()));
         },
         elevation: 5,
         backgroundColor: Colors.red,

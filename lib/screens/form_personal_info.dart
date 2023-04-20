@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:marc_project/screens/scan_info.dart';
 import '../constants/constants.dart';
 import '../widgets/bottom_navbar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
-import '../widgets/search_bar.dart';
 import 'about_me.dart';
 
 class FormPersonalInfo extends StatefulWidget {
@@ -16,14 +14,12 @@ class FormPersonalInfo extends StatefulWidget {
 }
 
 class _FormPersonalInfoState extends State<FormPersonalInfo> {
-  final _formKey = GlobalKey<FormState>();
   String name = "Toto";
   String city = "Angers";
   String mail = 'toto49@gmail.com';
   String password = '1234';
   String numPhone = "02 13 45 67 89";
   String birthday = "01/01/2023";
-  int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -412,9 +408,8 @@ class _FormPersonalInfoState extends State<FormPersonalInfo> {
       bottomNavigationBar: const ButtomNavBar(),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-              "#ff6666", "Annuler", true, ScanMode.BARCODE);
-          print(barcodeScanRes);
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const ScanInfo()));
         },
         elevation: 5,
         backgroundColor: Colors.red,

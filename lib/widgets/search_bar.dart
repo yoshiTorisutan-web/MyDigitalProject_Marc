@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
 import '../constants/constants.dart';
+import '../screens/search_ingredients.dart';
 
 class SearchNavBar extends StatelessWidget {
   const SearchNavBar({Key? key}) : super(key: key);
@@ -20,6 +20,10 @@ class SearchNavBar extends StatelessWidget {
         filled: true,
         fillColor: const Color.fromARGB(255, 255, 255, 255),
       ),
+      onTap: () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const SearchIngredients()));
+      },
     );
   }
 }

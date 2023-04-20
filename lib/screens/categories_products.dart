@@ -9,11 +9,11 @@ import 'package:marc_project/screens/products_categories/groceries.dart';
 import 'package:marc_project/screens/products_categories/meat_and_fish.dart';
 import 'package:marc_project/screens/products_categories/non_alcoholic_beverages.dart';
 import 'package:marc_project/screens/recipes.dart';
+import 'package:marc_project/screens/scan_info.dart';
 import '../constants/constants.dart';
 import '../models/categories.dart';
 import '../widgets/bottom_navbar.dart';
 import '../widgets/search_bar.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 class CategoryListPage extends StatelessWidget {
   final List<Category> categories = [
@@ -161,9 +161,8 @@ class CategoryListPage extends StatelessWidget {
       bottomNavigationBar: const ButtomNavBar(),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-              "#ff6666", "Annuler", true, ScanMode.BARCODE);
-          print(barcodeScanRes);
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const ScanInfo()));
         },
         elevation: 5,
         backgroundColor: Colors.red,

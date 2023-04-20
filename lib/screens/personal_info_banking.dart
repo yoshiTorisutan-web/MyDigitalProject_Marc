@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:marc_project/screens/scan_info.dart';
 import '../constants/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../widgets/bottom_navbar.dart';
-import '../widgets/search_bar.dart';
 import 'about_me.dart';
 
 class PersonalInfo extends StatefulWidget {
@@ -15,17 +14,10 @@ class PersonalInfo extends StatefulWidget {
 }
 
 class _PersonalInfoState extends State<PersonalInfo> {
-  int _currentIndex = 0;
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _cardNumberController = TextEditingController();
-  TextEditingController _expiryDateController = TextEditingController();
-  TextEditingController _cvcController = TextEditingController();
-
-  final List<Widget> _children = [
-    const PersonalInfo(),
-    //SignupPage(),
-    //ForgotPasswordPage(),
-  ];
+  final TextEditingController _cardNumberController = TextEditingController();
+  final TextEditingController _expiryDateController = TextEditingController();
+  final TextEditingController _cvcController = TextEditingController();
 
   @override
   void dispose() {
@@ -325,9 +317,8 @@ class _PersonalInfoState extends State<PersonalInfo> {
       bottomNavigationBar: const ButtomNavBar(),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-              "#ff6666", "Annuler", true, ScanMode.BARCODE);
-          print(barcodeScanRes);
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const ScanInfo()));
         },
         elevation: 5,
         backgroundColor: Colors.red,

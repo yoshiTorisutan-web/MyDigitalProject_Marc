@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:marc_project/screens/scan_info.dart';
 import '../constants/constants.dart';
 import '../widgets/bottom_navbar.dart';
 import '../widgets/search_bar.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -16,25 +16,10 @@ class RecipePage extends StatefulWidget {
 }
 
 class _RecipePageState extends State<RecipePage> {
-  final _formKey = GlobalKey<FormState>();
   String name = "Toto";
   String city = "Angers";
   String mail = 'toto49@gmail.com';
   String password = '1234';
-  int _currentIndex = 0;
-
-  final List<Widget> _children = [
-    const RecipePage(),
-    //SignupPage(),
-    //ForgotPasswordPage(),
-  ];
-
-  void _submitForm() {
-    if (_formKey.currentState!.validate()) {
-      // Vérifiez ici les informations d'identification de l'utilisateur
-      // et connectez-le à l'application si les informations sont valides.
-    }
-  }
 
   List<dynamic> _recipes = [];
   bool _isLoading = true;
@@ -265,10 +250,8 @@ class _RecipePageState extends State<RecipePage> {
       bottomNavigationBar: const ButtomNavBar(),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-              "#ff6666", "Annuler", true, ScanMode.BARCODE);
-          // ignore: avoid_print
-          print(barcodeScanRes);
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const ScanInfo()));
         },
         elevation: 5,
         backgroundColor: Colors.red,

@@ -1,26 +1,40 @@
-import 'package:marc_project/constants/constants.dart';
-import 'package:marc_project/screens/recipes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:marc_project/screens/scan_info_result.dart';
+import '../constants/constants.dart';
+import '../widgets/bottom_navbar.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
-class Guide extends StatefulWidget {
-  const Guide({super.key});
+class ScanInfo extends StatefulWidget {
+  const ScanInfo({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
-  _GuideState createState() => _GuideState();
+  State<ScanInfo> createState() => _ScanInfoState();
 }
 
-class _GuideState extends State<Guide> {
-  String mail = 'toto49@gmail.com';
-  String password = '1234';
+class _ScanInfoState extends State<ScanInfo> {
+  List<String> scannedProducts = [];
 
-  void _submitForm(BuildContext context) {
-    // Vérifiez les informations d'identification ici et redirigez vers la page suivante
-    // en utilisant Navigator.push
+  Future<void> _scanBarcode() async {
+    try {
+      String barcode = await FlutterBarcodeScanner.scanBarcode(
+          "#ff6666", "Annuler", true, ScanMode.BARCODE);
+      setState(() {
+        scannedProducts.add(barcode);
+      });
+    } catch (e) {
+      setState(() {
+        scannedProducts.add("Erreur inconnue: $e");
+      });
+    }
+  }
+
+  void _goToScannedProductsPage(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const RecipePage()),
+      MaterialPageRoute(
+        builder: (context) => ScanInfoResult(scannedProducts: scannedProducts),
+      ),
     );
   }
 
@@ -29,67 +43,115 @@ class _GuideState extends State<Guide> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Constants().primaryColor,
-      appBar: null,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: Padding(
+          padding: const EdgeInsets.only(left: 30.0),
+          child: Transform.scale(
+            scale: 1.2,
+            child: Text(
+              'Marc, payez, partez !',
+              style: TextStyle(
+                  color: Constants().secondaryColor,
+                  fontSize: 16,
+                  fontFamily: "NiceSugar"),
+            ),
+          ),
+        ),
+        actions: <Widget>[
+          SizedBox(
+            width: 55,
+            height: 55,
+            child: GestureDetector(
+              onTap: () {
+                // Action à effectuer lors du clic sur l'image
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(right: 25),
+                child: SvgPicture.asset(
+                  'assets/caddie.svg',
+                  width: 24,
+                  height: 24,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
       body: Stack(
         children: [
           Positioned(
-            top: 40,
-            left: 0,
-            right: 0,
-            child: Container(
-              height: 200,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(30),
-                  bottomRight: Radius.circular(30),
+            top: 35,
+            left: 20,
+            right: 20,
+            bottom: 425, // reduce the bottom value
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 10, right: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 30),
+                    const Text("Scannez-moi !",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "RedHatDisplay",
+                            fontSize: 20,
+                            color: Colors.black)),
+                    InkWell(
+                      onTap: _scanBarcode,
+                      child: const Image(
+                        image: AssetImage('assets/code_barre.png'),
+                        height: 200,
+                        width: 200,
+                      ),
+                    )
+                  ],
                 ),
               ),
+            ),
+          ),
+          Positioned(
+            top: 325,
+            left: 20,
+            right: 20,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 10, right: 10),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SvgPicture.asset(
-                    'assets/MAARC.svg',
-                    width: 100,
-                    height: 100,
-                  ),
-                  const SizedBox(
-                      height: 20), // Espace vertical entre l'image et le texte
-                  Text(
-                    'Marc, payez, partez !',
-                    style: TextStyle(
-                        color: Constants().textColor,
-                        fontSize: 24,
-                        fontFamily: "NiceSugar"),
+                  TextButton(
+                    onPressed: () => _goToScannedProductsPage(context),
+                    child: const Text(
+                      'Voir les produits scannés',
+                      style: TextStyle(
+                        fontFamily: "RedHatDisplay",
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
                   ),
                 ],
               ),
             ),
           ),
           Positioned(
-            top: 250,
-            left: 10,
-            right: 10,
-            child: Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
-              ),
+              top: 375, // position the text under the card
+              left: 10,
+              right: 10,
               child: Padding(
-                padding: const EdgeInsets.only(
-                    top: 50.0, left: 25, right: 25, bottom: 500),
+                padding: const EdgeInsets.only(left: 20, right: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Text("Bienvenue Marie !",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontFamily: "RedHatDisplay",
-                            fontSize: 20,
-                            color: Colors.black)),
-                    const SizedBox(height: 50),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Marc vous fait gagner du temps",
+                        Text("STEP BY STEP",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontFamily: "RedHatDisplay",
@@ -192,28 +254,27 @@ class _GuideState extends State<Guide> {
                                 color: Constants().textColor)),
                       ],
                     ),
-                    const SizedBox(height: 40),
-                    ElevatedButton(
-                      onPressed: () => _submitForm(context),
-                      // ignore: sort_child_properties_last
-                      child: const Text('C\'est parti !',
-                          style: TextStyle(fontFamily: "RedHatDisplay")),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Constants().secondaryColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0),
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 50.0, vertical: 10.0),
-                      ),
-                    ),
                   ],
                 ),
-              ),
-            ),
-          ),
+              )),
         ],
       ),
+      bottomNavigationBar: const ButtomNavBar(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const ScanInfo()));
+        },
+        elevation: 5,
+        backgroundColor: Colors.red,
+        child: SvgPicture.asset(
+          'assets/scan.svg',
+          width: 24,
+          height: 24,
+          color: Colors.white,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

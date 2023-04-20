@@ -3,6 +3,8 @@ import 'package:marc_project/screens/connexion.dart';
 import 'package:marc_project/screens/create_account.dart';
 import 'package:marc_project/screens/lost_password.dart';
 import 'package:marc_project/screens/recipes.dart';
+import 'package:marc_project/screens/scan_info.dart';
+import 'package:marc_project/screens/scan_info_result.dart';
 import 'package:marc_project/screens/time_saved.dart';
 import 'package:marc_project/screens/welcome.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +31,9 @@ class MyApp extends StatelessWidget {
         '/createAccount': (context) => const CreateAccount(),
         '/recipes': (context) => const RecipePage(),
         '/account': (context) => const TimeSaved(),
-        '/categoriesProducts': (context) => CategoryListPage()
+        '/categoriesProducts': (context) => CategoryListPage(),
+        '/scan': (context) => const ScanInfo(),
+        '/productList': (context) => const ScanInfoResult(scannedProducts: [],)
       },
       initialRoute: '/welcome',
     );

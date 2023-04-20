@@ -1,39 +1,21 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:http/http.dart' as http;
-import 'package:marc_project/screens/recipes.dart';
 import 'package:marc_project/screens/scan_info.dart';
-import '../../constants/constants.dart';
-import '../../widgets/bottom_navbar.dart';
-import '../../widgets/search_bar.dart';
+import '../constants/constants.dart';
+import '../widgets/bottom_navbar.dart';
 
-class DairyProductsPage extends StatefulWidget {
-  const DairyProductsPage({super.key});
+class ScanInfoResult extends StatefulWidget {
+  final List<String> scannedProducts;
+
+  const ScanInfoResult({Key? key, required this.scannedProducts})
+      : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
-  _DairyProductsPageState createState() => _DairyProductsPageState();
+  State<ScanInfoResult> createState() => _ScanInfoResultState();
 }
 
-class _DairyProductsPageState extends State<DairyProductsPage> {
-  List<dynamic> _products = [];
-
-  @override
-  void initState() {
-    super.initState();
-    _fetchProducts();
-  }
-
-  Future<void> _fetchProducts() async {
-    final url = Uri.parse(
-        'https://api.spoonacular.com/food/products/search?apiKey=e7d8103d0f674050924ec567074b3e0a&query=yogurt');
-    final response = await http.get(url);
-    final data = jsonDecode(response.body);
-    setState(() {
-      _products = data['products'];
-    });
-  }
+class _ScanInfoResultState extends State<ScanInfoResult> {
+  List<String> scannedProducts = [];
 
   @override
   Widget build(BuildContext context) {
@@ -78,32 +60,9 @@ class _DairyProductsPageState extends State<DairyProductsPage> {
         ],
       ),
       body: Column(children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.0),
-          child: SearchNavBar(),
-        ),
-        Row(
-          children: [
-            IconButton(
-                onPressed: () {
-                  Navigator.pop(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const RecipePage()));
-                },
-                icon: Icon(Icons.chevron_left,
-                    color: Constants().secondaryColor)),
-            Text('Revenir à la page précédente',
-                style: TextStyle(
-                    fontFamily: "RedHatDisplay",
-                    fontSize: 12,
-                    color: Constants().secondaryColor,
-                    fontWeight: FontWeight.bold)),
-          ],
-        ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 35),
         Text(
-          'PRODUITS LAITIERS',
+          'PRODUITS SCANNES',
           style: TextStyle(
               fontSize: 16.0,
               fontWeight: FontWeight.bold,
@@ -114,22 +73,21 @@ class _DairyProductsPageState extends State<DairyProductsPage> {
         Expanded(
           child: ListView.builder(
             padding: const EdgeInsets.only(left: 15, right: 15),
-            itemCount: _products.length,
-            itemBuilder: (context, index) {
+            itemCount: widget.scannedProducts.length,
+            itemBuilder: (BuildContext context, int index) {
               return Card(
                   elevation: 4,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: ListTile(
-                      leading: Image.network(
-                        _products[index]['image'],
-                        fit: BoxFit.cover,
+                      leading: const Image(
+                        image: AssetImage('assets/aliments.png'),
                         width: 80,
                         height: 80,
                       ),
                       title: Text(
-                        _products[index]['title'],
+                        widget.scannedProducts[index],
                         style: TextStyle(
                             fontFamily: "RedHatDisplay",
                             fontSize: 12,
@@ -149,7 +107,57 @@ class _DairyProductsPageState extends State<DairyProductsPage> {
                       )));
             },
           ),
-        )
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: ElevatedButton(
+            onPressed: () {
+              Navigator.pop(
+                context,
+                MaterialPageRoute(builder: (context) => const ScanInfo()),
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Constants().secondaryColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0),
+              ),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const <Widget>[
+                Text('Scanner d\'autres produits',
+                    style: TextStyle(fontFamily: "RedHatDisplay")),
+                Icon(Icons.bakery_dining),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(height: 30),
+        Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Constants().secondaryColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 20.0, vertical: 10.0),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: const <Widget>[
+                  Text('Ajouter à mon panier',
+                      style: TextStyle(fontFamily: "RedHatDisplay")),
+                  Icon(Icons.shopping_bag),
+                ],
+              ),
+            )),
+        const SizedBox(height: 50),
       ]),
       bottomNavigationBar: const ButtomNavBar(),
       floatingActionButton: FloatingActionButton(

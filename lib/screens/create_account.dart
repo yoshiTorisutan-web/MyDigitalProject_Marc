@@ -1,4 +1,3 @@
-import 'package:marc_project/screens/connexion.dart';
 import 'package:marc_project/screens/guide.dart';
 import 'package:flutter/material.dart';
 import '../constants/constants.dart';
@@ -13,25 +12,10 @@ class CreateAccount extends StatefulWidget {
 }
 
 class _CreateAccountState extends State<CreateAccount> {
-  final _formKey = GlobalKey<FormState>();
   String name = "Toto";
   String city = "Angers";
   String mail = 'toto49@gmail.com';
   String password = '1234';
-  int _currentIndex = 0;
-
-  final List<Widget> _children = [
-    const CreateAccount(),
-    //SignupPage(),
-    //ForgotPasswordPage(),
-  ];
-
-  void _submitForm() {
-    if (_formKey.currentState!.validate()) {
-      // Vérifiez ici les informations d'identification de l'utilisateur
-      // et connectez-le à l'application si les informations sont valides.
-    }
-  }
 
   @override
   Widget build(BuildContext context) {

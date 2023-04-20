@@ -15,13 +15,6 @@ class _LostPasswordState extends State<LostPassword> {
   final _formKey = GlobalKey<FormState>();
   String username = 'Toto49';
   String password = '1234';
-  int _currentIndex = 0;
-
-  final List<Widget> _children = [
-    const LostPassword(),
-    //SignupPage(),
-    //ForgotPasswordPage(),
-  ];
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {

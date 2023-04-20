@@ -14,16 +14,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final _formKey = GlobalKey<FormState>();
   String mail = 'toto49@gmail.com';
   String password = '1234';
-  int _currentIndex = 0;
-
-  final List<Widget> _children = [
-    const LoginPage(),
-    //SignupPage(),
-    //ForgotPasswordPage(),
-  ];
 
   void _submitForm(BuildContext context) {
     Navigator.push(

@@ -1,9 +1,7 @@
-import 'package:marc_project/screens/recipes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../constants/constants.dart';
-import '../screens/categories_products.dart';
-import '../screens/time_saved.dart';
+
 
 class ButtomNavBar extends StatefulWidget {
   const ButtomNavBar({Key? key}) : super(key: key);
@@ -104,7 +102,7 @@ class _ButtomNavBarState extends State<ButtomNavBar> {
             padding: const EdgeInsets.all(2.0),
             child: IconButton(
               icon: SvgPicture.asset(
-                'assets/favori.svg',
+                'assets/liste.svg',
                 width: 24,
                 height: 24,
                 color: _selectedIndex == 2

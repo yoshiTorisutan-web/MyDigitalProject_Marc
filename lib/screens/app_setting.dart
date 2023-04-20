@@ -1,13 +1,11 @@
 import 'package:marc_project/screens/account_deletion.dart';
-import 'package:marc_project/screens/connexion.dart';
 import 'package:marc_project/screens/cookie_management.dart';
+import 'package:marc_project/screens/scan_info.dart';
 import 'package:marc_project/screens/time_saved.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_svg/svg.dart';
 import '../constants/constants.dart';
 import '../widgets/bottom_navbar.dart';
-import '../widgets/search_bar.dart';
 
 class AppSetting extends StatefulWidget {
   const AppSetting({super.key});
@@ -18,14 +16,6 @@ class AppSetting extends StatefulWidget {
 }
 
 class _AppSettingState extends State<AppSetting> {
-  int _currentIndex = 0;
-
-  final List<Widget> _children = [
-    const AppSetting(),
-    //SignupPage(),
-    //ForgotPasswordPage(),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -194,9 +184,8 @@ class _AppSettingState extends State<AppSetting> {
       bottomNavigationBar: const ButtomNavBar(),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-              "#ff6666", "Annuler", true, ScanMode.BARCODE);
-          print(barcodeScanRes);
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const ScanInfo()));
         },
         elevation: 5,
         backgroundColor: Colors.red,
