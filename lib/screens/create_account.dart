@@ -19,12 +19,26 @@ class _CreateAccountState extends State<CreateAccount> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: null,
       body: Stack(
         children: [
           Positioned(
-            top: 40,
+            top: -size.width / 1,
+            left: -size.width / 2,
+            child: Container(
+              width: size.width * 2,
+              height: size.width * 1.5,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Constants().secondaryColor,
+              ),
+            ),
+          ),
+          Positioned(
+            top: 80,
             left: 0,
             right: 0,
             child: Container(
@@ -44,7 +58,7 @@ class _CreateAccountState extends State<CreateAccount> {
                     height: 100,
                   ),
                   const SizedBox(
-                      height: 20), // Espace vertical entre l'image et le texte
+                      height: 40), // Espace vertical entre l'image et le texte
                   Text(
                     'Marc, payez, partez !',
                     style: TextStyle(
@@ -57,13 +71,12 @@ class _CreateAccountState extends State<CreateAccount> {
             ),
           ),
           Positioned(
-            top: 250,
+            top: 275,
             left: 10,
             right: 10,
             child: Card(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),
-                side: const BorderSide(color: Colors.black, width: 1),
               ),
               child: Padding(
                 padding: const EdgeInsets.only(
@@ -233,7 +246,8 @@ class _CreateAccountState extends State<CreateAccount> {
                                 builder: (context) => const Guide()));
                       },
                       // ignore: sort_child_properties_last
-                      child: const Text('s\'inscrire', style: TextStyle(fontFamily: "RedHatDisplay")),
+                      child: const Text('s\'inscrire',
+                          style: TextStyle(fontFamily: "RedHatDisplay")),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Constants().secondaryColor,
                         shape: RoundedRectangleBorder(

@@ -26,13 +26,27 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: Constants().primaryColor,
       appBar: null,
       body: Stack(
         children: [
           Positioned(
-            top: 40,
+            top: -size.width / 1,
+            left: -size.width / 2,
+            child: Container(
+              width: size.width * 2,
+              height: size.width * 1.5,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Constants().secondaryColor,
+              ),
+            ),
+          ),
+          Positioned(
+            top: 80,
             left: 0,
             right: 0,
             child: Container(
@@ -52,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
                     height: 100,
                   ),
                   const SizedBox(
-                      height: 20), // Espace vertical entre l'image et le texte
+                      height: 40), // Espace vertical entre l'image et le texte
                   Text(
                     'Marc, payez, partez !',
                     style: TextStyle(
@@ -65,7 +79,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           Positioned(
-            top: 250,
+            top: 275,
             left: 10,
             right: 10,
             child: Card(

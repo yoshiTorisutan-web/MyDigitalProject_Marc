@@ -26,6 +26,8 @@ class _GuideState extends State<Guide> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Constants().primaryColor,
@@ -33,7 +35,19 @@ class _GuideState extends State<Guide> {
       body: Stack(
         children: [
           Positioned(
-            top: 40,
+            top: -size.width / 1,
+            left: -size.width / 2,
+            child: Container(
+              width: size.width * 2,
+              height: size.width * 1.5,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Constants().secondaryColor,
+              ),
+            ),
+          ),
+          Positioned(
+            top: 80,
             left: 0,
             right: 0,
             child: Container(
@@ -53,7 +67,7 @@ class _GuideState extends State<Guide> {
                     height: 100,
                   ),
                   const SizedBox(
-                      height: 20), // Espace vertical entre l'image et le texte
+                      height: 40), // Espace vertical entre l'image et le texte
                   Text(
                     'Marc, payez, partez !',
                     style: TextStyle(
@@ -66,7 +80,7 @@ class _GuideState extends State<Guide> {
             ),
           ),
           Positioned(
-            top: 250,
+            top: 275,
             left: 10,
             right: 10,
             child: Card(
