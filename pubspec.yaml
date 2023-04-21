@@ -50,6 +50,11 @@ dependencies:
   flutter_svg: ^0.22.0
   flutter_barcode_scanner: ^2.0.0
 
+flutter_icons:
+  android: "launcher_icon" 
+  ios: true
+  image_path: "assets/MAARC.svg"
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

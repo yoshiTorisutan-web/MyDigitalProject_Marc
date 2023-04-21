@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:marc_project/screens/recipes_details.dart';
 import 'package:marc_project/screens/scan_info.dart';
 import '../constants/constants.dart';
 import '../widgets/bottom_navbar.dart';
@@ -78,6 +79,113 @@ class _RecipePageState extends State<RecipePage> {
     );
   }
 
+  List<Map<String, dynamic>> recipeData = [
+    {
+      'title': 'Salade César',
+      'image': 'assets/salade-cesar.jpg',
+      'time': 20,
+      'difficulty': 'Facile',
+      'ingredients': [
+        'Laitue romaine',
+        'Poulet grillé',
+        'Parmesan',
+        'Croûtons',
+        'Sauce César',
+      ],
+      'instructions': [
+        'Laver et sécher la laitue romaine',
+        'Griller le poulet et le couper en tranches',
+        'Râper le parmesan',
+        'Faire des croûtons',
+        'Assembler la salade avec tous les ingrédients et la sauce César',
+      ],
+    },
+    {
+      'title': 'Pizza Margherita',
+      'image': 'assets/pizza-margherita.jpg',
+      'time': 30,
+      'difficulty': 'Moyenne',
+      'ingredients': [
+        'Pâte à pizza',
+        'Sauce tomate',
+        'Mozzarella',
+        'Tomates',
+        'Basilic',
+      ],
+      'instructions': [
+        'Préchauffer le four à 200°C',
+        'Abaisser la pâte à pizza',
+        'Étaler la sauce tomate sur la pâte',
+        'Ajouter la mozzarella, les tomates et le basilic',
+        'Cuire au four pendant 20 minutes',
+      ],
+    },
+    {
+      'title': 'Pâtes à la bolognaise',
+      'image': 'assets/pate-bolognaise.jpg',
+      'time': 45,
+      'difficulty': 'Difficile',
+      'ingredients': [
+        'Pâtes',
+        'Viande hachée',
+        'Oignon',
+        'Ail',
+        'Tomates',
+        'Concentré de tomates',
+        'Basilic',
+        'Huile d\'olive',
+        'Sel',
+        'Poivre',
+      ],
+      'instructions': [
+        'Faire cuire les pâtes selon les instructions sur l\'emballage',
+        'Faire revenir l\'oignon et l\'ail dans de l\'huile d\'olive',
+        'Ajouter la viande hachée et faire cuire jusqu\'à ce qu\'elle soit dorée',
+        'Ajouter les tomates, le concentré de tomates, le basilic, le sel et le poivre',
+        'Laisser mijoter la sauce pendant 20 minutes',
+        'Servir la sauce sur les pâtes cuites',
+      ],
+    },
+  ];
+
+  Widget _buildRecipeTestList(List<Map<String, dynamic>> recipes) {
+    return ListView.builder(
+      scrollDirection: Axis.horizontal,
+      itemCount: recipes.length,
+      itemBuilder: (context, index) {
+        final recipe = recipes[index];
+        return GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => RecipeDescriptionPage(recipe: recipe),
+              ),
+            );
+          },
+          child: Container(
+            margin: const EdgeInsets.all(10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                CircleAvatar(
+                  backgroundImage: AssetImage(recipe['image']),
+                  radius: 60,
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  recipe['title'],
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(fontSize: 8),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,18 +195,49 @@ class _RecipePageState extends State<RecipePage> {
         automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Padding(
-          padding: const EdgeInsets.only(left: 30.0),
-          child: Transform.scale(
-            scale: 1.2,
-            child: Text(
-              'Marc, payez, partez !',
-              style: TextStyle(
-                  color: Constants().secondaryColor,
-                  fontSize: 16,
-                  fontFamily: "NiceSugar"),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 30.0),
+              child: Transform.scale(
+                scale: 1.2,
+                child: Text(
+                  'Marc, payez, partez !',
+                  style: TextStyle(
+                      color: Constants().secondaryColor,
+                      fontSize: 16,
+                      fontFamily: "NiceSugar"),
+                ),
+              ),
             ),
-          ),
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 21.0),
+                  child: Transform.scale(
+                    scale: 1.2,
+                    child: Text(
+                      'Beaucouzé, ANGERS',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontFamily: "RedHatDisplay",
+                          fontSize: 10,
+                          color: Constants().textColorOrange),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Icon(
+                    Icons.expand_more,
+                    color: Constants().iconColor,
+                    size: 20,
+                  ),
+                ),
+              ],
+            )
+          ],
         ),
         actions: <Widget>[
           SizedBox(
@@ -149,7 +288,7 @@ class _RecipePageState extends State<RecipePage> {
                       const SizedBox(height: 10),
                       SizedBox(
                         height: 175,
-                        child: _buildRecipeList(_recipes.sublist(0, 5)),
+                        child: _buildRecipeTestList(recipeData),
                       ),
                       const Padding(
                         padding: EdgeInsets.only(left: 15.0),

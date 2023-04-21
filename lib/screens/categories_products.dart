@@ -38,18 +38,49 @@ class CategoryListPage extends StatelessWidget {
         automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Padding(
-          padding: const EdgeInsets.only(left: 30.0),
-          child: Transform.scale(
-            scale: 1.2,
-            child: Text(
-              'Marc, payez, partez !',
-              style: TextStyle(
-                  color: Constants().secondaryColor,
-                  fontSize: 16,
-                  fontFamily: "NiceSugar"),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 30.0),
+              child: Transform.scale(
+                scale: 1.2,
+                child: Text(
+                  'Marc, payez, partez !',
+                  style: TextStyle(
+                      color: Constants().secondaryColor,
+                      fontSize: 16,
+                      fontFamily: "NiceSugar"),
+                ),
+              ),
             ),
-          ),
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 21.0),
+                  child: Transform.scale(
+                    scale: 1.2,
+                    child: Text(
+                      'Beaucouzé, ANGERS',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontFamily: "RedHatDisplay",
+                          fontSize: 10,
+                          color: Constants().textColorOrange),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Icon(
+                    Icons.expand_more,
+                    color: Constants().iconColor,
+                    size: 20,
+                  ),
+                ),
+              ],
+            )
+          ],
         ),
         actions: <Widget>[
           SizedBox(
@@ -137,7 +168,10 @@ class CategoryListPage extends StatelessWidget {
                                   color: Constants().secondaryColor,
                                 ),
                               ),
-                              trailing: Icon(Icons.chevron_right, color: Constants().secondaryColor,),
+                              trailing: Icon(
+                                Icons.chevron_right,
+                                color: Constants().secondaryColor,
+                              ),
                               onTap: () {
                                 Navigator.push(
                                   context,
