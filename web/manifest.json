@@ -1,6 +1,6 @@
 {
-    "name": "nom_de_votre_projet",
-    "short_name": "nom_de_votre_projet",
+    "name": "marc_projet",
+    "short_name": "marc_projet",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

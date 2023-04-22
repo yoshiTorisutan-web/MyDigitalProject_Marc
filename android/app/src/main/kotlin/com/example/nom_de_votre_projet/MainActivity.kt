@@ -1,4 +1,4 @@
-package com.example.nom_de_votre_projet
+package com.example.marc_projet
 
 import io.flutter.embedding.android.FlutterActivity
 

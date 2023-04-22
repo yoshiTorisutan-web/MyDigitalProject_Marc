@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:marc_project/models/details_recipes.dart';
 import 'package:marc_project/screens/recipes_details.dart';
 import 'package:marc_project/screens/scan_info.dart';
 import '../constants/constants.dart';
@@ -62,9 +63,23 @@ class _RecipePageState extends State<RecipePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              CircleAvatar(
-                backgroundImage: NetworkImage(recipe['image']),
-                radius: 60,
+              Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 5,
+                      offset:
+                          const Offset(0, 3), // change la position de l'ombre
+                    ),
+                  ],
+                ),
+                child: CircleAvatar(
+                  backgroundImage: NetworkImage(recipe['image']),
+                  radius: 60,
+                ),
               ),
               const SizedBox(height: 10),
               Text(
@@ -78,75 +93,6 @@ class _RecipePageState extends State<RecipePage> {
       },
     );
   }
-
-  List<Map<String, dynamic>> recipeData = [
-    {
-      'title': 'Salade César',
-      'image': 'assets/salade-cesar.jpg',
-      'time': 20,
-      'difficulty': 'Facile',
-      'ingredients': [
-        'Laitue romaine',
-        'Poulet grillé',
-        'Parmesan',
-        'Croûtons',
-        'Sauce César',
-      ],
-      'instructions': [
-        'Laver et sécher la laitue romaine',
-        'Griller le poulet et le couper en tranches',
-        'Râper le parmesan',
-        'Faire des croûtons',
-        'Assembler la salade avec tous les ingrédients et la sauce César',
-      ],
-    },
-    {
-      'title': 'Pizza Margherita',
-      'image': 'assets/pizza-margherita.jpg',
-      'time': 30,
-      'difficulty': 'Moyenne',
-      'ingredients': [
-        'Pâte à pizza',
-        'Sauce tomate',
-        'Mozzarella',
-        'Tomates',
-        'Basilic',
-      ],
-      'instructions': [
-        'Préchauffer le four à 200°C',
-        'Abaisser la pâte à pizza',
-        'Étaler la sauce tomate sur la pâte',
-        'Ajouter la mozzarella, les tomates et le basilic',
-        'Cuire au four pendant 20 minutes',
-      ],
-    },
-    {
-      'title': 'Pâtes à la bolognaise',
-      'image': 'assets/pate-bolognaise.jpg',
-      'time': 45,
-      'difficulty': 'Difficile',
-      'ingredients': [
-        'Pâtes',
-        'Viande hachée',
-        'Oignon',
-        'Ail',
-        'Tomates',
-        'Concentré de tomates',
-        'Basilic',
-        'Huile d\'olive',
-        'Sel',
-        'Poivre',
-      ],
-      'instructions': [
-        'Faire cuire les pâtes selon les instructions sur l\'emballage',
-        'Faire revenir l\'oignon et l\'ail dans de l\'huile d\'olive',
-        'Ajouter la viande hachée et faire cuire jusqu\'à ce qu\'elle soit dorée',
-        'Ajouter les tomates, le concentré de tomates, le basilic, le sel et le poivre',
-        'Laisser mijoter la sauce pendant 20 minutes',
-        'Servir la sauce sur les pâtes cuites',
-      ],
-    },
-  ];
 
   Widget _buildRecipeTestList(List<Map<String, dynamic>> recipes) {
     return ListView.builder(
@@ -168,9 +114,22 @@ class _RecipePageState extends State<RecipePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                CircleAvatar(
-                  backgroundImage: AssetImage(recipe['image']),
-                  radius: 60,
+                Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: const Offset(0, 3), // change la position de l'ombre
+                      ),
+                    ],
+                  ),
+                  child: CircleAvatar(
+                    backgroundImage: AssetImage(recipe['image']),
+                    radius: 60,
+                  ),
                 ),
                 const SizedBox(height: 10),
                 Text(
@@ -276,7 +235,7 @@ class _RecipePageState extends State<RecipePage> {
                       const Padding(
                         padding: EdgeInsets.only(left: 15.0),
                         child: Text(
-                          'Recettes à la une       ----------------------------------',
+                          'Recettes à la une       -------------------------   voir plus',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontFamily: "RedHatDisplay",
@@ -293,7 +252,7 @@ class _RecipePageState extends State<RecipePage> {
                       const Padding(
                         padding: EdgeInsets.only(left: 15.0),
                         child: Text(
-                          'Entrées      --------------------------------------------',
+                          'Entrées      ----------------------------------   voir plus',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontFamily: "RedHatDisplay",
@@ -316,7 +275,7 @@ class _RecipePageState extends State<RecipePage> {
                       const Padding(
                         padding: EdgeInsets.only(left: 15.0),
                         child: Text(
-                          'Plats     ----------------------------------------------',
+                          'Plats     -------------------------------------   voir plus',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontFamily: "RedHatDisplay",
@@ -339,7 +298,7 @@ class _RecipePageState extends State<RecipePage> {
                       const Padding(
                         padding: EdgeInsets.only(left: 15.0),
                         child: Text(
-                          'Desserts     -------------------------------------------',
+                          'Desserts     ---------------------------------   voir plus',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontFamily: "RedHatDisplay",
@@ -362,7 +321,7 @@ class _RecipePageState extends State<RecipePage> {
                       const Padding(
                         padding: EdgeInsets.only(left: 15.0),
                         child: Text(
-                          'Petit-Déjeuner    --------------------------------------',
+                          'Petit-Déjeuner    ----------------------------   voir plus',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontFamily: "RedHatDisplay",
