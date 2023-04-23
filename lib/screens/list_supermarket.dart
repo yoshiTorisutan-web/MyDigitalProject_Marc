@@ -1,3 +1,4 @@
+import 'package:marc_project/screens/cart.dart';
 import 'package:marc_project/screens/scan_info.dart';
 import 'package:marc_project/screens/time_saved.dart';
 import 'package:flutter/material.dart';
@@ -94,11 +95,19 @@ class _SupermarketListState extends State<SupermarketList> {
               },
               child: Padding(
                 padding: const EdgeInsets.only(right: 25),
-                child: SvgPicture.asset(
-                  'assets/caddie.svg',
-                  width: 24,
-                  height: 24,
-                ),
+                child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const CartPage(items: [],)),
+                      );
+                    },
+                    child: SvgPicture.asset(
+                      'assets/caddie.svg',
+                      width: 24,
+                      height: 24,
+                    ),
+                  )
               ),
             ),
           ),

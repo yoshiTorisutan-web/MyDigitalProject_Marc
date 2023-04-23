@@ -1,4 +1,5 @@
 import 'package:marc_project/screens/app_setting.dart';
+import 'package:marc_project/screens/cart.dart';
 import 'package:marc_project/screens/connexion.dart';
 import 'package:marc_project/screens/list_supermarket.dart';
 import 'package:marc_project/screens/orders.dart';
@@ -86,11 +87,19 @@ class _TimeSavedState extends State<TimeSaved> {
               },
               child: Padding(
                 padding: const EdgeInsets.only(right: 25),
-                child: SvgPicture.asset(
-                  'assets/caddie.svg',
-                  width: 24,
-                  height: 24,
-                ),
+                child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const CartPage(items: [],)),
+                      );
+                    },
+                    child: SvgPicture.asset(
+                      'assets/caddie.svg',
+                      width: 24,
+                      height: 24,
+                    ),
+                  )
               ),
             ),
           ),

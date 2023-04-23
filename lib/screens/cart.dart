@@ -1,24 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:marc_project/screens/cart.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:marc_project/constants/constants.dart';
 import 'package:marc_project/screens/scan_info.dart';
 import 'package:marc_project/widgets/bottom_navbar.dart';
+import 'package:marc_project/widgets/search_bar.dart';
 
-import '../constants/constants.dart';
-import '../widgets/search_bar.dart';
-import 'categories_products.dart';
-
-class SelectedProductsScreen extends StatefulWidget {
+class CartPage extends StatelessWidget {
   final List<dynamic> items;
 
-  const SelectedProductsScreen({Key? key, required this.items})
-      : super(key: key);
+  const CartPage({Key? key, required this.items}) : super(key: key);
 
-  @override
-  State<SelectedProductsScreen> createState() => _SelectedProductsScreenState();
-}
-
-class _SelectedProductsScreenState extends State<SelectedProductsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,19 +73,11 @@ class _SelectedProductsScreenState extends State<SelectedProductsScreen> {
               },
               child: Padding(
                 padding: const EdgeInsets.only(right: 25),
-                child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const CartPage(items: [],)),
-                      );
-                    },
-                    child: SvgPicture.asset(
-                      'assets/caddie.svg',
-                      width: 24,
-                      height: 24,
-                    ),
-                  )
+                child: SvgPicture.asset(
+                  'assets/caddie.svg',
+                  width: 24,
+                  height: 24,
+                ),
               ),
             ),
           ),
@@ -107,7 +90,7 @@ class _SelectedProductsScreenState extends State<SelectedProductsScreen> {
         ),
         const SizedBox(height: 20),
         Text(
-          'LISTE DE PRODUITS',
+          'MON PANIER',
           style: TextStyle(
               fontSize: 16.0,
               fontWeight: FontWeight.bold,
@@ -118,7 +101,7 @@ class _SelectedProductsScreenState extends State<SelectedProductsScreen> {
           child: ListView.builder(
             padding:
                 const EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 20),
-            itemCount: widget.items.length,
+            itemCount: items.length,
             itemBuilder: (context, index) {
               return Card(
                 elevation: 4,
@@ -127,13 +110,13 @@ class _SelectedProductsScreenState extends State<SelectedProductsScreen> {
                 ),
                 child: ListTile(
                   leading: Image.network(
-                    widget.items[index]['image'],
+                    items[index]['image'],
                     fit: BoxFit.cover,
                     width: 80,
                     height: 80,
                   ),
                   title: Text(
-                    widget.items[index]['title'],
+                    items[index]['title'],
                     style: TextStyle(
                         fontFamily: "RedHatDisplay",
                         fontSize: 12,
@@ -146,14 +129,24 @@ class _SelectedProductsScreenState extends State<SelectedProductsScreen> {
                           fontSize: 16,
                           color: Constants().textColorBright,
                           fontWeight: FontWeight.bold)),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.delete),
-                    color: const Color.fromARGB(127, 244, 67, 54),
-                    onPressed: () {
-                      setState(() {
-                        widget.items.removeAt(index);
-                      });
-                    },
+                  trailing: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/moins.png',
+                        width: 24,
+                        height: 24,
+                      ),
+                      const SizedBox(height: 8),
+                      InkWell(
+                        onTap: () {},
+                        child: Image.asset(
+                          'assets/plus.png',
+                          width: 24,
+                          height: 24,
+                        ),
+                      )
+                    ],
                   ),
                 ),
               );
@@ -161,14 +154,9 @@ class _SelectedProductsScreenState extends State<SelectedProductsScreen> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          padding: const EdgeInsets.symmetric(horizontal: 40.0),
           child: ElevatedButton(
-            onPressed: () {
-              Navigator.pop(
-                context,
-                MaterialPageRoute(builder: (context) => CategoryListPage()),
-              );
-            },
+            onPressed: () {},
             style: ElevatedButton.styleFrom(
               backgroundColor: Constants().secondaryColor,
               shape: RoundedRectangleBorder(
@@ -178,41 +166,10 @@ class _SelectedProductsScreenState extends State<SelectedProductsScreen> {
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
             ),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: const <Widget>[
-                Text('Ajouter d\'autres produits',
+                Text('Payez mon panier !',
                     style: TextStyle(fontFamily: "RedHatDisplay")),
-                Icon(Icons.bakery_dining),
-              ],
-            ),
-          ),
-        ),
-        const SizedBox(height: 20),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => CartPage(items: widget.items),
-                ),
-              );
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Constants().secondaryColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30.0),
-              ),
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const <Widget>[
-                Text('Ajouter les produits à mon panier',
-                    style: TextStyle(fontFamily: "RedHatDisplay")),
-                Icon(Icons.shopping_bag),
               ],
             ),
           ),

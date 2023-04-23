@@ -2,12 +2,13 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:http/http.dart' as http;
+import 'package:marc_project/screens/cart.dart';
 import 'package:marc_project/screens/recipes.dart';
 import 'package:marc_project/screens/scan_info.dart';
+import 'package:marc_project/screens/shopping_ingredients.dart';
 import '../../constants/constants.dart';
 import '../../widgets/bottom_navbar.dart';
 import '../../widgets/search_bar.dart';
-import '../details_products.dart';
 
 class FruitsAndVegetablesPage extends StatefulWidget {
   const FruitsAndVegetablesPage({super.key});
@@ -20,6 +21,7 @@ class FruitsAndVegetablesPage extends StatefulWidget {
 
 class _FruitsAndVegetablesPageState extends State<FruitsAndVegetablesPage> {
   List<dynamic> _products = [];
+  List<dynamic> selectedItems = [];
 
   @override
   void initState() {
@@ -100,11 +102,19 @@ class _FruitsAndVegetablesPageState extends State<FruitsAndVegetablesPage> {
               },
               child: Padding(
                 padding: const EdgeInsets.only(right: 25),
-                child: SvgPicture.asset(
-                  'assets/caddie.svg',
-                  width: 24,
-                  height: 24,
-                ),
+                child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const CartPage(items: [],)),
+                      );
+                    },
+                    child: SvgPicture.asset(
+                      'assets/caddie.svg',
+                      width: 24,
+                      height: 24,
+                    ),
+                  )
               ),
             ),
           ),
@@ -175,21 +185,27 @@ class _FruitsAndVegetablesPageState extends State<FruitsAndVegetablesPage> {
                             fontSize: 16,
                             color: Constants().textColorBright,
                             fontWeight: FontWeight.bold)),
-                    trailing: Image.asset(
-                      'assets/picto-plus.png',
-                      width: 24,
-                      height: 24,
+                    trailing: InkWell(
+                      onTap: () {
+                        // Ajout de l'élément sélectionné à la liste
+                        selectedItems.add(_products[index]);
+
+                        // Navigation vers la page qui affiche les éléments sélectionnés
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SelectedProductsScreen(
+                              items: selectedItems,
+                            ),
+                          ),
+                        );
+                      },
+                      child: Image.asset(
+                        'assets/picto-plus.png',
+                        width: 24,
+                        height: 24,
+                      ),
                     ),
-                    onTap: () {
-                      // Appeler l'API pour récupérer les informations du produit sélectionné
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ProductDetailsPage(
-                              productId: _products[index]['id']),
-                        ),
-                      );
-                    },
                   ));
             },
           ),

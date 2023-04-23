@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:http/http.dart' as http;
+import 'package:marc_project/screens/cart.dart';
 import 'package:marc_project/screens/recipes.dart';
 import 'package:marc_project/screens/scan_info.dart';
 import 'package:marc_project/screens/shopping_ingredients.dart';
@@ -20,6 +21,7 @@ class FrozenProductsPage extends StatefulWidget {
 
 class _FrozenProductsPageState extends State<FrozenProductsPage> {
   List<dynamic> _products = [];
+  List<dynamic> selectedItems = [];
 
   @override
   void initState() {
@@ -99,13 +101,23 @@ class _FrozenProductsPageState extends State<FrozenProductsPage> {
                 // Action à effectuer lors du clic sur l'image
               },
               child: Padding(
-                padding: const EdgeInsets.only(right: 25),
-                child: SvgPicture.asset(
-                  'assets/caddie.svg',
-                  width: 24,
-                  height: 24,
-                ),
-              ),
+                  padding: const EdgeInsets.only(right: 25),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const CartPage(
+                                  items: [],
+                                )),
+                      );
+                    },
+                    child: SvgPicture.asset(
+                      'assets/caddie.svg',
+                      width: 24,
+                      height: 24,
+                    ),
+                  )),
             ),
           ),
         ],
@@ -155,42 +167,48 @@ class _FrozenProductsPageState extends State<FrozenProductsPage> {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: ListTile(
-                      leading: Image.network(
-                        _products[index]['image'],
-                        fit: BoxFit.cover,
-                        width: 80,
-                        height: 80,
-                      ),
-                      title: Text(
-                        _products[index]['title'],
+                    leading: Image.network(
+                      _products[index]['image'],
+                      fit: BoxFit.cover,
+                      width: 80,
+                      height: 80,
+                    ),
+                    title: Text(
+                      _products[index]['title'],
+                      style: TextStyle(
+                          fontFamily: "RedHatDisplay",
+                          fontSize: 12,
+                          color: Constants().textColor,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Text("2.99 €",
                         style: TextStyle(
                             fontFamily: "RedHatDisplay",
-                            fontSize: 12,
-                            color: Constants().textColor,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      subtitle: Text("2.99 €",
-                          style: TextStyle(
-                              fontFamily: "RedHatDisplay",
-                              fontSize: 16,
-                              color: Constants().textColorBright,
-                              fontWeight: FontWeight.bold)),
-                      trailing: InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ProductDetailsScreen(
-                                  product: _products[index]),
+                            fontSize: 16,
+                            color: Constants().textColorBright,
+                            fontWeight: FontWeight.bold)),
+                    trailing: InkWell(
+                      onTap: () {
+                        // Ajout de l'élément sélectionné à la liste
+                        selectedItems.add(_products[index]);
+
+                        // Navigation vers la page qui affiche les éléments sélectionnés
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SelectedProductsScreen(
+                              items: selectedItems,
                             ),
-                          );
-                        },
-                        child: Image.asset(
-                          'assets/search.png',
-                          width: 24,
-                          height: 24,
-                        ),
-                      )));
+                          ),
+                        );
+                      },
+                      child: Image.asset(
+                        'assets/picto-plus.png',
+                        width: 24,
+                        height: 24,
+                      ),
+                    ),
+                  ));
             },
           ),
         )

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:marc_project/models/details_recipes.dart';
+import 'package:marc_project/screens/cart.dart';
 import 'package:marc_project/screens/recipes_details.dart';
 import 'package:marc_project/screens/scan_info.dart';
 import '../constants/constants.dart';
@@ -208,11 +209,19 @@ class _RecipePageState extends State<RecipePage> {
               },
               child: Padding(
                 padding: const EdgeInsets.only(right: 25),
-                child: SvgPicture.asset(
-                  'assets/caddie.svg',
-                  width: 24,
-                  height: 24,
-                ),
+                child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const CartPage(items: [],)),
+                      );
+                    },
+                    child: SvgPicture.asset(
+                      'assets/caddie.svg',
+                      width: 24,
+                      height: 24,
+                    ),
+                  )
               ),
             ),
           ),

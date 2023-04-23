@@ -1,89 +1,222 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:flutter_svg/svg.dart';
+import 'package:marc_project/screens/cart.dart';
+import 'package:marc_project/screens/scan_info.dart';
+import 'package:marc_project/widgets/bottom_navbar.dart';
 import '../constants/constants.dart';
 
-class ProductDetailsPage extends StatefulWidget {
-  final int productId;
+class ProductDetailsScreen extends StatelessWidget {
+  final String image;
+  final String title;
 
-  const ProductDetailsPage({Key? key, required this.productId})
-      : super(key: key);
-
-  @override
-  // ignore: library_private_types_in_public_api
-  _ProductDetailsPageState createState() => _ProductDetailsPageState();
-}
-
-class _ProductDetailsPageState extends State<ProductDetailsPage> {
-  Map<String, dynamic> _productDetails = {};
-
-  @override
-  void initState() {
-    super.initState();
-    _fetchProductDetails();
-  }
-
-  void _fetchProductDetails() async {
-    final response = await http.get(Uri.parse(
-        'https://api.spoonacular.com/food/ingredients/${widget.productId}/information?amount=1'));
-
-    if (response.statusCode == 200) {
-      setState(() {
-        _productDetails = jsonDecode(response.body);
-      });
-    } else {
-      throw Exception('Failed to fetch product details');
-    }
-  }
+  const ProductDetailsScreen({
+    Key? key,
+    required this.image,
+    required this.title,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
+      backgroundColor: Constants().primaryColor,
       appBar: AppBar(
-        title: const Text('Product Details'),
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(15),
-        child: Column(
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.network(
-              _productDetails['image'] ?? "",
-              fit: BoxFit.cover,
-              width: MediaQuery.of(context).size.width,
-              height: 300,
-            ),
-            const SizedBox(height: 20),
-            Text(
-              _productDetails['name'] ?? "",
-              style: TextStyle(
-                fontFamily: "RedHatDisplay",
-                fontSize: 20,
-                color: Constants().textColor,
-                fontWeight: FontWeight.bold,
+            Padding(
+              padding: const EdgeInsets.only(left: 30.0),
+              child: Transform.scale(
+                scale: 1.2,
+                child: Text(
+                  'Marc, payez, partez !',
+                  style: TextStyle(
+                      color: Constants().secondaryColor,
+                      fontSize: 16,
+                      fontFamily: "NiceSugar"),
+                ),
               ),
             ),
-            const SizedBox(height: 10),
-            Text(
-              'Description: ${_productDetails['description'] ?? ""}',
-              style: TextStyle(
-                fontFamily: "RedHatDisplay",
-                fontSize: 16,
-                color: Constants().textColor,
-              ),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              'Ingredients: ${_productDetails['ingredients']?.join(', ') ?? ""}',
-              style: TextStyle(
-                fontFamily: "RedHatDisplay",
-                fontSize: 16,
-                color: Constants().textColor,
-              ),
-            ),
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 21.0),
+                  child: Transform.scale(
+                    scale: 1.2,
+                    child: Text(
+                      'Beaucouzé, ANGERS',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontFamily: "RedHatDisplay",
+                          fontSize: 10,
+                          color: Constants().textColorOrange),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Icon(
+                    Icons.expand_more,
+                    color: Constants().iconColor,
+                    size: 20,
+                  ),
+                ),
+              ],
+            )
           ],
         ),
+        actions: <Widget>[
+          SizedBox(
+            width: 55,
+            height: 55,
+            child: GestureDetector(
+              onTap: () {
+                // Action à effectuer lors du clic sur l'image
+              },
+              child: Padding(
+                  padding: const EdgeInsets.only(right: 25),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const CartPage(
+                                  items: [],
+                                )),
+                      );
+                    },
+                    child: SvgPicture.asset(
+                      'assets/caddie.svg',
+                      width: 24,
+                      height: 24,
+                    ),
+                  )),
+            ),
+          ),
+        ],
       ),
+      body: Stack(
+        children: [
+          Positioned(
+            top: 35,
+            left: 20,
+            right: 20,
+            bottom: 425, // reduce the bottom value
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 10, right: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 30),
+                    Image.network(
+                      image,
+                      fit: BoxFit.cover,
+                      width: 200,
+                      height: 200,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+              top: 375, // position the text under the card
+              left: 10,
+              right: 10,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("CATEGORIE",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "RedHatDisplay",
+                                fontSize: 12,
+                                color: Constants().textColorBright)),
+                      ],
+                    ),
+                    const SizedBox(height: 5),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(title,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "RedHatDisplay",
+                                fontSize: 16,
+                                color: Constants().textColor)),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("2.99 €",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "RedHatDisplay",
+                                fontSize: 16,
+                                color: Constants().secondaryColor)),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                            "« Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "RedHatDisplay",
+                                fontSize: 12,
+                                color: Constants().secondaryColor)),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                            "« Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "RedHatDisplay",
+                                fontSize: 12,
+                                color: Constants().secondaryColor)),
+                      ],
+                    ),
+                  ],
+                ),
+              )),
+        ],
+      ),
+      bottomNavigationBar: const ButtomNavBar(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const ScanInfo()));
+        },
+        elevation: 5,
+        backgroundColor: Colors.red,
+        child: SvgPicture.asset(
+          'assets/scan.svg',
+          width: 24,
+          height: 24,
+          color: Colors.white,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
