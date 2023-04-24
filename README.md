@@ -8,9 +8,6 @@
 <!-- Présentation du projet -->
 # Présentation du projet
 
-Application météo permettant de consulter les conditions météorologiques actuelles et futures d'une ville en utilisant une API météo. 
-Elle reprend l'exemple de nombreuses applications météo présentes sur tous les téléphones actuelles.
-
 
 
 <!-- Réalisé -->
