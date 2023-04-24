@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:marc_project/constants/constants.dart';
+import 'package:marc_project/screens/pay.dart';
 import 'package:marc_project/screens/scan_info.dart';
 import 'package:marc_project/widgets/bottom_navbar.dart';
 import 'package:marc_project/widgets/search_bar.dart';
@@ -156,7 +157,12 @@ class CartPage extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 40.0),
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const PayPage()));
+            },
             style: ElevatedButton.styleFrom(
               backgroundColor: Constants().secondaryColor,
               shape: RoundedRectangleBorder(

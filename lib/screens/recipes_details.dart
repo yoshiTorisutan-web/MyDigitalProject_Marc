@@ -189,30 +189,32 @@ class _RecipeDescriptionPageState extends State<RecipeDescriptionPage> {
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
-                                return Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(50.0),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.5),
-                                        spreadRadius: 2,
-                                        blurRadius: 5,
-                                        offset: const Offset(0, 3),
+                                return AlertDialog(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                  ),
+                                  title: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Text("Je veux :",
+                                          style: TextStyle(
+                                              color: Constants().textColor,
+                                              fontFamily: "RedHatDisplay",
+                                              fontSize: 16)),
+                                      GestureDetector(
+                                        onTap: () =>
+                                            Navigator.of(context).pop(),
+                                        child: const Icon(Icons.close),
                                       ),
                                     ],
                                   ),
-                                  child: AlertDialog(
-                                    title: Text("Je veux", style: TextStyle(color: Constants().textColor, fontFamily: "RedHatDisplay", fontSize: 16)),
-                                    content: Text("Enlever ou ajouter ces ingrédients  en fonction de vos besoin à votre liste de courses pour facilité votre venue en magasin.", style: TextStyle(color: Constants().textColor, fontFamily: "RedHatDisplay", fontSize: 16)),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        child: Text("OK", style: TextStyle(color: Constants().secondaryColor, fontFamily: "RedHatDisplay", fontSize: 16)),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                      ),
-                                    ],
-                                  ),
+                                  content: Text(
+                                      "Enlever ou ajouter ces ingrédients  en fonction de vos besoin à votre liste de courses pour facilité votre venue en magasin.",
+                                      style: TextStyle(
+                                          color: Constants().textColor,
+                                          fontFamily: "RedHatDisplay",
+                                          fontSize: 16)),
                                 );
                               },
                             );
