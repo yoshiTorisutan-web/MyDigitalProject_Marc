@@ -83,12 +83,15 @@ class _RecipeDescriptionPageState extends State<RecipeDescriptionPage> {
                 // Action à effectuer lors du clic sur l'image
               },
               child: Padding(
-                padding: const EdgeInsets.only(right: 25),
-                child: GestureDetector(
+                  padding: const EdgeInsets.only(right: 25),
+                  child: GestureDetector(
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const CartPage(items: [],)),
+                        MaterialPageRoute(
+                            builder: (context) => const CartPage(
+                                  items: [],
+                                )),
                       );
                     },
                     child: SvgPicture.asset(
@@ -96,8 +99,7 @@ class _RecipeDescriptionPageState extends State<RecipeDescriptionPage> {
                       width: 24,
                       height: 24,
                     ),
-                  )
-              ),
+                  )),
             ),
           ),
         ],
@@ -182,14 +184,42 @@ class _RecipeDescriptionPageState extends State<RecipeDescriptionPage> {
                                 color: Constants().textColor),
                           ),
                         ),
-                        Tooltip(
-                          message: 'Voir plus',
-                          child: IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.info,
-                              color: Constants().textColorBright,
-                            ),
+                        IconButton(
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50.0),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.5),
+                                        spreadRadius: 2,
+                                        blurRadius: 5,
+                                        offset: const Offset(0, 3),
+                                      ),
+                                    ],
+                                  ),
+                                  child: AlertDialog(
+                                    title: Text("Je veux", style: TextStyle(color: Constants().textColor, fontFamily: "RedHatDisplay", fontSize: 16)),
+                                    content: Text("Enlever ou ajouter ces ingrédients  en fonction de vos besoin à votre liste de courses pour facilité votre venue en magasin.", style: TextStyle(color: Constants().textColor, fontFamily: "RedHatDisplay", fontSize: 16)),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        child: Text("OK", style: TextStyle(color: Constants().secondaryColor, fontFamily: "RedHatDisplay", fontSize: 16)),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                          icon: Icon(
+                            Icons.info,
+                            color: Constants().textColorBright,
                           ),
                         ),
                       ],
