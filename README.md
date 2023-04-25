@@ -72,8 +72,8 @@ Pour la réalisation de l'application "Marc, payez et partez !", j'ai utilisé l
 
 Exemple de requêtes :
 
-Obtenir la liste des recettes : https://api.spoonacular.com/recipes/random?number=50&apiKey=
-Obtenir la liste des produits alimentaires : https://api.spoonacular.com/food/products/search?apiKey=&query=
+- Obtenir la liste des recettes : https://api.spoonacular.com/recipes/random?number=50&apiKey=
+- Obtenir la liste des produits alimentaires : https://api.spoonacular.com/food/products/search?apiKey=&query=
 
 Lien : [Spoonacular](https://spoonacular.com/)
 
