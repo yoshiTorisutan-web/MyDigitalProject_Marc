@@ -93,7 +93,7 @@ class _GuideState extends State<Guide> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Text("Bienvenue Marie !",
+                    const Text("Bienvenue futur Marc !",
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontFamily: "RedHatDisplay",

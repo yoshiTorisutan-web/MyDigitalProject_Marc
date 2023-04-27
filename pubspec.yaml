@@ -49,6 +49,8 @@ dependencies:
   loading_animation_widget: any
   flutter_svg: any
   flutter_barcode_scanner: ^2.0.0
+  supabase_flutter: ^0.3.0
+  crypto: ^3.0.1
 
 dev_dependencies:
   flutter_test:

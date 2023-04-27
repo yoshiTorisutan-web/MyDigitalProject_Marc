@@ -6,6 +6,7 @@ import 'package:marc_project/screens/orders.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:marc_project/screens/scan_info.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import '../constants/constants.dart';
 import '../widgets/bottom_navbar.dart';
 import 'about_me.dart';
@@ -368,7 +369,9 @@ class _TimeSavedState extends State<TimeSaved> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async{
+                            await Supabase.instance.client.auth.signOut();
+                            // ignore: use_build_context_synchronously
                             Navigator.push(
                               context,
                               MaterialPageRoute(

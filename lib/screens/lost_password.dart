@@ -1,5 +1,6 @@
 import 'package:marc_project/screens/create_account.dart';
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import '../constants/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -12,14 +13,43 @@ class LostPassword extends StatefulWidget {
 }
 
 class _LostPasswordState extends State<LostPassword> {
-  final _formKey = GlobalKey<FormState>();
-  String username = 'Toto49';
-  String password = '1234';
+  final TextEditingController emailController = TextEditingController();
 
-  void _submitForm() {
-    if (_formKey.currentState!.validate()) {
-      // Vérifiez ici les informations d'identification de l'utilisateur
-      // et connectez-le à l'application si les informations sont valides.
+  void sendPasswordResetEmail(BuildContext context) async {
+    final supabase = Supabase.instance.client;
+    final email = emailController.text;
+
+    if (email.isEmpty) {
+      // L'utilisateur n'a pas fourni d'e-mail
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          backgroundColor: Colors.red,
+          content: Text('Veuillez fournir votre adresse e-mail.'),
+        ),
+      );
+      return;
+    }
+
+    final response = await supabase.auth.api.resetPasswordForEmail(email);
+
+    if (response.error != null) {
+      // Une erreur s'est produite lors de l'envoi de l'e-mail de récupération
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          backgroundColor: Colors.red,
+          content: Text('Une erreur s\'est produite. Veuillez réessayer.'),
+        ),
+      );
+    } else {
+      // L'e-mail de récupération a été envoyé avec succès
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.green,
+          content: Text('Un e-mail de récupération a été envoyé à $email.'),
+        ),
+      );
     }
   }
 
@@ -118,16 +148,18 @@ class _LostPasswordState extends State<LostPassword> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text("Adresse mail",
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.black,
-                                fontFamily: "RedHatDisplay",
-                              )),
+                          const Text(
+                            'Adresse mail',
+                            style: TextStyle(
+                              fontSize: 12.0,
+                              fontFamily: "RedHatDisplay",
+                            ),
+                          ),
                           const SizedBox(height: 5),
                           TextFormField(
+                            controller: emailController,
                             decoration: InputDecoration(
-                              labelText: 'Adresse mail',
+                              hintText: 'marcfaitsescourses@mail.com',
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30),
                                 borderSide:
@@ -142,17 +174,12 @@ class _LostPasswordState extends State<LostPassword> {
                               }
                               return null;
                             },
-                            onChanged: (value) {
-                              setState(() {
-                                username = value;
-                              });
-                            },
                           ),
                         ],
                       ),
                       const SizedBox(height: 30),
                       ElevatedButton(
-                        onPressed: _submitForm,
+                        onPressed: () => sendPasswordResetEmail(context),
                         // ignore: sort_child_properties_last
                         child: const Text('envoyer',
                             style: TextStyle(fontFamily: "RedHatDisplay")),

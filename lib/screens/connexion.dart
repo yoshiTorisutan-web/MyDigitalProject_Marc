@@ -1,9 +1,13 @@
+import 'dart:convert';
+
+import 'package:crypto/crypto.dart';
 import 'package:marc_project/constants/constants.dart';
 import 'package:marc_project/screens/create_account.dart';
 import 'package:marc_project/screens/lost_password.dart';
 import 'package:marc_project/screens/recipes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -14,14 +18,65 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  String mail = 'toto49@gmail.com';
-  String password = '1234';
+  bool _isObscure = true;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  void _submitForm(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const RecipePage()),
-    );
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  void login(BuildContext context) async {
+    final supabase = Supabase.instance.client;
+    final email = emailController.text;
+    final password = passwordController.text;
+
+    if (email.isEmpty || password.isEmpty) {
+      // Un ou plusieurs champs sont vides
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          backgroundColor: Colors.red,
+          content: Text('Erreur, e-mail et mot de passe incorrects ! ❌'),
+        ),
+      );
+      return; // Arrêter l'exécution de la méthode
+    }
+
+    final bytes = utf8.encode(password);
+    final hashedPassword = sha256.convert(bytes).toString();
+
+    final response =
+        await supabase.from('user').select().eq('email', email).execute();
+
+    if (response.error != null || response.data.isEmpty) {
+      // Échec de la connexion
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          backgroundColor: Colors.red,
+          content: Text('Erreur, e-mail et mot de passe incorrects ! ❌'),
+        ),
+      );
+    } else {
+      final user = response.data[0];
+      final storedHashedPassword = user['password'];
+
+      if (storedHashedPassword == hashedPassword) {
+        // Mot de passe correct, connexion réussie
+        // ignore: use_build_context_synchronously
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const RecipePage()),
+        );
+      } else {
+        // Mot de passe incorrect
+        // ignore: use_build_context_synchronously
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            backgroundColor: Colors.red,
+            content: Text('Erreur, e-mail et mot de passe incorrects ! ❌'),
+          ),
+        );
+      }
+    }
   }
 
   @override
@@ -99,75 +154,89 @@ class _LoginPageState extends State<LoginPage> {
                             fontSize: 20,
                             color: Colors.black)),
                     const SizedBox(height: 40),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Adresse mail',
-                          style: TextStyle(
-                            fontSize: 12.0,
-                            fontFamily: "RedHatDisplay",
-                          ),
-                        ),
-                        const SizedBox(height: 5),
-                        TextFormField(
-                          decoration: InputDecoration(
-                            labelText: 'Adresse mail',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: const BorderSide(color: Colors.black),
+                    Form(
+                        key: _formKey,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Adresse mail',
+                              style: TextStyle(
+                                fontSize: 12.0,
+                                fontFamily: "RedHatDisplay",
+                              ),
                             ),
-                            contentPadding: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 20),
-                          ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Veuillez entrer votre adresse mail';
-                            }
-                            return null;
-                          },
-                          onChanged: (value) {
-                            setState(() {
-                              mail = value;
-                            });
-                          },
-                        ),
-                        const SizedBox(height: 10),
-                        const Text(
-                          'Mot de passe',
-                          style: TextStyle(
-                            fontSize: 12.0,
-                            fontFamily: "RedHatDisplay",
-                          ),
-                        ),
-                        const SizedBox(height: 5),
-                        TextFormField(
-                          decoration: InputDecoration(
-                            labelText: 'Mot de passe',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: const BorderSide(color: Colors.black),
+                            const SizedBox(height: 5),
+                            TextFormField(
+                              controller: emailController,
+                              decoration: InputDecoration(
+                                hintText: 'marcfaitsescourses@mail.com',
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                  borderSide:
+                                      const BorderSide(color: Colors.black),
+                                ),
+                                contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 20),
+                              ),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Veuillez entrer votre adresse mail';
+                                }
+                                return null;
+                              },
                             ),
-                            contentPadding: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 20),
-                          ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Veuillez entrer votre mot de passe';
-                            }
-                            return null;
-                          },
-                          onChanged: (value) {
-                            setState(() {
-                              password = value;
-                            });
-                          },
-                        ),
-                      ],
-                    ),
+                            const SizedBox(height: 10),
+                            const Text(
+                              'Mot de passe',
+                              style: TextStyle(
+                                fontSize: 12.0,
+                                fontFamily: "RedHatDisplay",
+                              ),
+                            ),
+                            const SizedBox(height: 5),
+                            TextFormField(
+                              controller: passwordController,
+                              obscureText: _isObscure,
+                              decoration: InputDecoration(
+                                  hintText: '***************',
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                    borderSide:
+                                        const BorderSide(color: Colors.black),
+                                  ),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 20),
+                                  prefixIcon: Icon(Icons.lock,
+                                      color: Constants().secondaryColor),
+                                  // Ce bouton est utilisé pour basculer la visibilité du mot de passe
+                                  suffixIcon: IconButton(
+                                      icon: Icon(
+                                          _isObscure
+                                              ? Icons.visibility
+                                              : Icons.visibility_off,
+                                          color: Constants().secondaryColor),
+                                      onPressed: () {
+                                        setState(() {
+                                          _isObscure = !_isObscure;
+                                        });
+                                      })),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Veuillez entrer votre mot de passe';
+                                }
+                                return null;
+                              },
+                            ),
+                          ],
+                        )),
                     const SizedBox(height: 40),
                     ElevatedButton(
-                      onPressed: () => _submitForm(context),
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          login(context);
+                        }
+                      },
                       // ignore: sort_child_properties_last
                       child: const Text('se connecter',
                           style: TextStyle(fontFamily: "RedHatDisplay")),

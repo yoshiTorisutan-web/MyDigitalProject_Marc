@@ -5,7 +5,6 @@ import 'package:marc_project/screens/cart.dart';
 import 'package:marc_project/screens/scan_info.dart';
 import '../constants/constants.dart';
 import '../widgets/bottom_navbar.dart';
-import 'connexion.dart';
 
 class PayPage extends StatefulWidget {
   const PayPage({super.key});

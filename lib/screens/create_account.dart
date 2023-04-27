@@ -1,5 +1,8 @@
+import 'dart:convert';
+import 'package:crypto/crypto.dart';
 import 'package:marc_project/screens/guide.dart';
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import '../constants/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -12,10 +15,58 @@ class CreateAccount extends StatefulWidget {
 }
 
 class _CreateAccountState extends State<CreateAccount> {
-  String name = "Toto";
-  String city = "Angers";
-  String mail = 'toto49@gmail.com';
-  String password = '1234';
+  bool _isObscure = true;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController cityController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  void register(BuildContext context) async {
+    final supabase = Supabase.instance.client;
+    final name = nameController.text;
+    final city = cityController.text;
+    final email = emailController.text;
+    final password = passwordController.text;
+
+    // Crypter le mot de passe avec SHA-256
+    final bytes = utf8.encode(password); // Convertir le mot de passe en bytes
+    final hashedPassword =
+        sha256.convert(bytes).toString(); // Hacher le mot de passe
+
+    if (name.isEmpty || city.isEmpty || email.isEmpty || password.isEmpty) {
+      // Un ou plusieurs champs sont vides
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          backgroundColor: Color.fromARGB(255, 255, 8, 8),
+          content: Text('Erreur, données incomplètes ! ❌'),
+        ),
+      );
+      return; // Arrêter l'exécution de la méthode
+    }
+
+    final response = await supabase.from('user').insert([
+      {'name': name, 'city': city, 'email': email, 'password': hashedPassword}
+    ]).execute();
+
+    if (response.error != null) {
+      // Échec de l'inscription
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          backgroundColor: Color.fromARGB(255, 255, 8, 8),
+          content: Text('Erreur, création de compte impossible ! ❌')));
+    } else {
+      // Inscription réussie, les données ont été insérées dans la table "users"
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          backgroundColor: Color.fromARGB(255, 0, 87, 19),
+          content: Text('Compte créé avec succès ! ✅')));
+      // ignore: use_build_context_synchronously
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const Guide()));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +131,7 @@ class _CreateAccountState extends State<CreateAccount> {
               ),
               child: Padding(
                 padding: const EdgeInsets.only(
-                    top: 50.0, left: 50, right: 50, bottom: 500),
+                    top: 20.0, left: 50, right: 50, bottom: 500),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -91,144 +142,144 @@ class _CreateAccountState extends State<CreateAccount> {
                             fontSize: 20,
                             color: Colors.black)),
                     const SizedBox(height: 25),
-                    Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          const Text(
-                            'Prénom',
-                            style: TextStyle(
-                              fontSize: 12.0,
-                              fontFamily: "RedHatDisplay",
-                            ),
-                          ),
-                          const SizedBox(height: 5),
-                          TextFormField(
-                            decoration: InputDecoration(
-                              labelText: 'Prénom',
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide:
-                                    const BorderSide(color: Colors.black),
+                    Form(
+                        key: _formKey,
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              const Text(
+                                'Prénom',
+                                style: TextStyle(
+                                  fontSize: 12.0,
+                                  fontFamily: "RedHatDisplay",
+                                ),
                               ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 10, horizontal: 20),
-                            ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Veuillez entrer votre prénom';
-                              }
-                              return null;
-                            },
-                            onChanged: (value) {
-                              setState(() {
-                                name = value;
-                              });
-                            },
-                          ),
-                          const SizedBox(height: 10),
-                          const Text(
-                            'Ville',
-                            style: TextStyle(
-                              fontSize: 12.0,
-                              fontFamily: "RedHatDisplay",
-                            ),
-                          ),
-                          const SizedBox(height: 5),
-                          TextFormField(
-                            decoration: InputDecoration(
-                              labelText: 'Ville',
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide:
-                                    const BorderSide(color: Colors.black),
+                              const SizedBox(height: 5),
+                              TextFormField(
+                                controller: nameController,
+                                decoration: InputDecoration(
+                                  hintText: 'Marc',
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                    borderSide:
+                                        const BorderSide(color: Colors.black),
+                                  ),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 20),
+                                ),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Veuillez entrer votre prénom';
+                                  }
+                                  return null;
+                                },
                               ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 10, horizontal: 20),
-                            ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Veuillez indiquer votre ville';
-                              }
-                              return null;
-                            },
-                            onChanged: (value) {
-                              setState(() {
-                                city = value;
-                              });
-                            },
-                          ),
-                          const SizedBox(height: 10),
-                          const Text(
-                            'Adresse mail',
-                            style: TextStyle(
-                              fontSize: 12.0,
-                              fontFamily: "RedHatDisplay",
-                            ),
-                          ),
-                          const SizedBox(height: 5),
-                          TextFormField(
-                            decoration: InputDecoration(
-                              labelText: 'Adresse mail',
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide:
-                                    const BorderSide(color: Colors.black),
+                              const SizedBox(height: 10),
+                              const Text(
+                                'Ville',
+                                style: TextStyle(
+                                  fontSize: 12.0,
+                                  fontFamily: "RedHatDisplay",
+                                ),
                               ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 10, horizontal: 20),
-                            ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Veuillez entrer votre adresse mail';
-                              }
-                              return null;
-                            },
-                            onChanged: (value) {
-                              setState(() {
-                                mail = value;
-                              });
-                            },
-                          ),
-                          const SizedBox(height: 10),
-                          const Text(
-                            'Mot de passe',
-                            style: TextStyle(
-                              fontSize: 12.0,
-                              fontFamily: "RedHatDisplay",
-                            ),
-                          ),
-                          const SizedBox(height: 5),
-                          TextFormField(
-                            decoration: InputDecoration(
-                              labelText: 'Mot de passe',
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide:
-                                    const BorderSide(color: Colors.black),
+                              const SizedBox(height: 5),
+                              TextFormField(
+                                controller: cityController,
+                                decoration: InputDecoration(
+                                  hintText: 'Angers',
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                    borderSide:
+                                        const BorderSide(color: Colors.black),
+                                  ),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 20),
+                                ),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Veuillez indiquer votre ville';
+                                  }
+                                  return null;
+                                },
                               ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 10, horizontal: 20),
-                            ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Veuillez entrer votre mot de passe';
-                              }
-                              return null;
-                            },
-                            onChanged: (value) {
-                              setState(() {
-                                password = value;
-                              });
-                            },
-                          ),
-                        ]),
+                              const SizedBox(height: 10),
+                              const Text(
+                                'Adresse mail',
+                                style: TextStyle(
+                                  fontSize: 12.0,
+                                  fontFamily: "RedHatDisplay",
+                                ),
+                              ),
+                              const SizedBox(height: 5),
+                              TextFormField(
+                                controller: emailController,
+                                decoration: InputDecoration(
+                                  hintText: 'marcfaitsescourses@mail.com',
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                    borderSide:
+                                        const BorderSide(color: Colors.black),
+                                  ),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 20),
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Veuillez entrer votre adresse mail';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              const SizedBox(height: 10),
+                              const Text(
+                                'Mot de passe',
+                                style: TextStyle(
+                                  fontSize: 12.0,
+                                  fontFamily: "RedHatDisplay",
+                                ),
+                              ),
+                              const SizedBox(height: 5),
+                              TextFormField(
+                                controller: passwordController,
+                                obscureText: _isObscure,
+                                decoration: InputDecoration(
+                                    hintText: '***************',
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(30),
+                                      borderSide:
+                                          const BorderSide(color: Colors.black),
+                                    ),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        vertical: 10, horizontal: 20),
+                                    prefixIcon: Icon(Icons.lock,
+                                        color: Constants().secondaryColor),
+                                    // Ce bouton est utilisé pour basculer la visibilité du mot de passe
+                                    suffixIcon: IconButton(
+                                        icon: Icon(
+                                            _isObscure
+                                                ? Icons.visibility
+                                                : Icons.visibility_off,
+                                            color: Constants().secondaryColor),
+                                        onPressed: () {
+                                          setState(() {
+                                            _isObscure = !_isObscure;
+                                          });
+                                        })),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Veuillez entrer votre mot de passe';
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ])),
                     const SizedBox(height: 10),
                     Padding(
                         padding: const EdgeInsets.only(left: 15.0),
                         child: Column(
                           children: [
                             Text(
-                              '*au moins 8 caractères, une minuscule, une majuscule, un caractère spécial',
+                              '* au moins 8 caractères, une minuscule, une majuscule, un caractère spécial',
                               style: TextStyle(
                                   fontSize: 12.0,
                                   fontWeight: FontWeight.bold,
@@ -237,13 +288,12 @@ class _CreateAccountState extends State<CreateAccount> {
                             ),
                           ],
                         )),
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 15),
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Guide()));
+                        if (_formKey.currentState!.validate()) {
+                          register(context);
+                        }
                       },
                       // ignore: sort_child_properties_last
                       child: const Text('s\'inscrire',
