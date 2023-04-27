@@ -40,6 +40,8 @@ gagner du temps, trouver des repas, pallier à la colère de leurs enfants duran
 * Flutter (docs, dev, widget, etc.) => 3.3.4
 * Dart: 2.18.2
 * DevTools: 2.15.0
+* Supabase
+* Stripe
 
 # Packages (+ Version) :
 * SharedPreferences: 2.0.15
