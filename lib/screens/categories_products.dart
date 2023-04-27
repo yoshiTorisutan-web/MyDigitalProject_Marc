@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:marc_project/screens/cart.dart';
 import 'package:marc_project/screens/products_categories/bakery.dart';
 import 'package:marc_project/screens/products_categories/dairy_products.dart';
 import 'package:marc_project/screens/products_categories/fresh_products.dart';

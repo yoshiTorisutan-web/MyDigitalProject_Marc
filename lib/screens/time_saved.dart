@@ -1,5 +1,4 @@
 import 'package:marc_project/screens/app_setting.dart';
-import 'package:marc_project/screens/cart.dart';
 import 'package:marc_project/screens/connexion.dart';
 import 'package:marc_project/screens/list_supermarket.dart';
 import 'package:marc_project/screens/orders.dart';

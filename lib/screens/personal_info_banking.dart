@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:marc_project/screens/cart.dart';
 import 'package:marc_project/screens/scan_info.dart';
 import 'package:marc_project/widgets/header_cart.dart';
 import '../constants/constants.dart';

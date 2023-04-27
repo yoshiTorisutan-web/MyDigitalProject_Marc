@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:marc_project/models/details_recipes.dart';
-import 'package:marc_project/screens/cart.dart';
 import 'package:marc_project/screens/recipes_details.dart';
 import 'package:marc_project/screens/scan_info.dart';
 import 'package:marc_project/widgets/header.dart';

@@ -1,4 +1,3 @@
-import 'package:marc_project/screens/cart.dart';
 import 'package:marc_project/screens/form_personal_info.dart';
 import 'package:marc_project/screens/personal_info_banking.dart';
 import 'package:marc_project/screens/scan_info.dart';

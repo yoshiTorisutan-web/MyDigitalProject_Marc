@@ -1,4 +1,3 @@
-import 'package:marc_project/screens/cart.dart';
 import 'package:marc_project/screens/scan_info.dart';
 import 'package:marc_project/screens/time_saved.dart';
 import 'package:flutter/material.dart';
