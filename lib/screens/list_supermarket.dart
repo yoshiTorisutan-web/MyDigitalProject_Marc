@@ -3,6 +3,8 @@ import 'package:marc_project/screens/scan_info.dart';
 import 'package:marc_project/screens/time_saved.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:marc_project/widgets/header.dart';
+import 'package:marc_project/widgets/header_cart.dart';
 import '../constants/constants.dart';
 import '../widgets/bottom_navbar.dart';
 import 'geo_supermarket.dart';
@@ -41,76 +43,9 @@ class _SupermarketListState extends State<SupermarketList> {
         automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 30.0),
-              child: Transform.scale(
-                scale: 1.2,
-                child: Text(
-                  'Marc, payez, partez !',
-                  style: TextStyle(
-                      color: Constants().secondaryColor,
-                      fontSize: 16,
-                      fontFamily: "NiceSugar"),
-                ),
-              ),
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 21.0),
-                  child: Transform.scale(
-                    scale: 1.2,
-                    child: Text(
-                      'Beaucouzé, ANGERS',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontFamily: "RedHatDisplay",
-                          fontSize: 10,
-                          color: Constants().textColorOrange),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: Icon(
-                    Icons.expand_more,
-                    color: Constants().iconColor,
-                    size: 20,
-                  ),
-                ),
-              ],
-            )
-          ],
-        ),
-        actions: <Widget>[
-          SizedBox(
-            width: 55,
-            height: 55,
-            child: GestureDetector(
-              onTap: () {
-                // Action à effectuer lors du clic sur l'image
-              },
-              child: Padding(
-                padding: const EdgeInsets.only(right: 25),
-                child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const CartPage(items: [],)),
-                      );
-                    },
-                    child: SvgPicture.asset(
-                      'assets/caddie.svg',
-                      width: 24,
-                      height: 24,
-                    ),
-                  )
-              ),
-            ),
-          ),
+        title: const Header(),
+        actions: const <Widget>[
+          HeaderCart()
         ],
       ),
       body: Stack(

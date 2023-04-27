@@ -1,7 +1,10 @@
+import 'package:marc_project/blocs/provider_name.dart';
 import 'package:marc_project/constants/constants.dart';
+import 'package:marc_project/screens/connexion.dart';
 import 'package:marc_project/screens/recipes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 class Guide extends StatefulWidget {
   const Guide({super.key});
@@ -20,7 +23,7 @@ class _GuideState extends State<Guide> {
     // en utilisant Navigator.push
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const RecipePage()),
+      MaterialPageRoute(builder: (context) => const LoginPage()),
     );
   }
 
@@ -99,6 +102,30 @@ class _GuideState extends State<Guide> {
                             fontFamily: "RedHatDisplay",
                             fontSize: 20,
                             color: Colors.black)),
+                    Consumer<UserState>(builder: (context, userState, _) {
+                      final userName = userState.userName;
+                      return RichText(
+                        text: TextSpan(
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontFamily: "NiceSugar",
+                          ),
+                          children: [
+                            TextSpan(
+                              text: 'Bonjour $userName',
+                              style: TextStyle(
+                                color: Constants().secondaryColor,
+                              ),
+                            ),
+                            TextSpan(
+                              text: '.',
+                              style:
+                                  TextStyle(color: Constants().textColorOrange),
+                            ),
+                          ],
+                        ),
+                      );
+                    }),
                     const SizedBox(height: 50),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,

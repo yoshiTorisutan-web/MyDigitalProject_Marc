@@ -4,14 +4,16 @@ import 'package:marc_project/models/details_recipes.dart';
 import 'package:marc_project/screens/cart.dart';
 import 'package:marc_project/screens/recipes_details.dart';
 import 'package:marc_project/screens/scan_info.dart';
+import 'package:marc_project/widgets/header.dart';
 import '../constants/constants.dart';
 import '../widgets/bottom_navbar.dart';
+import '../widgets/header_cart.dart';
 import '../widgets/search_bar.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class RecipePage extends StatefulWidget {
-  const RecipePage({super.key});
+  const RecipePage({Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
@@ -19,11 +21,6 @@ class RecipePage extends StatefulWidget {
 }
 
 class _RecipePageState extends State<RecipePage> {
-  String name = "Toto";
-  String city = "Angers";
-  String mail = 'toto49@gmail.com';
-  String password = '1234';
-
   List<dynamic> _recipes = [];
   bool _isLoading = true;
 
@@ -123,7 +120,8 @@ class _RecipePageState extends State<RecipePage> {
                         color: Colors.grey.withOpacity(0.5),
                         spreadRadius: 2,
                         blurRadius: 5,
-                        offset: const Offset(0, 3), // change la position de l'ombre
+                        offset:
+                            const Offset(0, 3), // change la position de l'ombre
                       ),
                     ],
                   ),
@@ -155,76 +153,9 @@ class _RecipePageState extends State<RecipePage> {
         automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 30.0),
-              child: Transform.scale(
-                scale: 1.2,
-                child: Text(
-                  'Marc, payez, partez !',
-                  style: TextStyle(
-                      color: Constants().secondaryColor,
-                      fontSize: 16,
-                      fontFamily: "NiceSugar"),
-                ),
-              ),
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 21.0),
-                  child: Transform.scale(
-                    scale: 1.2,
-                    child: Text(
-                      'Beaucouzé, ANGERS',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontFamily: "RedHatDisplay",
-                          fontSize: 10,
-                          color: Constants().textColorOrange),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: Icon(
-                    Icons.expand_more,
-                    color: Constants().iconColor,
-                    size: 20,
-                  ),
-                ),
-              ],
-            )
-          ],
-        ),
-        actions: <Widget>[
-          SizedBox(
-            width: 55,
-            height: 55,
-            child: GestureDetector(
-              onTap: () {
-                // Action à effectuer lors du clic sur l'image
-              },
-              child: Padding(
-                padding: const EdgeInsets.only(right: 25),
-                child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const CartPage(items: [],)),
-                      );
-                    },
-                    child: SvgPicture.asset(
-                      'assets/caddie.svg',
-                      width: 24,
-                      height: 24,
-                    ),
-                  )
-              ),
-            ),
-          ),
+        title: const Header(),
+        actions: const <Widget>[
+          HeaderCart()
         ],
       ),
       body: Column(
