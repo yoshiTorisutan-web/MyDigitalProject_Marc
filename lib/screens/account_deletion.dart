@@ -1,9 +1,12 @@
+import 'package:marc_project/blocs/provider_name.dart';
 import 'package:marc_project/screens/app_setting.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:marc_project/screens/scan_info.dart';
 import 'package:marc_project/widgets/header.dart';
 import 'package:marc_project/widgets/header_cart.dart';
+import 'package:provider/provider.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import '../constants/constants.dart';
 import '../widgets/bottom_navbar.dart';
 import 'connexion.dart';
@@ -17,6 +20,47 @@ class AccountDeletion extends StatefulWidget {
 }
 
 class _AccountDeletionState extends State<AccountDeletion> {
+  Future<void> deleteAccount(BuildContext context) async {
+    final supabase = Supabase.instance.client;
+    final userState = context.read<UserState>();
+
+    if (userState.isUserLoggedIn) {
+      final loggedInUserEmail = userState.userEmail;
+
+      supabase
+          .from('user')
+          .delete()
+          .eq('email', loggedInUserEmail)
+          .execute()
+          .then((response) {
+        // Vérifier la réponse de suppression
+        if (response.error != null) {
+          // ignore: use_build_context_synchronously
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            backgroundColor: Color.fromARGB(255, 255, 8, 8),
+            content: Text('Erreur, le compte n\'a pas pu être supprimé ! ❌'),
+          ));
+        } else {
+          // ignore: use_build_context_synchronously
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            backgroundColor: Color.fromARGB(255, 0, 87, 19),
+            content: Text('Compte supprimé avec succès ✅'),
+          ));
+          // ignore: use_build_context_synchronously
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const LoginPage()),
+          );
+        }
+      });
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        backgroundColor: Color.fromARGB(255, 255, 8, 8),
+        content: Text('Erreur, vous n\'êtes pas connecté ! ❌'),
+      ));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,9 +71,7 @@ class _AccountDeletionState extends State<AccountDeletion> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: const Header(),
-        actions: const <Widget>[
-          HeaderCart()
-        ],
+        actions: const <Widget>[HeaderCart()],
       ),
       body: Stack(
         children: [
@@ -123,11 +165,7 @@ class _AccountDeletionState extends State<AccountDeletion> {
                       children: [
                         ElevatedButton(
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const LoginPage()),
-                            );
+                            deleteAccount(context);
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.red,
