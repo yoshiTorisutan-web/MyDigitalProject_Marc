@@ -6,6 +6,7 @@ class UserState extends ChangeNotifier {
 
   bool get isUserLoggedIn => _isUserLoggedIn;
 
+  //Valeur si utilisateur connecté ou non
   void setUserLoggedIn(bool value) {
     _isUserLoggedIn = value;
     notifyListeners();
@@ -20,6 +21,7 @@ class UserState extends ChangeNotifier {
   String? userExpirationDate;
   String? userCVC;
 
+  //Valeur concernant les données de l'utilisateur
   void setUserName(
       String? name,
       String? lastname,
@@ -37,6 +39,19 @@ class UserState extends ChangeNotifier {
     userCard = card;
     userExpirationDate = expirationDate;
     userCVC = cvc;
+    notifyListeners();
+  }
+
+  //Valeur concernant le prix et le nb de produits
+  double totalPrice = 0.0;
+
+  void addToCart(double price) {
+    totalPrice += price;
+    notifyListeners();
+  }
+
+  void removeFromCart(double price) {
+    totalPrice -= price;
     notifyListeners();
   }
 }

@@ -1,9 +1,12 @@
+import 'package:marc_project/blocs/provider_name.dart';
 import 'package:marc_project/screens/app_setting.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:marc_project/screens/scan_info.dart';
+import 'package:marc_project/screens/stripe_card.dart';
 import 'package:marc_project/widgets/header.dart';
 import 'package:marc_project/widgets/header_cart.dart';
+import 'package:provider/provider.dart';
 import '../constants/constants.dart';
 import '../widgets/bottom_navbar.dart';
 
@@ -20,6 +23,8 @@ class _PayPageState extends State<PayPage> {
 
   @override
   Widget build(BuildContext context) {
+    final cart = Provider.of<UserState>(context);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Constants().primaryColor,
@@ -28,9 +33,7 @@ class _PayPageState extends State<PayPage> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: const Header(),
-        actions: const <Widget>[
-          HeaderCart()
-        ],
+        actions: const <Widget>[HeaderCart()],
       ),
       body: Stack(
         children: [
@@ -158,7 +161,7 @@ class _PayPageState extends State<PayPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
-                          'Total :',
+                          'Prix total :',
                           style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
@@ -166,7 +169,7 @@ class _PayPageState extends State<PayPage> {
                               fontFamily: "RedHatDisplay"),
                         ),
                         Text(
-                          '26.99 €',
+                          '${cart.totalPrice.toStringAsFixed(2)} €',
                           style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
@@ -180,7 +183,13 @@ class _PayPageState extends State<PayPage> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const PaymentScreen()),
+                            );
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Constants().secondaryColor,
                             shape: RoundedRectangleBorder(

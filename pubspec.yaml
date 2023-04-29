@@ -52,6 +52,7 @@ dependencies:
   supabase_flutter: ^0.3.0
   crypto: ^3.0.1
   provider: ^6.0.1
+  flutter_stripe: ^9.1.1
 
 dev_dependencies:
   flutter_test:

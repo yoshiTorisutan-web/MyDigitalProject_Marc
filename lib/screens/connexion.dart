@@ -257,13 +257,13 @@ class _LoginPageState extends State<LoginPage> {
                                       return 'Veuillez entrer votre mot de passe';
                                     }
                                     if (value.length < 8) {
-                                      return 'Le mot de passe doit contenir au moins 8 caractères.';
+                                      return 'Le mot de passe doit contenir au moins 8 \ncaractères.';
                                     }
                                     // Utilisation d'une expression régulière pour valider les conditions du mot de passe.
                                     final passwordRegex = RegExp(
                                         r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()]).{8,}$');
                                     if (!passwordRegex.hasMatch(value)) {
-                                      return 'Le mot de passe doit contenir au moins une minuscule, une majuscule et un caractère spécial.';
+                                      return 'Le mot de passe doit contenir au moins une \nminuscule, une majuscule et un caractère \nspécial.';
                                     }
                                     return null;
                                   },

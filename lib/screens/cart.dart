@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:marc_project/blocs/provider_name.dart';
 import 'package:marc_project/constants/constants.dart';
 import 'package:marc_project/screens/pay.dart';
 import 'package:marc_project/screens/scan_info.dart';
@@ -7,6 +8,7 @@ import 'package:marc_project/widgets/bottom_navbar.dart';
 import 'package:marc_project/widgets/header.dart';
 import 'package:marc_project/widgets/header_cart.dart';
 import 'package:marc_project/widgets/search_bar.dart';
+import 'package:provider/provider.dart';
 
 class CartPage extends StatelessWidget {
   final List<dynamic> items;
@@ -15,6 +17,8 @@ class CartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cart = Provider.of<UserState>(context);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Constants().primaryColor,
@@ -23,9 +27,7 @@ class CartPage extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: const Header(),
-        actions: const <Widget>[
-          HeaderCart()
-        ],
+        actions: const <Widget>[HeaderCart()],
       ),
       body: Column(children: [
         const Padding(
@@ -47,6 +49,8 @@ class CartPage extends StatelessWidget {
                 const EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 20),
             itemCount: items.length,
             itemBuilder: (context, index) {
+              const itemPrice = 2.99; // Prix de l'article
+
               return Card(
                 elevation: 4,
                 shape: RoundedRectangleBorder(
@@ -61,33 +65,51 @@ class CartPage extends StatelessWidget {
                   ),
                   title: Text(
                     items[index]['title'],
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontFamily: "RedHatDisplay",
                         fontSize: 12,
-                        color: Constants().textColor,
                         fontWeight: FontWeight.bold),
                   ),
-                  subtitle: Text("2.99 €",
-                      style: TextStyle(
-                          fontFamily: "RedHatDisplay",
-                          fontSize: 16,
-                          color: Constants().textColorBright,
-                          fontWeight: FontWeight.bold)),
+                  subtitle: const Text(
+                    "2.99 €",
+                    style: TextStyle(
+                        fontFamily: "RedHatDisplay",
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold),
+                  ),
                   trailing: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image.asset(
-                        'assets/moins.png',
-                        width: 24,
-                        height: 24,
-                      ),
-                      const SizedBox(height: 8),
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          if (cart.totalPrice >= itemPrice) {
+                            cart.removeFromCart(itemPrice);
+                          }
+                        },
+                        child: Image.asset(
+                          'assets/moins.png',
+                          width: 16,
+                          height: 16,
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      Text(
+                        '${cart.totalPrice.toString()} €',
+                        style: const TextStyle(
+                          fontFamily: "RedHatDisplay",
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      InkWell(
+                        onTap: () {
+                          cart.addToCart(itemPrice);
+                        },
                         child: Image.asset(
                           'assets/plus.png',
-                          width: 24,
-                          height: 24,
+                          width: 16,
+                          height: 16,
                         ),
                       )
                     ],
@@ -98,13 +120,22 @@ class CartPage extends StatelessWidget {
           ),
         ),
         Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text(
+            'Prix total : ${cart.totalPrice.toStringAsFixed(2)} €',
+            style: const TextStyle(
+              fontFamily: "RedHatDisplay",
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        Padding(
           padding: const EdgeInsets.symmetric(horizontal: 40.0),
           child: ElevatedButton(
             onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const PayPage()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const PayPage()));
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Constants().secondaryColor,
