@@ -84,7 +84,7 @@ Lien : [Spoonacular](https://spoonacular.com/)
 
 # Présentation visuelle :
 <div align="center">
-  <img src="Capture écran - marc_projet/Capture_ecran_marc_1.png" width="200" height="200">
-  <img src="Capture écran - marc_projet/Capture_ecran_marc_2.png" width="200" height="200">
+  <img src="Capture écran - marc_projet/Capture_ecran_marc_1.png" width="400" height="600">
+  <img src="Capture écran - marc_projet/Capture_ecran_marc_2.png" width="400" height="600">
 </div>
 
