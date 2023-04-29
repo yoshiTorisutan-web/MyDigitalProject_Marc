@@ -8,6 +8,8 @@ import 'package:marc_project/widgets/header_cart.dart';
 import '../constants/constants.dart';
 import '../widgets/bottom_navbar.dart';
 import 'list_supermarket.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class SuperMarketGeo extends StatefulWidget {
   const SuperMarketGeo({super.key});
@@ -34,6 +36,40 @@ List<Store> stores = [
 ];
 
 class _SuperMarketGeoState extends State<SuperMarketGeo> {
+//Ajout fonctionnalité recherche de la ville et l'afficher sur une map
+  final TextEditingController _textEditingController = TextEditingController();
+  final MapController _mapController = MapController();
+
+  @override
+  void initState() {
+    super.initState();
+    _textEditingController.addListener(_onTextChanged);
+  }
+
+  void _onTextChanged() async {
+    String cityName = _textEditingController.text;
+    String url =
+        'https://nominatim.openstreetmap.org/search?format=json&q=$cityName';
+
+    try {
+      http.Response response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        List<dynamic> data = json.decode(response.body);
+        if (data.isNotEmpty) {
+          double latitude = double.parse(data[0]['lat']);
+          double longitude = double.parse(data[0]['lon']);
+
+          setState(() {
+            _mapController.move(LatLng(latitude, longitude), 13.0);
+          });
+        }
+      }
+    } catch (e) {
+      // ignore: avoid_print
+      print('Erreur lors de la récupération des coordonnées : $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,9 +80,7 @@ class _SuperMarketGeoState extends State<SuperMarketGeo> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: const Header(),
-        actions: const <Widget>[
-          HeaderCart()
-        ],
+        actions: const <Widget>[HeaderCart()],
       ),
       body: Stack(
         children: [
@@ -114,6 +148,7 @@ class _SuperMarketGeoState extends State<SuperMarketGeo> {
                     ),
                     const SizedBox(height: 25),
                     TextField(
+                      controller: _textEditingController,
                       decoration: InputDecoration(
                         contentPadding: const EdgeInsets.symmetric(
                             horizontal: 12, vertical: 8),
@@ -137,6 +172,7 @@ class _SuperMarketGeoState extends State<SuperMarketGeo> {
                       child: SizedBox(
                           height: 200.0, // Taille prédéfinie
                           child: FlutterMap(
+                            mapController: _mapController,
                             options: MapOptions(
                               center: LatLng(47.4853511, -0.5757254),
                               zoom: 13.0,

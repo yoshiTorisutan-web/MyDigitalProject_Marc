@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:marc_project/screens/categories_products.dart';
 import 'package:marc_project/screens/scan_info.dart';
 import 'package:marc_project/widgets/bottom_navbar.dart';
 import 'package:marc_project/widgets/header.dart';
@@ -26,14 +27,12 @@ class ProductDetailsScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: const Header(),
-        actions: const <Widget>[
-          HeaderCart()
-        ],
+        actions: const <Widget>[HeaderCart()],
       ),
       body: Stack(
         children: [
           Positioned(
-            top: 35,
+            top: 15,
             left: 20,
             right: 20,
             bottom: 425, // reduce the bottom value
@@ -46,20 +45,41 @@ class ProductDetailsScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const SizedBox(height: 30),
+                    Row(
+                      children: [
+                        IconButton(
+                            onPressed: () {
+                              Navigator.pop(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          CategoryListPage()));
+                            },
+                            icon: Icon(Icons.chevron_left,
+                                color: Constants().secondaryColor)),
+                        Text('Revenir à la page précédente',
+                            style: TextStyle(
+                                fontFamily: "RedHatDisplay",
+                                fontSize: 12,
+                                color: Constants().secondaryColor,
+                                fontWeight: FontWeight.bold)),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
                     Image.network(
                       image,
                       fit: BoxFit.cover,
                       width: 200,
                       height: 200,
                     ),
+                    const SizedBox(height: 20),
                   ],
                 ),
               ),
             ),
           ),
           Positioned(
-              top: 375, // position the text under the card
+              top: 350, // position the text under the card
               left: 10,
               right: 10,
               child: Padding(
@@ -79,7 +99,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 5),
-                    Row(
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(title,
@@ -98,12 +118,12 @@ class ProductDetailsScreen extends StatelessWidget {
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontFamily: "RedHatDisplay",
-                                fontSize: 16,
+                                fontSize: 18,
                                 color: Constants().secondaryColor)),
                       ],
                     ),
                     const SizedBox(height: 20),
-                    Row(
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
@@ -111,12 +131,12 @@ class ProductDetailsScreen extends StatelessWidget {
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontFamily: "RedHatDisplay",
-                                fontSize: 12,
+                                fontSize: 14,
                                 color: Constants().secondaryColor)),
                       ],
                     ),
                     const SizedBox(height: 20),
-                    Row(
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
@@ -124,7 +144,7 @@ class ProductDetailsScreen extends StatelessWidget {
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontFamily: "RedHatDisplay",
-                                fontSize: 12,
+                                fontSize: 14,
                                 color: Constants().secondaryColor)),
                       ],
                     ),

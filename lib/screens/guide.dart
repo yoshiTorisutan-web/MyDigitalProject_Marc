@@ -1,9 +1,7 @@
-import 'package:marc_project/blocs/provider_name.dart';
 import 'package:marc_project/constants/constants.dart';
 import 'package:marc_project/screens/connexion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:provider/provider.dart';
 
 class Guide extends StatefulWidget {
   const Guide({super.key});
@@ -14,9 +12,6 @@ class Guide extends StatefulWidget {
 }
 
 class _GuideState extends State<Guide> {
-  String mail = 'toto49@gmail.com';
-  String password = '1234';
-
   void _submitForm(BuildContext context) {
     // Vérifiez les informations d'identification ici et redirigez vers la page suivante
     // en utilisant Navigator.push
@@ -101,30 +96,6 @@ class _GuideState extends State<Guide> {
                             fontFamily: "RedHatDisplay",
                             fontSize: 20,
                             color: Colors.black)),
-                    Consumer<UserState>(builder: (context, userState, _) {
-                      final userName = userState.userName;
-                      return RichText(
-                        text: TextSpan(
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontFamily: "NiceSugar",
-                          ),
-                          children: [
-                            TextSpan(
-                              text: 'Bonjour $userName',
-                              style: TextStyle(
-                                color: Constants().secondaryColor,
-                              ),
-                            ),
-                            TextSpan(
-                              text: '.',
-                              style:
-                                  TextStyle(color: Constants().textColorOrange),
-                            ),
-                          ],
-                        ),
-                      );
-                    }),
                     const SizedBox(height: 50),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,

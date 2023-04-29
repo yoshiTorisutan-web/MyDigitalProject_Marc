@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
+import 'package:flutter/services.dart';
+import 'package:marc_project/screens/connexion.dart';
 import 'package:marc_project/screens/guide.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -213,6 +215,7 @@ class _CreateAccountState extends State<CreateAccount> {
                               const SizedBox(height: 5),
                               TextFormField(
                                 controller: emailController,
+                                keyboardType: TextInputType.emailAddress,
                                 decoration: InputDecoration(
                                   hintText: 'marcfaitsescourses@mail.com',
                                   border: OutlineInputBorder(
@@ -227,8 +230,18 @@ class _CreateAccountState extends State<CreateAccount> {
                                   if (value == null || value.isEmpty) {
                                     return 'Veuillez entrer votre adresse mail';
                                   }
+                                  // Utilisation d'une expression régulière pour valider le format de l'adresse e-mail.
+                                  final emailRegex = RegExp(
+                                      r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                                  if (!emailRegex.hasMatch(value)) {
+                                    return 'Veuillez entrer une adresse e-mail valide.';
+                                  }
                                   return null;
                                 },
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.allow(
+                                      RegExp(r'^[\w-\.@]+$')),
+                                ],
                               ),
                               const SizedBox(height: 10),
                               const Text(
@@ -269,8 +282,21 @@ class _CreateAccountState extends State<CreateAccount> {
                                   if (value!.isEmpty) {
                                     return 'Veuillez entrer votre mot de passe';
                                   }
+                                  if (value.length < 8) {
+                                    return 'Le mot de passe doit contenir au moins 8 caractères.';
+                                  }
+                                  // Utilisation d'une expression régulière pour valider les conditions du mot de passe.
+                                  final passwordRegex = RegExp(
+                                      r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()]).{8,}$');
+                                  if (!passwordRegex.hasMatch(value)) {
+                                    return 'Le mot de passe doit contenir au moins une minuscule, une majuscule et un caractère spécial.';
+                                  }
                                   return null;
                                 },
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.allow(
+                                      RegExp(r'^[\w!@#$%^&*()]+$')),
+                                ],
                               ),
                             ])),
                     const SizedBox(height: 10),
@@ -309,9 +335,14 @@ class _CreateAccountState extends State<CreateAccount> {
                     ),
                     Center(
                         child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const LoginPage()));
+                      },
                       child: const Text(
-                        'Créer un compte',
+                        'Se connecter',
                         style: TextStyle(
                           fontFamily: "RedHatDisplay",
                           decoration: TextDecoration.underline,

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:http/http.dart' as http;
+import 'package:marc_project/screens/details_products.dart';
 import 'package:marc_project/screens/recipes.dart';
 import 'package:marc_project/screens/scan_info.dart';
 import 'package:marc_project/screens/shopping_ingredients.dart';
@@ -93,7 +94,19 @@ class _FruitsAndVegetablesPageState extends State<FruitsAndVegetablesPage> {
             padding: const EdgeInsets.only(left: 15, right: 15),
             itemCount: _products.length,
             itemBuilder: (context, index) {
-              return Card(
+              return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProductDetailsScreen(
+                          image: _products[index]['image'],
+                          title: _products[index]['title'],
+                        ),
+                      ),
+                    );
+                  },
+                  child: Card(
                   elevation: 4,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
@@ -140,7 +153,7 @@ class _FruitsAndVegetablesPageState extends State<FruitsAndVegetablesPage> {
                         height: 24,
                       ),
                     ),
-                  ));
+                  )));
             },
           ),
         )

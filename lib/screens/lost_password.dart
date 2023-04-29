@@ -1,4 +1,4 @@
-import 'package:marc_project/screens/create_account.dart';
+import 'package:marc_project/screens/connexion.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../constants/constants.dart';
@@ -198,10 +198,10 @@ class _LostPasswordState extends State<LostPassword> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const CreateAccount()));
+                                  builder: (context) => const LoginPage()));
                         },
                         child: const Text(
-                          'Créer un compte',
+                          'Se connecter',
                           style: TextStyle(
                             fontFamily: "RedHatDisplay",
                             decoration: TextDecoration.underline,

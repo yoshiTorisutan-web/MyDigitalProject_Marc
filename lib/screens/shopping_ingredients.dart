@@ -42,7 +42,7 @@ class _SelectedProductsScreenState extends State<SelectedProductsScreen> {
         ),
         const SizedBox(height: 20),
         Text(
-          'LISTE DE PRODUITS',
+          'MA LISTE',
           style: TextStyle(
               fontSize: 16.0,
               fontWeight: FontWeight.bold,

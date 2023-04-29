@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:marc_project/models/details_recipes.dart';
 import 'package:marc_project/screens/recipes_details.dart';
-import 'package:marc_project/screens/scan_info.dart';
 import 'package:marc_project/widgets/header.dart';
 import '../constants/constants.dart';
 import '../widgets/bottom_navbar.dart';
@@ -10,6 +9,8 @@ import '../widgets/header_cart.dart';
 import '../widgets/search_bar.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import 'list_supermarket.dart';
 
 class RecipePage extends StatefulWidget {
   const RecipePage({Key? key}) : super(key: key);
@@ -153,9 +154,7 @@ class _RecipePageState extends State<RecipePage> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: const Header(),
-        actions: const <Widget>[
-          HeaderCart()
-        ],
+        actions: const <Widget>[HeaderCart()],
       ),
       body: Column(
         children: [
@@ -287,16 +286,122 @@ class _RecipePageState extends State<RecipePage> {
       bottomNavigationBar: const ButtomNavBar(),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const ScanInfo()));
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                backgroundColor: Constants().primaryColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    CircleAvatar(
+                      backgroundColor: Constants().secondaryColor,
+                      radius: 30.0,
+                      child: SvgPicture.asset(
+                        'assets/MAARC.svg',
+                        width: 30,
+                        height: 30,
+                      ),
+                    ),
+                    const SizedBox(height: 30),
+                    Text(
+                      "Où souhaitez-vous faire",
+                      style: TextStyle(
+                        color: Constants().textColor,
+                        fontFamily: "RedHatDisplay",
+                        fontSize: 16,
+                      ),
+                    ),
+                    Text(
+                      "vos courses ?",
+                      style: TextStyle(
+                        color: Constants().textColor,
+                        fontFamily: "RedHatDisplay",
+                        fontSize: 16,
+                      ),
+                    ),
+                    const SizedBox(height: 30),
+                    Card(
+                      child: ListTile(
+                        title: Text(
+                          "Mon Magasin",
+                          style: TextStyle(
+                            color: Constants().textColor,
+                            fontFamily: "RedHatDisplay",
+                            fontSize: 12,
+                          ),
+                        ),
+                        subtitle: Text("Super U Beaucouzé, Angers", style: TextStyle(
+                            color: Constants().textColorOrange,
+                            fontFamily: "RedHatDisplay",
+                            fontSize: 12,
+                          ),),
+                        trailing: Text("1 km", style: TextStyle(
+                            color: Constants().textColor,
+                            fontFamily: "RedHatDisplay",
+                            fontSize: 12,
+                          ),),
+                      ),
+                    ),
+                    const SizedBox(height: 50),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const SupermarketList()));
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Constants().secondaryColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20.0, vertical: 10.0),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const <Widget>[
+                          Text('Me rendre dans un magasin différent',
+                              style: TextStyle(fontFamily: "RedHatDisplay")),
+                        ],
+                      ),
+                    ),
+                    Center(
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                'accéder au recettes de marc sans me géolocaliser ',
+                                style: TextStyle(
+                                  fontFamily: "RedHatDisplay",
+                                  fontSize: 10,
+                                  color: Constants().textColorBright,
+                                  decoration: TextDecoration.underline,
+                                ),
+                              ),
+                            ]),
+                      ),
+                    )
+                  ],
+                ),
+              );
+            },
+          );
         },
         elevation: 5,
-        backgroundColor: Colors.red,
+        backgroundColor: Constants().secondaryColor,
         child: SvgPicture.asset(
-          'assets/scan.svg',
+          'assets/MAARC.svg',
           width: 24,
           height: 24,
-          color: Colors.white,
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

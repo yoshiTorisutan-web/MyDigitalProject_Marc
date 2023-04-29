@@ -43,7 +43,7 @@ class _SelectedIngredientsPageState extends State<SelectedIngredientsPage> {
         ),
         const SizedBox(height: 20),
         Text(
-          'LISTE D\'INGREDIENTS',
+          'MA LISTE',
           style: TextStyle(
               fontSize: 16.0,
               fontWeight: FontWeight.bold,

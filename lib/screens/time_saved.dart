@@ -311,7 +311,7 @@ class _TimeSavedState extends State<TimeSaved> {
                             );
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Constants().secondaryColor,
+                            backgroundColor: Colors.red,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30.0),
                             ),

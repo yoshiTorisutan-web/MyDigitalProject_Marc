@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
+import 'package:flutter/services.dart';
 import 'package:marc_project/blocs/provider_name.dart';
 import 'package:marc_project/constants/constants.dart';
 import 'package:marc_project/screens/create_account.dart';
@@ -64,8 +65,16 @@ class _LoginPageState extends State<LoginPage> {
         // Mot de passe correct, connexion réussie
         // ignore: use_build_context_synchronously
         final userState = context.read<UserState>();
-        userState.setUserName(user['name'] as String?);
-
+        userState.setUserName(
+            user['name'] as String?,
+            user['lastname'] as String?,
+            user['phone'] as String?,
+            user['birthday'] as String?,
+            user['email'] as String?,
+            user['card'] as String?,
+            user['date_expiration'] as String?,
+            user['cvc'] as String?);
+        userState.setUserLoggedIn(true);
         // ignore: use_build_context_synchronously
         Navigator.push(
           context,
@@ -178,6 +187,7 @@ class _LoginPageState extends State<LoginPage> {
                                 const SizedBox(height: 5),
                                 TextFormField(
                                   controller: emailController,
+                                  keyboardType: TextInputType.emailAddress,
                                   decoration: InputDecoration(
                                     hintText: 'marcfaitsescourses@mail.com',
                                     border: OutlineInputBorder(
@@ -189,11 +199,21 @@ class _LoginPageState extends State<LoginPage> {
                                         vertical: 10, horizontal: 20),
                                   ),
                                   validator: (value) {
-                                    if (value!.isEmpty) {
+                                    if (value == null || value.isEmpty) {
                                       return 'Veuillez entrer votre adresse mail';
+                                    }
+                                    // Utilisation d'une expression régulière pour valider le format de l'adresse e-mail.
+                                    final emailRegex = RegExp(
+                                        r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                                    if (!emailRegex.hasMatch(value)) {
+                                      return 'Veuillez entrer une adresse e-mail valide.';
                                     }
                                     return null;
                                   },
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.allow(
+                                        RegExp(r'^[\w-\.@]+$')),
+                                  ],
                                 ),
                                 const SizedBox(height: 10),
                                 const Text(
@@ -236,8 +256,21 @@ class _LoginPageState extends State<LoginPage> {
                                     if (value!.isEmpty) {
                                       return 'Veuillez entrer votre mot de passe';
                                     }
+                                    if (value.length < 8) {
+                                      return 'Le mot de passe doit contenir au moins 8 caractères.';
+                                    }
+                                    // Utilisation d'une expression régulière pour valider les conditions du mot de passe.
+                                    final passwordRegex = RegExp(
+                                        r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()]).{8,}$');
+                                    if (!passwordRegex.hasMatch(value)) {
+                                      return 'Le mot de passe doit contenir au moins une minuscule, une majuscule et un caractère spécial.';
+                                    }
                                     return null;
                                   },
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.allow(
+                                        RegExp(r'^[\w!@#$%^&*()]+$')),
+                                  ],
                                 ),
                               ],
                             )),
