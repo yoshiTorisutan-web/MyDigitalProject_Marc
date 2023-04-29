@@ -83,4 +83,8 @@ Lien : [Spoonacular](https://spoonacular.com/)
 * Pour une meilleure expérience utilisateur, afficher l'application directement sur votre mobile pour avoir un premier aperçu :)
 
 # Présentation visuelle :
+<div align="center">
+  <img src="Capture écran - marc_projet/Capture_ecran_marc_1.png" width="200" height="200">
+  <img src="Capture écran - marc_projet/Capture_ecran_marc_2.png" width="200" height="200">
+</div>
 
