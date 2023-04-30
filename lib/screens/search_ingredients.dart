@@ -7,6 +7,9 @@ import '../constants/constants.dart';
 import '../repositories/autocomplete_products_repositories.dart';
 import '../widgets/bottom_navbar.dart';
 
+//Page de "Recherch ingrédients" permettant à l'utilisateur de chercher un produit en particulier en passant directement
+//par la barre de recherche au lieu de passer par les catégories à l'avenir.
+
 class SearchIngredients extends StatefulWidget {
   const SearchIngredients({super.key});
 

@@ -8,6 +8,12 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../constants/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+//Page de "Création de compte" permettant à l'utilisateur de se créer un compte sur l'application
+//Pour enregistrer les données de l'utilisateur, on se connecte à la BDD Supabase pour enregistrer son nom, sa ville,
+//son adresse mail et son mot de passe
+//Et ainsi, si le compte a bien été créé avec les champs complétés avec un mail "exemple@gmail.com" et un mot de passe sécurisé,
+//l'utilisateur est redirigé vers la page de connexion pour se connecter
+
 class CreateAccount extends StatefulWidget {
   const CreateAccount({super.key});
 
@@ -25,6 +31,7 @@ class _CreateAccountState extends State<CreateAccount> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
+  //Fonction permettant d'enregistrer et d'envoyer les données en BDD Supabase
   void register(BuildContext context) async {
     final supabase = Supabase.instance.client;
     final name = nameController.text;

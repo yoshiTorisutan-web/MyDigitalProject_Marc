@@ -7,6 +7,8 @@ import '../constants/constants.dart';
 import '../widgets/bottom_navbar.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
+//Page de "Scan" expliquant comment utiliser le scan et comment scanner ses produits.
+
 class ScanInfo extends StatefulWidget {
   const ScanInfo({super.key});
 

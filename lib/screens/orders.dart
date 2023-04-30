@@ -8,6 +8,8 @@ import 'package:marc_project/widgets/header_cart.dart';
 import '../constants/constants.dart';
 import '../widgets/bottom_navbar.dart';
 
+//Page "Tickets de caisse" permet à l'utilisateur de récupérer un récapitualitf des produits qu'il a acheté dans le magasin
+
 class Orders extends StatefulWidget {
   const Orders({super.key});
 

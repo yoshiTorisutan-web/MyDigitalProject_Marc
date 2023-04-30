@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import '../constants/constants.dart';
 import '../screens/search_ingredients.dart';
 
+//Widget de la barre de recherche présent sur les pages principales de l'application et appeler la classe
+//SearchNavBar sur les pages où je veux les afficher pour rechercher un produit par exemple
+
 class SearchNavBar extends StatelessWidget {
   const SearchNavBar({Key? key}) : super(key: key);
 

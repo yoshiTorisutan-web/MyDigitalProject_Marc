@@ -7,6 +7,9 @@ import 'package:marc_project/widgets/header_cart.dart';
 import '../constants/constants.dart';
 import '../widgets/bottom_navbar.dart';
 
+//Page de "Cookies" permettant à l'utilisateur d'expliquer ce que c'est les cookies et comment sont ils générer
+//dans l'application.
+
 class CookieManagement extends StatefulWidget {
   const CookieManagement({super.key});
 

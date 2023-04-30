@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:marc_project/blocs/provider_name.dart';
 import 'package:marc_project/screens/cart.dart';
+import 'package:marc_project/screens/payment_success.dart';
 import 'package:marc_project/screens/scan_info.dart';
-import 'package:marc_project/widgets/header_cart.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import '../constants/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../widgets/bottom_navbar.dart';
 import '../widgets/header.dart';
-import 'about_me.dart';
 
 class PaymentScreen extends StatefulWidget {
   const PaymentScreen({super.key});
@@ -117,6 +117,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Constants().primaryColor,
@@ -143,7 +145,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                       items: [],
                                     )));
                       },
-                      icon: const Icon(Icons.close, color: Colors.red,)),
+                      icon: const Icon(
+                        Icons.close,
+                        color: Colors.red,
+                      )),
                   const Text(
                     'Annuler',
                     style: TextStyle(
@@ -314,27 +319,99 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
-                                  ElevatedButton(
-                                    onPressed: () {},
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor:
-                                          Constants().secondaryColor,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(30.0),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => FutureBuilder(
+                                            future: Future.delayed(
+                                              const Duration(seconds: 5),
+                                              () => "Data Loaded",
+                                            ),
+                                            builder: (context, snapshot) {
+                                              if (snapshot.connectionState ==
+                                                  ConnectionState.waiting) {
+                                                return Scaffold(
+                                                  backgroundColor:
+                                                      Constants().primaryColor,
+                                                  body: Center(
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: <Widget>[
+                                                        LoadingAnimationWidget
+                                                            .inkDrop(
+                                                          color: const Color(
+                                                              // ignore: use_full_hex_values_for_flutter_colors
+                                                              0xfff665bff),
+                                                          size: 50,
+                                                        ),
+                                                        const SizedBox(
+                                                            height: 20),
+                                                        const Padding(
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  10),
+                                                        ),
+                                                        const Text(
+                                                          'Paiement en cours...',
+                                                          style: TextStyle(
+                                                            color: Color(
+                                                                // ignore: use_full_hex_values_for_flutter_colors
+                                                                0xfff665bff),
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            fontSize: 22.0,
+                                                            fontFamily:
+                                                                'Hubballi',
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                );
+                                              } else {
+                                                return const PaymentSuccesPage();
+                                              }
+                                            },
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                      height: 50,
+                                      width: size.width * 0.6,
+                                      decoration: BoxDecoration(
+                                        // ignore: use_full_hex_values_for_flutter_colors
+                                        color: const Color(0xfff665bff),
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(30)),
+                                        border: Border.all(
+                                          // ignore: use_full_hex_values_for_flutter_colors
+                                          color: const Color(0xfff665bff),
+                                          width: 2,
+                                        ),
                                       ),
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 20.0, vertical: 10.0),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: const <Widget>[
-                                        Text('Payez',
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: const <Widget>[
+                                          Text(
+                                            'Payez',
                                             style: TextStyle(
-                                                fontFamily: "RedHatDisplay")),
-                                        Icon(Icons.credit_card),
-                                      ],
+                                              fontFamily: "RedHatDisplay",
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                              width:
+                                                  10), // Ajoutez cet espace entre le texte et l'icône
+                                          Icon(Icons.credit_card,
+                                              color: Colors.white),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                   const SizedBox(height: 10),

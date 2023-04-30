@@ -13,6 +13,8 @@ import '../../constants/constants.dart';
 import '../../widgets/bottom_navbar.dart';
 import '../../widgets/search_bar.dart';
 
+//Page présentant différents produits en fonction de la catégorie choisi par l'utilisateur
+
 class FrozenProductsPage extends StatefulWidget {
   const FrozenProductsPage({super.key});
 

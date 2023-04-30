@@ -6,6 +6,8 @@ import 'package:marc_project/widgets/header_cart.dart';
 import '../constants/constants.dart';
 import '../widgets/bottom_navbar.dart';
 
+//Page récapitulant les produits scannés par l'utilsiateur via le code barre.
+
 class ScanInfoResult extends StatefulWidget {
   final List<String> scannedProducts;
 

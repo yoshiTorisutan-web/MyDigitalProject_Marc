@@ -12,6 +12,10 @@ import '../constants/constants.dart';
 import '../widgets/bottom_navbar.dart';
 import 'about_me.dart';
 
+//Page permettant à l'utilisateur de connaître le temps qu'il a pu économiser pour faire ses courses grâce à l'application
+//comparé à quelqu'un qui fait ses courses de manière traditionnnel
+//Et également, naviguer sur différentes pages de mon compte et des paramètres.
+
 class TimeSaved extends StatefulWidget {
   final String? userName;
 

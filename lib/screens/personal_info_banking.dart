@@ -11,6 +11,12 @@ import '../widgets/bottom_navbar.dart';
 import '../widgets/header.dart';
 import 'about_me.dart';
 
+//Page d'"Ajout de carte bancaire" permettant à l'utilisateur d'ajouter ses informations de carte bancaire
+//et permettre à l'utilisateur de ne pas renseigner à chaque fois ses informations de carte bancaire au moment de payer
+//Pour enregistrer les données de carte bancaire de l'utilisateur, on se connecte à la BDD Supabase pour enregistrer son numéro de carte bancaire,
+//sa date d'expiration et sa CVC
+//Néanmoins, l'utilisateur devra quitter et revenir sur l'application pour voir les modifications effectuées
+
 class PersonalInfo extends StatefulWidget {
   const PersonalInfo({super.key});
 

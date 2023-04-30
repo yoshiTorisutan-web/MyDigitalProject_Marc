@@ -10,6 +10,9 @@ import 'package:marc_project/widgets/search_bar.dart';
 
 import '../constants/constants.dart';
 
+//Page détaillant les informations de la recette choisie pour obtenir plus d'informations comme son temps de réalisation,
+//sa difficulté, les ingrédients à choisir et les étapes à suivre pour la réaliser
+
 class RecipeDescriptionPage extends StatefulWidget {
   final Map<String, dynamic> recipe;
 

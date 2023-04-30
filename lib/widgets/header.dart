@@ -3,6 +3,9 @@ import 'package:marc_project/blocs/provider_name.dart';
 import 'package:provider/provider.dart';
 import '../constants/constants.dart';
 
+//Widget de l'appbar avec le titre et sous titre présent sur les pages principales de l'application et appeler la classe
+//Header sur les pages où je veux les afficher
+
 class Header extends StatefulWidget {
   const Header({Key? key}) : super(key: key);
 

@@ -4,6 +4,10 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../constants/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+//Page "Récupération de mot de passe" permet à l'utilisateur de récupérer son mot de passe s'il l'a oublié
+//Il devra rentrer son email (avec celui qui lui a permis de créer son compte) afin de recevoir un email lui permettant
+//de changer son mot de passe
+
 class LostPassword extends StatefulWidget {
   const LostPassword({super.key});
 

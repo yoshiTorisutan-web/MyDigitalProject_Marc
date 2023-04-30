@@ -7,6 +7,8 @@ import 'package:marc_project/widgets/header.dart';
 import 'package:marc_project/widgets/header_cart.dart';
 import '../constants/constants.dart';
 
+//Page détaillant les informations du produit choisi pour obtenir plus d'informations.
+
 class ProductDetailsScreen extends StatelessWidget {
   final String image;
   final String title;

@@ -8,6 +8,9 @@ import '../constants/constants.dart';
 import '../widgets/bottom_navbar.dart';
 import 'geo_supermarket.dart';
 
+//Page "Liste magasin" permet à l'utilsiateur de choisir le magasin qui se trouve autour de lui après 
+//avoir choisi la ville via la page de géolocalisation de ville
+
 class SupermarketList extends StatefulWidget {
   const SupermarketList({super.key});
 

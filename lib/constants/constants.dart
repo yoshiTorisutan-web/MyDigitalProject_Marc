@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+//Définir les couleurs principales de l'application et les utiliser en appelant Constants(). dans
+//les pages que je veux
+
 class Constants {
   final primaryColor = const Color(0xfff6faff);
   final secondaryColor = const Color(0xff0529f2);

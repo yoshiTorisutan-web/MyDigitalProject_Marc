@@ -11,6 +11,9 @@ import 'list_supermarket.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+//Page "Localisation magasin" permet à l'utilsiateur de choisir une ville sur la carte et voir les magasins localisés
+//autour de lui afin de choisir le magasin pour effectuer ses courses par la suite.
+
 class SuperMarketGeo extends StatefulWidget {
   const SuperMarketGeo({super.key});
 

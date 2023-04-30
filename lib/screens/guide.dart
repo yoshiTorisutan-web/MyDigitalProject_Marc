@@ -3,6 +3,9 @@ import 'package:marc_project/screens/connexion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+//Page "Guide" permettant de guider l'utilisateur a utiliser l'application et d'expliquer les différentes fonctionnalités
+//que l'utilisateur pourra utiliser
+
 class Guide extends StatefulWidget {
   const Guide({super.key});
 

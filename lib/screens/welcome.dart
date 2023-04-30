@@ -4,6 +4,8 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../constants/constants.dart';
 
+//Page d'accueil de l'application
+
 class Welcome extends StatelessWidget {
   const Welcome({Key? key}) : super(key: key);
 

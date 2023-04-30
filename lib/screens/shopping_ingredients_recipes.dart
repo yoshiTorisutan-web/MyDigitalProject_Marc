@@ -9,6 +9,9 @@ import 'package:marc_project/widgets/header_cart.dart';
 import '../constants/constants.dart';
 import '../widgets/search_bar.dart';
 
+//Page récapitulant les produits rajoutés dans ma liste personnel qui permettra par la suite de déterminer le nombre de produits
+//et les envoyer dans le panier pour payer
+
 class SelectedIngredientsPage extends StatefulWidget {
   final List<String> selectedIngredients;
 
@@ -32,9 +35,7 @@ class _SelectedIngredientsPageState extends State<SelectedIngredientsPage> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: const Header(),
-        actions: const <Widget>[
-          HeaderCart()
-        ],
+        actions: const <Widget>[HeaderCart()],
       ),
       body: Column(children: [
         const Padding(
@@ -87,12 +88,6 @@ class _SelectedIngredientsPageState extends State<SelectedIngredientsPage> {
                     trailing: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Image.asset(
-                          'assets/caddie_shop.png',
-                          width: 24,
-                          height: 24,
-                        ),
-                        const SizedBox(height: 8),
                         InkWell(
                           onTap: () {
                             Navigator.push(
@@ -104,8 +99,8 @@ class _SelectedIngredientsPageState extends State<SelectedIngredientsPage> {
                           },
                           child: Image.asset(
                             'assets/search.png',
-                            width: 24,
-                            height: 24,
+                            width: 36,
+                            height: 36,
                           ),
                         )
                       ],

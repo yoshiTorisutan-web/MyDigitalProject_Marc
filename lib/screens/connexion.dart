@@ -11,6 +11,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+//Page de "Connexion" permettant à l'utilisateur de se connecter à l'application
+//Pour récupérer les données de l'utilisateur, on se connecte à la BDD Supabase pour récupérer le mot de passe
+//et l'adresse mail
+//Et ainsi, comparé si l'adresse mail et le mot de passe correspond avec ce que l'utilisateur a rempli dans les champs
+//Si les 2 éléments correspondent avec la BDD, l'utilisateur peut accéder à l'application
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 

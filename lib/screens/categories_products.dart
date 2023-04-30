@@ -17,7 +17,11 @@ import '../models/categories.dart';
 import '../widgets/bottom_navbar.dart';
 import '../widgets/search_bar.dart';
 
+//Page de "Catégories de produits" présentant les différents catégories de produits comme par exemple
+//les produits frais, fruits et légumes, etc.
+
 class CategoryListPage extends StatelessWidget {
+  //Liste des catégories de produits stockées en brut
   final List<Category> categories = [
     Category("PRODUITS LAITIERS", const DairyProductsPage()),
     Category("FRUITS & LEGUMES", const FruitsAndVegetablesPage()),

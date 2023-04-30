@@ -17,6 +17,9 @@ class AboutMe extends StatefulWidget {
   _AboutMeState createState() => _AboutMeState();
 }
 
+//Page de transition de "A propos" permettant de naviguer vers la page "Infos Personnels"
+//ou vers la page "Carte de paiement"
+
 class _AboutMeState extends State<AboutMe> {
   @override
   Widget build(BuildContext context) {

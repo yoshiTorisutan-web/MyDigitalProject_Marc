@@ -9,6 +9,9 @@ import 'package:marc_project/widgets/header_cart.dart';
 import '../constants/constants.dart';
 import '../widgets/bottom_navbar.dart';
 
+//Page de "Paramètres" où l'utilisateur pourra régler certains paramètres de l'application comme par
+//exemple les notifications de l'application
+
 class AppSetting extends StatefulWidget {
   const AppSetting({super.key});
 

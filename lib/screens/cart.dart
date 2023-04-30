@@ -10,6 +10,8 @@ import 'package:marc_project/widgets/header_cart.dart';
 import 'package:marc_project/widgets/search_bar.dart';
 import 'package:provider/provider.dart';
 
+//Page "Mon Panier" qui récapitule les 
+
 class CartPage extends StatelessWidget {
   final List<dynamic> items;
 

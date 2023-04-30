@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+//Permet la gestion de l'état et le partage des données entre différents widgets de l'application
+
 class UserState extends ChangeNotifier {
   bool _isUserLoggedIn = false;
 

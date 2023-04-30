@@ -10,6 +10,8 @@ import 'package:provider/provider.dart';
 import '../constants/constants.dart';
 import '../widgets/bottom_navbar.dart';
 
+//Page de "Paiement" permet de diriger l'utilisateur à finaliser son panier et donc payer ses produits
+
 class PayPage extends StatefulWidget {
   const PayPage({super.key});
 

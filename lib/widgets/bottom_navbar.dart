@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../constants/constants.dart';
 
+//Widget BottomAppBar présent sur les pages principales de l'application et appeler la classe
+//ButtomNavBar sur les pages où je veux les afficher
 
 class ButtomNavBar extends StatefulWidget {
   const ButtomNavBar({Key? key}) : super(key: key);

@@ -1,3 +1,8 @@
+
+//Données brutes de recettes de cuisine pour le prototype et pour les pages de "Détails de Recettes"
+//Je récupère : son nom, le temps de réalisation, la difficulté et les ingrédients pour réaliser la recette
+//Et pour finir, les instructions pour la réaliser
+
 List<Map<String, dynamic>> recipeData = [
   {
     'title': 'Salade César',

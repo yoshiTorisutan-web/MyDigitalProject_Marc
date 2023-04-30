@@ -12,6 +12,10 @@ import 'dart:convert';
 
 import 'list_supermarket.dart';
 
+//Page de "Recettes" regroupant tout un choix de recettes que l'utilisateur pourra consulter et réaliser chez lui
+//ou tout simplement en cliquant sur une recette avoir plus d'informations et choisir les ingrédients qu'il voudra 
+//prendre par la suite dans le magasin
+
 class RecipePage extends StatefulWidget {
   const RecipePage({Key? key}) : super(key: key);
 

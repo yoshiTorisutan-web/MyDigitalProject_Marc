@@ -11,6 +11,11 @@ import '../widgets/bottom_navbar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'about_me.dart';
 
+//Page de "Modification de compte" permettant à l'utilisateur de modifier et de compléter ses informations sur l'application
+//Pour enregistrer les données modifiées de l'utilisateur, on se connecte à la BDD Supabase pour enregistrer et modifier son nom, sa ville,
+//son adresse mail, son mot de passe, son nom, sa date de naissance et son numéro de téléphone
+//Néanmoins, l'utilisateur devra quitter et revenir sur l'application pour voir les modifications effectuées
+
 class FormPersonalInfo extends StatefulWidget {
   const FormPersonalInfo({Key? key}) : super(key: key);
 

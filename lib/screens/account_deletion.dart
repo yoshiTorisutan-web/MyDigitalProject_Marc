@@ -11,6 +11,9 @@ import '../constants/constants.dart';
 import '../widgets/bottom_navbar.dart';
 import 'connexion.dart';
 
+//Page de "Suppression de compte" où l'utilisateur pourra avoir la possibilité de supprimer son compte
+//s'il veut quitter et ne plus utiliser l'application
+
 class AccountDeletion extends StatefulWidget {
   const AccountDeletion({super.key});
 
@@ -20,6 +23,7 @@ class AccountDeletion extends StatefulWidget {
 }
 
 class _AccountDeletionState extends State<AccountDeletion> {
+  //Fonction qui permet de supprimer le compte sur l'application et dans la BDD Supabase
   Future<void> deleteAccount(BuildContext context) async {
     final supabase = Supabase.instance.client;
     final userState = context.read<UserState>();

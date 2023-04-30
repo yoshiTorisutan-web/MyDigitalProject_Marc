@@ -10,6 +10,9 @@ import '../constants/constants.dart';
 import '../widgets/search_bar.dart';
 import 'categories_products.dart';
 
+//Page récapitulant les produits rajoutés dans ma liste personnel qui permettra par la suite de déterminer le nombre de produits
+//et les envoyer dans le panier pour payer
+
 class SelectedProductsScreen extends StatefulWidget {
   final List<dynamic> items;
 
