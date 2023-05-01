@@ -139,6 +139,9 @@ class CategoryListPage extends StatelessWidget {
           ),
         ],
       ),
+
+//Bouton permettant de rediriger vers la page de scan.
+
       bottomNavigationBar: const ButtomNavBar(),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {

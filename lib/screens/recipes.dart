@@ -13,7 +13,7 @@ import 'dart:convert';
 import 'list_supermarket.dart';
 
 //Page de "Recettes" regroupant tout un choix de recettes que l'utilisateur pourra consulter et réaliser chez lui
-//ou tout simplement en cliquant sur une recette avoir plus d'informations et choisir les ingrédients qu'il voudra 
+//ou tout simplement en cliquant sur une recette avoir plus d'informations et choisir les ingrédients qu'il voudra
 //prendre par la suite dans le magasin
 
 class RecipePage extends StatefulWidget {
@@ -338,19 +338,29 @@ class _RecipePageState extends State<RecipePage> {
                             fontSize: 12,
                           ),
                         ),
-                        subtitle: Text("Super U Beaucouzé, Angers", style: TextStyle(
+                        subtitle: Text(
+                          "Super U Beaucouzé, Angers",
+                          style: TextStyle(
                             color: Constants().textColorOrange,
                             fontFamily: "RedHatDisplay",
                             fontSize: 12,
-                          ),),
-                        trailing: Text("1 km", style: TextStyle(
+                          ),
+                        ),
+                        trailing: Text(
+                          "1 km",
+                          style: TextStyle(
                             color: Constants().textColor,
                             fontFamily: "RedHatDisplay",
                             fontSize: 12,
-                          ),),
+                          ),
+                        ),
                       ),
                     ),
                     const SizedBox(height: 50),
+
+//Bouton de type popup informatif dans le choix de son magasain ou juste consulter des recettes sans 
+//choisir un magasain
+
                     ElevatedButton(
                       onPressed: () {
                         Navigator.push(
