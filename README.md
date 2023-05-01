@@ -33,6 +33,26 @@ objectifs de fidéliser leurs clientèles, ramener leurs clients utilisant le dr
 Clients : 
 gagner du temps, trouver des repas, pallier à la colère de leurs enfants durant les courses
 
+# Fonctionnalités :
+
+* Proposer des recettes “simples et rapides” avec des produits à récupérer dans le magasin par la suite.
+  - L’utilisateur en se connectant dans l’application se retrouvera sur la page principale pour consulter les recettes qu’il veut réaliser.
+  
+* Suppression des produits déjà en possession
+  - L’utilisateur pourra supprimer les produits qu’il a déjà en possession chez lui par exemple.
+  
+* Liste de courses : barre de recherche produits + intégration des catégories dans une liste
+  - L’utilisateur pourra consulter les différentes catégories de produits et/ou choisir les produits en fonction de la catégorie (ex : Viandes, laitier, etc.).
+  - Ou tout simplement taper dans la barre de recherche pour retrouver le produit directement sans passer par les catégories.
+
+* Trouver mon magasin via la géolocalisation dans la ville où se situe l’utilisateur
+  - L’utilisateur pourra retrouver l’adresse de son magasin de sa ville pour effectuer ses courses via une carte géolocalisée.
+  
+* Scanner produits avec le téléphone + paiement
+  - L’utilisateur pourra scanner ses produits via le code barre pour les ajouter dans son panier au sein de son application et ainsi procéder directement au paiement avec l’application au lieu de passer par les caisses traditionnels ou les caisses rapides.
+  
+* Création et suppression de compte
+  - L’utilisateur aura la possibilité de créer et de supprimer son compte de l’application.
 
 <!-- Réalisé -->
 # Réalisé avec ( + Version) :
