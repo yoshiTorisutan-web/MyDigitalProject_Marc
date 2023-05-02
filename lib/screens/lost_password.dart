@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:crypto/crypto.dart';
+import 'package:flutter/services.dart';
 import 'package:marc_project/screens/connexion.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -17,43 +21,83 @@ class LostPassword extends StatefulWidget {
 }
 
 class _LostPasswordState extends State<LostPassword> {
+  bool _isObscure = true;
   final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
-  void sendPasswordResetEmail(BuildContext context) async {
+  void updatePassword(BuildContext context) async {
     final supabase = Supabase.instance.client;
-    final email = emailController.text;
+    final email = emailController.text.trim();
+    final newPassword = passwordController.text.trim();
 
-    if (email.isEmpty) {
-      // L'utilisateur n'a pas fourni d'e-mail
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          backgroundColor: Colors.red,
-          content: Text('Veuillez fournir votre adresse e-mail.'),
-        ),
-      );
-      return;
-    }
+    // Crypter le mot de passe avec SHA-256
+    final bytes =
+        utf8.encode(newPassword); // Convertir le mot de passe en bytes
+    final hashedPassword =
+        sha256.convert(bytes).toString(); // Hacher le mot de passe
 
-    final response = await supabase.auth.api.resetPasswordForEmail(email);
+    final response =
+        await supabase.from('user').select().eq('email', email).execute();
 
     if (response.error != null) {
-      // Une erreur s'est produite lors de l'envoi de l'e-mail de récupération
-      // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          backgroundColor: Colors.red,
-          content: Text('Une erreur s\'est produite. Veuillez réessayer.'),
+      // Erreur lors de la recherche de l'e-mail
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Erreur'),
+          content: Text(response.error!.message),
         ),
       );
     } else {
-      // L'e-mail de récupération a été envoyé avec succès
-      // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          backgroundColor: Colors.green,
-          content: Text('Un e-mail de récupération a été envoyé à $email.'),
-        ),
-      );
+      final data = response.data as List<dynamic>;
+
+      if (data.isNotEmpty) {
+        // L'e-mail existe, mettez à jour le mot de passe
+        final updateResponse = await supabase
+            .from('user')
+            .update({'password': hashedPassword})
+            .eq('email', email)
+            .execute();
+
+        if (updateResponse.error != null) {
+          // Erreur lors de la mise à jour du mot de passe
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Text('Erreur'),
+              content: Text(updateResponse.error!.message),
+            ),
+          );
+        } else {
+          // Mot de passe mis à jour avec succès
+          showDialog(
+            context: context,
+            builder: (context) => const AlertDialog(
+              title: Text('Succès ✅',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontFamily: "RedHatDisplay")),
+              content: Text('Le mot de passe a été mis à jour avec succès.',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontFamily: "RedHatDisplay")),
+            ),
+          );
+        }
+      } else {
+        // L'e-mail n'existe pas dans la base de données
+        showDialog(
+          context: context,
+          builder: (context) => const AlertDialog(
+            title: Text('Erreur ❌',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold, fontFamily: "RedHatDisplay")),
+            content: Text("L'adresse e-mail fournie n'existe pas.",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold, fontFamily: "RedHatDisplay")),
+          ),
+        );
+      }
     }
   }
 
@@ -140,15 +184,6 @@ class _LostPasswordState extends State<LostPassword> {
                               fontSize: 20,
                               color: Colors.black)),
                       const SizedBox(height: 50),
-                      const Text(
-                          "Vous allez recevoir un e-mail vous permettant de modifier votre mot de passe.",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontFamily: "RedHatDisplay",
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                              color: Colors.black)),
-                      const SizedBox(height: 40),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -162,6 +197,7 @@ class _LostPasswordState extends State<LostPassword> {
                           const SizedBox(height: 5),
                           TextFormField(
                             controller: emailController,
+                            keyboardType: TextInputType.emailAddress,
                             decoration: InputDecoration(
                               hintText: 'marcfaitsescourses@mail.com',
                               border: OutlineInputBorder(
@@ -176,16 +212,81 @@ class _LostPasswordState extends State<LostPassword> {
                               if (value == null || value.isEmpty) {
                                 return 'Veuillez entrer votre adresse mail';
                               }
+                              // Utilisation d'une expression régulière pour valider le format de l'adresse e-mail.
+                              final emailRegex =
+                                  RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                              if (!emailRegex.hasMatch(value)) {
+                                return 'Veuillez entrer une adresse e-mail valide.';
+                              }
                               return null;
                             },
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(
+                                  RegExp(r'^[\w-\.@]+$')),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          const Text(
+                            'Mot de passe',
+                            style: TextStyle(
+                              fontSize: 12.0,
+                              fontFamily: "RedHatDisplay",
+                            ),
+                          ),
+                          const SizedBox(height: 5),
+                          TextFormField(
+                            controller: passwordController,
+                            obscureText: _isObscure,
+                            decoration: InputDecoration(
+                                hintText: '***************',
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                  borderSide:
+                                      const BorderSide(color: Colors.black),
+                                ),
+                                contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 20),
+                                prefixIcon: Icon(Icons.lock,
+                                    color: Constants().secondaryColor),
+                                // Ce bouton est utilisé pour basculer la visibilité du mot de passe
+                                suffixIcon: IconButton(
+                                    icon: Icon(
+                                        _isObscure
+                                            ? Icons.visibility
+                                            : Icons.visibility_off,
+                                        color: Constants().secondaryColor),
+                                    onPressed: () {
+                                      setState(() {
+                                        _isObscure = !_isObscure;
+                                      });
+                                    })),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Veuillez entrer votre mot de passe';
+                              }
+                              if (value.length < 8) {
+                                return 'Le mot de passe doit contenir au moins 8 \ncaractères.';
+                              }
+                              // Utilisation d'une expression régulière pour valider les conditions du mot de passe.
+                              final passwordRegex = RegExp(
+                                  r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()]).{8,}$');
+                              if (!passwordRegex.hasMatch(value)) {
+                                return 'Le mot de passe doit contenir au moins une \nminuscule, une majuscule et un caractère \nspécial.';
+                              }
+                              return null;
+                            },
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(
+                                  RegExp(r'^[\w!@#$%^&*()]+$')),
+                            ],
                           ),
                         ],
                       ),
                       const SizedBox(height: 30),
                       ElevatedButton(
-                        onPressed: () => sendPasswordResetEmail(context),
+                        onPressed: () => updatePassword(context),
                         // ignore: sort_child_properties_last
-                        child: const Text('envoyer',
+                        child: const Text('Mettre à jour le mot de passe',
                             style: TextStyle(fontFamily: "RedHatDisplay")),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Constants().secondaryColor,
