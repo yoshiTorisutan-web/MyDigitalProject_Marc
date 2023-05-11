@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:marc_project/models/details_recipes.dart';
+import 'package:marc_project/screens/list_supermarket.dart';
 import 'package:marc_project/screens/recipes_details.dart';
+import 'package:marc_project/screens/scan_info.dart';
 import 'package:marc_project/widgets/header.dart';
 import '../constants/constants.dart';
 import '../widgets/bottom_navbar.dart';
@@ -9,8 +11,6 @@ import '../widgets/header_cart.dart';
 import '../widgets/search_bar.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
-import 'list_supermarket.dart';
 
 //Page de "Recettes" regroupant tout un choix de recettes que l'utilisateur pourra consulter et réaliser chez lui
 //ou tout simplement en cliquant sur une recette avoir plus d'informations et choisir les ingrédients qu'il voudra
@@ -32,6 +32,135 @@ class _RecipePageState extends State<RecipePage> {
   void initState() {
     super.initState();
     _fetchData();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: Constants().primaryColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.close),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            ),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                CircleAvatar(
+                  backgroundColor: Constants().secondaryColor,
+                  radius: 30.0,
+                  child: SvgPicture.asset(
+                    'assets/MAARC.svg',
+                    width: 30,
+                    height: 30,
+                  ),
+                ),
+                const SizedBox(height: 30),
+                Text(
+                  "Où souhaitez-vous faire",
+                  style: TextStyle(
+                    color: Constants().textColor,
+                    fontFamily: "RedHatDisplay",
+                    fontSize: 16,
+                  ),
+                ),
+                Text(
+                  "vos courses ?",
+                  style: TextStyle(
+                    color: Constants().textColor,
+                    fontFamily: "RedHatDisplay",
+                    fontSize: 16,
+                  ),
+                ),
+                const SizedBox(height: 30),
+                Card(
+                  child: ListTile(
+                    title: Text(
+                      "Mon Magasin",
+                      style: TextStyle(
+                        color: Constants().textColor,
+                        fontFamily: "RedHatDisplay",
+                        fontSize: 12,
+                      ),
+                    ),
+                    subtitle: Text(
+                      "Super U Beaucouzé, Angers",
+                      style: TextStyle(
+                        color: Constants().textColorOrange,
+                        fontFamily: "RedHatDisplay",
+                        fontSize: 12,
+                      ),
+                    ),
+                    trailing: Text(
+                      "1 km",
+                      style: TextStyle(
+                        color: Constants().textColor,
+                        fontFamily: "RedHatDisplay",
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 50),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SupermarketList()));
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Constants().secondaryColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20.0, vertical: 10.0),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const <Widget>[
+                      Text('Me rendre dans un magasin différent',
+                          style: TextStyle(fontFamily: "RedHatDisplay")),
+                    ],
+                  ),
+                ),
+                Center(
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            'accéder au recettes de marc sans me géolocaliser ',
+                            style: TextStyle(
+                              fontFamily: "RedHatDisplay",
+                              fontSize: 10,
+                              color: Constants().textColorBright,
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ]),
+                  ),
+                )
+              ],
+            ),
+          );
+        },
+      );
+    });
   }
 
   Future<void> _fetchData() async {
@@ -87,7 +216,7 @@ class _RecipePageState extends State<RecipePage> {
               Text(
                 recipe['title'],
                 textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 8),
+                style: const TextStyle(fontSize: 12),
               ),
             ],
           ),
@@ -138,7 +267,7 @@ class _RecipePageState extends State<RecipePage> {
                 Text(
                   recipe['title'],
                   textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 8),
+                  style: const TextStyle(fontSize: 12),
                 ),
               ],
             ),
@@ -177,7 +306,7 @@ class _RecipePageState extends State<RecipePage> {
                       const Padding(
                         padding: EdgeInsets.only(left: 15.0),
                         child: Text(
-                          'Recettes à la une       -------------------------   voir plus',
+                          'Recettes à la une       ----------------------------------',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontFamily: "RedHatDisplay",
@@ -194,7 +323,7 @@ class _RecipePageState extends State<RecipePage> {
                       const Padding(
                         padding: EdgeInsets.only(left: 15.0),
                         child: Text(
-                          'Entrées      ----------------------------------   voir plus',
+                          'Entrées      --------------------------------------------',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontFamily: "RedHatDisplay",
@@ -217,7 +346,7 @@ class _RecipePageState extends State<RecipePage> {
                       const Padding(
                         padding: EdgeInsets.only(left: 15.0),
                         child: Text(
-                          'Plats     -------------------------------------   voir plus',
+                          'Plats     -----------------------------------------------',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontFamily: "RedHatDisplay",
@@ -240,7 +369,7 @@ class _RecipePageState extends State<RecipePage> {
                       const Padding(
                         padding: EdgeInsets.only(left: 15.0),
                         child: Text(
-                          'Desserts     ---------------------------------   voir plus',
+                          'Desserts     -------------------------------------------',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontFamily: "RedHatDisplay",
@@ -263,7 +392,7 @@ class _RecipePageState extends State<RecipePage> {
                       const Padding(
                         padding: EdgeInsets.only(left: 15.0),
                         child: Text(
-                          'Petit-Déjeuner    ----------------------------   voir plus',
+                          'Petit-Déjeuner    --------------------------------------',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontFamily: "RedHatDisplay",
@@ -290,132 +419,16 @@ class _RecipePageState extends State<RecipePage> {
       bottomNavigationBar: const ButtomNavBar(),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                backgroundColor: Constants().primaryColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
-                content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    CircleAvatar(
-                      backgroundColor: Constants().secondaryColor,
-                      radius: 30.0,
-                      child: SvgPicture.asset(
-                        'assets/MAARC.svg',
-                        width: 30,
-                        height: 30,
-                      ),
-                    ),
-                    const SizedBox(height: 30),
-                    Text(
-                      "Où souhaitez-vous faire",
-                      style: TextStyle(
-                        color: Constants().textColor,
-                        fontFamily: "RedHatDisplay",
-                        fontSize: 16,
-                      ),
-                    ),
-                    Text(
-                      "vos courses ?",
-                      style: TextStyle(
-                        color: Constants().textColor,
-                        fontFamily: "RedHatDisplay",
-                        fontSize: 16,
-                      ),
-                    ),
-                    const SizedBox(height: 30),
-                    Card(
-                      child: ListTile(
-                        title: Text(
-                          "Mon Magasin",
-                          style: TextStyle(
-                            color: Constants().textColor,
-                            fontFamily: "RedHatDisplay",
-                            fontSize: 12,
-                          ),
-                        ),
-                        subtitle: Text(
-                          "Super U Beaucouzé, Angers",
-                          style: TextStyle(
-                            color: Constants().textColorOrange,
-                            fontFamily: "RedHatDisplay",
-                            fontSize: 12,
-                          ),
-                        ),
-                        trailing: Text(
-                          "1 km",
-                          style: TextStyle(
-                            color: Constants().textColor,
-                            fontFamily: "RedHatDisplay",
-                            fontSize: 12,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 50),
-
-//Bouton de type popup informatif dans le choix de son magasain ou juste consulter des recettes sans 
-//choisir un magasain
-
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const SupermarketList()));
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Constants().secondaryColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0),
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20.0, vertical: 10.0),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const <Widget>[
-                          Text('Me rendre dans un magasin différent',
-                              style: TextStyle(fontFamily: "RedHatDisplay")),
-                        ],
-                      ),
-                    ),
-                    Center(
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text(
-                                'accéder au recettes de marc sans me géolocaliser ',
-                                style: TextStyle(
-                                  fontFamily: "RedHatDisplay",
-                                  fontSize: 10,
-                                  color: Constants().textColorBright,
-                                  decoration: TextDecoration.underline,
-                                ),
-                              ),
-                            ]),
-                      ),
-                    )
-                  ],
-                ),
-              );
-            },
-          );
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const ScanInfo()));
         },
         elevation: 5,
-        backgroundColor: Constants().secondaryColor,
+        backgroundColor: Colors.red,
         child: SvgPicture.asset(
-          'assets/MAARC.svg',
+          'assets/scan.svg',
           width: 24,
           height: 24,
+          color: Colors.white,
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

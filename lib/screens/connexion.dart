@@ -147,7 +147,7 @@ class _LoginPageState extends State<LoginPage> {
                           height:
                               40), // Espace vertical entre l'image et le texte
                       Text(
-                        'Marc, payez, partez !',
+                        'Marc, payez et partez !',
                         style: TextStyle(
                             color: Constants().textColor,
                             fontSize: 24,
@@ -296,7 +296,7 @@ class _LoginPageState extends State<LoginPage> {
                               borderRadius: BorderRadius.circular(30.0),
                             ),
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 50.0, vertical: 10.0),
+                                horizontal: 80.0, vertical: 10.0),
                           ),
                         ),
                         Center(
@@ -308,11 +308,12 @@ class _LoginPageState extends State<LoginPage> {
                                     builder: (context) =>
                                         const CreateAccount()));
                           },
-                          child: const Text(
+                          child: Text(
                             'Créer un compte',
                             style: TextStyle(
                               fontFamily: "RedHatDisplay",
                               decoration: TextDecoration.underline,
+                              color: Constants().textColorLink
                             ),
                           ),
                         )),
@@ -325,11 +326,12 @@ class _LoginPageState extends State<LoginPage> {
                                       builder: (context) =>
                                           const LostPassword()));
                             },
-                            child: const Text(
+                            child: Text(
                               'Mot de passe oublié ?',
                               style: TextStyle(
                                 fontFamily: "RedHatDisplay",
                                 decoration: TextDecoration.underline,
+                                color: Constants().textColorLink
                               ),
                             ),
                           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:marc_project/blocs/provider_name.dart';
+import 'package:marc_project/screens/list_supermarket.dart';
 import 'package:provider/provider.dart';
 import '../constants/constants.dart';
 
@@ -20,7 +21,7 @@ class _HeaderState extends State<Header> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 25.0),
+          padding: const EdgeInsets.only(left: 22.0),
           child: Transform.scale(
             scale: 1.2,
             child: Consumer<UserState>(
@@ -29,9 +30,7 @@ class _HeaderState extends State<Header> {
                 return RichText(
                   text: TextSpan(
                     style: const TextStyle(
-                      fontSize: 16,
-                      fontFamily: "NiceSugar",
-                    ),
+                        fontSize: 16, fontWeight: FontWeight.bold),
                     children: [
                       TextSpan(
                         text: 'Bonjour $userName',
@@ -56,13 +55,21 @@ class _HeaderState extends State<Header> {
               padding: const EdgeInsets.only(left: 21.0),
               child: Transform.scale(
                 scale: 1.2,
-                child: Text(
-                  'Beaucouzé, ANGERS',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontFamily: "RedHatDisplay",
-                      fontSize: 10,
-                      color: Constants().textColorBright),
+                child: InkWell(
+                  child: Text(
+                    'Beaucouzé, ANGERS',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "RedHatDisplay",
+                        fontSize: 10,
+                        color: Constants().textColorBright),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const SupermarketList()),
+                    );
+                  },
                 ),
               ),
             ),

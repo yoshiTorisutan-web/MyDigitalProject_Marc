@@ -337,7 +337,7 @@ class _CreateAccountState extends State<CreateAccount> {
                           borderRadius: BorderRadius.circular(30.0),
                         ),
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 50.0, vertical: 10.0),
+                            horizontal: 80.0, vertical: 10.0),
                       ),
                     ),
                     Center(
@@ -348,11 +348,12 @@ class _CreateAccountState extends State<CreateAccount> {
                             MaterialPageRoute(
                                 builder: (context) => const LoginPage()));
                       },
-                      child: const Text(
+                      child: Text(
                         'Se connecter',
                         style: TextStyle(
                           fontFamily: "RedHatDisplay",
                           decoration: TextDecoration.underline,
+                          color: Constants().textColorLink
                         ),
                       ),
                     )),

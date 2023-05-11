@@ -73,7 +73,7 @@ class Welcome extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              'Payez & partez !',
+                              'Payez et partez !',
                               style: TextStyle(
                                 color: Constants().textColor,
                                 fontSize: 24,

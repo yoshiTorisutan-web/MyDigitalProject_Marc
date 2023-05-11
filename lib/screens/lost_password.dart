@@ -305,11 +305,12 @@ class _LostPasswordState extends State<LostPassword> {
                               MaterialPageRoute(
                                   builder: (context) => const LoginPage()));
                         },
-                        child: const Text(
+                        child: Text(
                           'Se connecter',
                           style: TextStyle(
                             fontFamily: "RedHatDisplay",
                             decoration: TextDecoration.underline,
+                            color: Constants().textColorLink
                           ),
                         ),
                       )),
