@@ -213,10 +213,18 @@ class _RecipePageState extends State<RecipePage> {
                 ),
               ),
               const SizedBox(height: 10),
-              Text(
-                recipe['title'],
-                textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 12),
+              SizedBox(
+                width: 120, // Ajustez la largeur en fonction de vos besoins
+                child: Wrap(
+                  alignment: WrapAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      recipe['title'],
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(fontSize: 12),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
@@ -317,7 +325,7 @@ class _RecipePageState extends State<RecipePage> {
                       ),
                       const SizedBox(height: 10),
                       SizedBox(
-                        height: 175,
+                        height: 200,
                         child: _buildRecipeTestList(recipeData),
                       ),
                       const Padding(
@@ -334,7 +342,7 @@ class _RecipePageState extends State<RecipePage> {
                       ),
                       const SizedBox(height: 20),
                       SizedBox(
-                        height: 175,
+                        height: 225,
                         child: _buildRecipeList(
                           _recipes
                               .where((recipe) =>
@@ -357,7 +365,7 @@ class _RecipePageState extends State<RecipePage> {
                       ),
                       const SizedBox(height: 20),
                       SizedBox(
-                        height: 175,
+                        height: 225,
                         child: _buildRecipeList(
                           _recipes
                               .where((recipe) =>
@@ -380,7 +388,7 @@ class _RecipePageState extends State<RecipePage> {
                       ),
                       const SizedBox(height: 20),
                       SizedBox(
-                        height: 175,
+                        height: 225,
                         child: _buildRecipeList(
                           _recipes
                               .where((recipe) =>
@@ -403,7 +411,7 @@ class _RecipePageState extends State<RecipePage> {
                       ),
                       const SizedBox(height: 20),
                       SizedBox(
-                        height: 175,
+                        height: 225,
                         child: _buildRecipeList(
                           _recipes
                               .where((recipe) =>
