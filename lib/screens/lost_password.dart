@@ -25,6 +25,7 @@ class _LostPasswordState extends State<LostPassword> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
+  // Fonction qui met à jour le mot de passe en BDD
   void updatePassword(BuildContext context) async {
     final supabase = Supabase.instance.client;
     final email = emailController.text.trim();
