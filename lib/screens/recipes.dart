@@ -163,6 +163,7 @@ class _RecipePageState extends State<RecipePage> {
     });
   }
 
+  // Fonction qui récupère les recettes de l'API Spoonacular
   Future<void> _fetchData() async {
     try {
       final response = await http.get(
