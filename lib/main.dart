@@ -27,8 +27,8 @@ void main() {
 
   //Clé Stripe
   WidgetsFlutterBinding.ensureInitialized();
-  
-  // set the publishable key for Stripe - this is mandatory
+    
+  // définit la clé publiable pour Stripe
   Stripe.publishableKey = 'pk_test_51N0jv7GJjR7vmavNnzT4Mqt3jBINr6abZN7c84KPTvfdwTHTLlYfZabWo0pRoBMXXjsuvVikWWT4XivEzSxFb07b00Lt5vs4uu';
 
   runApp(
@@ -42,7 +42,8 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-
+  // définit les routes principales de l'application et package provider qui 
+  // facilite la communication et la gestion des données partagées entre les widgets de votre application. 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
