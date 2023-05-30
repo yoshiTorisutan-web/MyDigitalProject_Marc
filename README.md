@@ -64,25 +64,25 @@ gagner du temps, trouver des repas, pallier à la colère de leurs enfants duran
 * Stripe
 
 # Packages (+ Version) :
-* SharedPreferences: 2.0.15
-* Bloc/Provider: 6.0.5
-* cupertino_icons: ^1.0.2
-* http: ^0.13.5
-* intl: ^0.17.0
-* modal_bottom_sheet: ^2.0.1
-* google_fonts: ^3.0.1
-* flutter_bloc: ^8.1.1
-* shared_preferences: ^2.0.15
-* flutter_map: any
-* flutter_map_marker_cluster: any
-* flutter_map_radius_cluster: any
-* kdbush: ^0.0.4
-* latlong2: ^0.8.1
-* flutter_spinkit: ^4.1.2
-* loading_animation_widget: any
-* speech_to_text: ^6.1.1
-* geocoding: ^2.0.1
-* provider: ^6.0.5
+cupertino_icons: ^1.0.2
+http: ^0.13.5
+intl: ^0.17.0
+modal_bottom_sheet: ^2.0.1
+google_fonts: ^3.0.1
+flutter_bloc: ^8.1.1
+flutter_map: any
+flutter_map_marker_cluster: any
+flutter_map_radius_cluster: any
+kdbush: ^0.0.4
+latlong2: ^0.8.1
+flutter_spinkit: ^4.1.2
+loading_animation_widget: any
+flutter_svg: any
+flutter_barcode_scanner: ^2.0.0
+supabase_flutter: ^0.3.0
+crypto: ^3.0.1
+provider: ^6.0.1
+flutter_stripe: ^9.1.1
 
 # Polices (+ Version) :
 family: Hubballi / NiceSugar / RedHatDisplay
