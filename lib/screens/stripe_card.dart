@@ -45,6 +45,7 @@ class CardExpirationInputFormatter extends TextInputFormatter {
   }
 }
 
+//Limiter le nombre de chiffre de la carte bancaire à 14
 class CardNumberInputFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
