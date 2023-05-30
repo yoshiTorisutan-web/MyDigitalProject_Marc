@@ -21,7 +21,8 @@ class _ButtomNavBarState extends State<ButtomNavBar> {
     // Mettre à jour _selectedIndex selon la page courante
     _updateSelectedIndex();
   }
-
+  
+  //Affichage de l'icône de couleur dans la barre de navigation en bas de page différente en fonction de la page active
   void _updateSelectedIndex() {
     if (ModalRoute.of(context)?.settings.name == '/recipes') {
       setState(() {
