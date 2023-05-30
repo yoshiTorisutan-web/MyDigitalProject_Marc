@@ -32,6 +32,8 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
+  // Fonction qui permet d'établir la connexion de l'utilisateur en fonctions des données transmises par l'utilisateur
+  //afin de vérifier si cela "match" bien
   void login(BuildContext context) async {
     final supabase = Supabase.instance.client;
     final email = emailController.text;
