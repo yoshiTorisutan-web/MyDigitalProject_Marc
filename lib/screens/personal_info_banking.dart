@@ -50,6 +50,7 @@ class CardExpirationInputFormatter extends TextInputFormatter {
   }
 }
 
+//Limiter le nombre de chiffre de la carte bancaire à 14
 class CardNumberInputFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
@@ -119,7 +120,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
     getUserCardData();
   }
 
-  //Récupération données utilisateurs
+  // Fonction qui récupère les infos bancaires de l'utilisateur connecté sur l'application
   Future<void> getUserCardData() async {
     final supabase = Supabase.instance.client;
     final currentUser = supabase.auth.currentUser;
@@ -143,7 +144,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
     }
   }
 
-  //Mise à jour des données utilisateurs
+  // Fonction qui modifie et envoi les infos bancaire de l'utilisateur connecté sur l'application via un formulaire
   Future<void> _saveForm(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
       final supabase = Supabase.instance.client;
