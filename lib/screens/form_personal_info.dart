@@ -75,6 +75,7 @@ class _FormPersonalInfoState extends State<FormPersonalInfo> {
     getUserData();
   }
 
+  // Fonction qui récupère les infos de l'utilisateur connecté sur l'application
   Future<void> getUserData() async {
     final supabase = Supabase.instance.client;
     final currentUser = supabase.auth.currentUser;
@@ -99,7 +100,8 @@ class _FormPersonalInfoState extends State<FormPersonalInfo> {
       }
     }
   }
-
+ 
+  // Fonction qui modifie et envoi les infos de l'utilisateur connecté sur l'application via un formulaire
   Future<void> _saveForm(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
       final supabase = Supabase.instance.client;
