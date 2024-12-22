@@ -100,7 +100,7 @@ Exemple de requêtes :
 Lien : [Spoonacular](https://spoonacular.com/)
 
 # Prototype :
-Lien : [Prototype]([https://spoonacular.com/](https://www.figma.com/proto/g351qI1BC3Mz60ERITvEZt/MARC-APPLICATION?type=design&node-id=88-599&scaling=scale-down&page-id=0%3A1&starting-point-node-id=39%3A132))
+Lien : [Prototype](https://www.figma.com/proto/g351qI1BC3Mz60ERITvEZt/MARC-APPLICATION?type=design&node-id=88-599&scaling=scale-down&page-id=0%3A1&starting-point-node-id=39%3A132)
 
 # Astuce :
 * Pour une meilleure expérience utilisateur, afficher l'application directement sur votre mobile pour avoir un premier aperçu :)
